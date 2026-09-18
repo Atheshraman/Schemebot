@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+supabase
+sentence-transformers
+playwright
+beautifulsoup4
+python-dotenv
+lxml
+httpx
+pydantic
