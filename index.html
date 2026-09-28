@@ -3,2950 +3,2001 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>SchemeMatch</title>
+	<title>SchemePilot — Government Scheme Eligibility</title>
+	<meta name="description" content="AI-powered Government Scheme Eligibility Assistant. Find, explore and apply for government schemes you're eligible for." />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap"
-		rel="stylesheet"
-	/>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-		rel="stylesheet"
-	/>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 	<style>
+		/* ═══════════════════════════ Design Tokens ═══════════════════════════ */
 		:root {
 			color-scheme: light;
-			--font-display: "Plus Jakarta Sans", "Space Grotesk", sans-serif;
-			--font-body: "Outfit", "Inter", sans-serif;
-			--bg: #f8fafc;
-			--bg-strong: #f1f5f9;
-			--surface: rgba(255, 255, 255, 0.6);
-			--surface-raised: rgba(255, 255, 255, 0.85);
-			--surface-soft: rgba(255, 255, 255, 0.35);
-			--ink: #0f172a;
-			--muted: #475569;
-			--accent: #4f46e5;
-			--accent-strong: #4338ca;
-			--accent-soft: rgba(79, 70, 229, 0.08);
-			--border: rgba(15, 23, 42, 0.06);
-			--border-hover: rgba(15, 23, 42, 0.12);
-			--shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-			--shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.04);
-			--shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.12);
-			--radius-sm: 12px;
-			--radius-md: 18px;
-			--radius-lg: 24px;
-			--radius-xl: 32px;
-			--glass-blur: 24px;
-			
-			/* Theme States */
-			--brand-grad: linear-gradient(135deg, #4f46e5, #9333ea, #db2777);
-			--success: #15803d;
-			--success-soft: rgba(21, 128, 61, 0.08);
-			--warning: #eab308;
-			--warning-soft: rgba(234, 179, 8, 0.08);
-			--danger: #ef4444;
-			--danger-soft: rgba(239, 68, 68, 0.08);
+			--font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+			--bg: #f5f7fa;
+			--bg-alt: #edf0f5;
+			--surface: #ffffff;
+			--surface-hover: #f8f9fb;
+			--ink: #111827;
+			--ink-secondary: #4b5563;
+			--ink-muted: #9ca3af;
+			--accent: #2563eb;
+			--accent-hover: #1d4ed8;
+			--accent-soft: rgba(37,99,235,0.08);
+			--accent-softer: rgba(37,99,235,0.04);
+			--success: #059669;
+			--success-soft: rgba(5,150,105,0.08);
+			--warning: #d97706;
+			--warning-soft: rgba(217,119,6,0.08);
+			--danger: #dc2626;
+			--danger-soft: rgba(220,38,38,0.08);
+			--border: #e5e7eb;
+			--border-hover: #d1d5db;
+			--shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+			--shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+			--shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+			--shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+			--radius: 8px;
+			--radius-lg: 12px;
+			--radius-xl: 16px;
 		}
-
 		:root[data-theme="dark"] {
 			color-scheme: dark;
-			--bg: #0f172a;
-			--bg-strong: #1e293b;
-			--surface: rgba(15, 23, 42, 0.6);
-			--surface-raised: rgba(30, 41, 59, 0.85);
-			--surface-soft: rgba(15, 23, 42, 0.35);
-			--ink: #f8fafc;
-			--muted: #94a3b8;
-			--accent: #6366f1;
-			--accent-strong: #4f46e5;
-			--accent-soft: rgba(99, 102, 241, 0.12);
-			--border: rgba(248, 250, 252, 0.06);
-			--border-hover: rgba(248, 250, 252, 0.12);
-			--shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-			--shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.2);
-			--shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6);
-			--glass-blur: 24px;
-			
-			/* Theme States */
-			--brand-grad: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
-			--success: #22c55e;
-			--success-soft: rgba(34, 197, 94, 0.1);
-			--warning: #f59e0b;
-			--warning-soft: rgba(245, 158, 11, 0.1);
+			--bg: #0f1117;
+			--bg-alt: #1a1d27;
+			--surface: #1e2130;
+			--surface-hover: #252838;
+			--ink: #f3f4f6;
+			--ink-secondary: #d1d5db;
+			--ink-muted: #6b7280;
+			--accent: #3b82f6;
+			--accent-hover: #2563eb;
+			--accent-soft: rgba(59,130,246,0.12);
+			--accent-softer: rgba(59,130,246,0.06);
+			--success: #34d399;
+			--success-soft: rgba(52,211,153,0.12);
+			--warning: #fbbf24;
+			--warning-soft: rgba(251,191,36,0.12);
 			--danger: #f87171;
-			--danger-soft: rgba(248, 113, 113, 0.1);
+			--danger-soft: rgba(248,113,113,0.12);
+			--border: #2d3140;
+			--border-hover: #3f4455;
+			--shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+			--shadow: 0 1px 3px rgba(0,0,0,0.3);
+			--shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+			--shadow-lg: 0 10px 15px rgba(0,0,0,0.4);
 		}
 
-		* {
-			box-sizing: border-box;
-			margin: 0;
-			padding: 0;
-		}
-
+		/* ═══════════════════════════ Reset & Base ═══════════════════════════ */
+		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 		body {
-			font-family: var(--font-body);
-			color: var(--ink);
+			font-family: var(--font);
 			background: var(--bg);
+			color: var(--ink);
 			min-height: 100vh;
-			overflow-x: hidden;
-			position: relative;
 			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
 		}
+		button { font-family: inherit; cursor: pointer; }
+		a { color: var(--accent); text-decoration: none; }
+		a:hover { text-decoration: underline; }
 
-		/* Pixel Background Canvas styling */
-		.pixel-canvas {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100vw;
+		/* ═══════════════════════════ App Shell ═══════════════════════════ */
+		.app-shell {
+			display: flex;
+			flex-direction: column;
 			height: 100vh;
-			z-index: -1;
-			pointer-events: none;
-			background: var(--bg);
-			transition: background 0.5s ease;
+			overflow: hidden;
 		}
 
-		.page {
-			max-width: 1250px;
-			margin: 0 auto;
-			padding: 40px 24px 60px;
-			position: relative;
-			z-index: 1;
-		}
-
-		.topbar {
+		/* ── Top Header ── */
+		.app-header {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			gap: 24px;
-			margin-bottom: 40px;
-			padding: 24px 32px;
-			background: var(--surface);
-			backdrop-filter: blur(var(--glass-blur));
-			-webkit-backdrop-filter: blur(var(--glass-blur));
-			border: 1px solid var(--border);
-			box-shadow: var(--shadow-lg);
-			border-radius: var(--radius-xl);
-			transition: all 0.3s ease;
-		}
-
-		.brand {
-			display: flex;
-			gap: 20px;
-			align-items: center;
-		}
-
-		.brand-mark {
-			width: 48px;
-			height: 48px;
-			border-radius: var(--radius-md);
-			background: var(--bg-strong);
-			color: var(--accent);
-			display: grid;
-			place-items: center;
-			font-family: var(--font-display);
-			font-weight: 800;
-			font-size: 1.2rem;
-			letter-spacing: 0.05em;
-		}
-		
-		.brand-text h1 {
-			margin: 0;
-			font-family: var(--font-display);
-			font-size: 1.5rem;
-			font-weight: 800;
-			color: var(--ink);
-			letter-spacing: -0.03em;
-		}
-
-		.brand-text p {
-			margin: 4px 0 0;
-			color: var(--muted);
-			font-size: 0.95rem;
-			font-weight: 500;
-		}
-
-		.eyebrow {
-			text-transform: uppercase;
-			letter-spacing: 0.25em;
-			font-size: 0.7rem;
-			font-weight: 700;
-			color: var(--accent);
-			margin-bottom: 2px;
-		}
-
-
-
-		.top-actions {
-			display: flex;
-			align-items: center;
-			gap: 24px;
-		}
-
-		.language-select,
-		.profile-button {
-			border: 1px solid var(--border);
-			background: var(--surface-raised);
-			color: var(--ink);
-			border-radius: var(--radius-md);
-			padding: 10px 14px;
-			font: inherit;
-			font-weight: 600;
-			cursor: pointer;
-		}
-
-		.profile-button {
-			background: var(--accent);
-			color: #fff;
-			border-color: transparent;
-		}
-
-		/* Custom Premium Slider Theme Toggle */
-		.theme-toggle {
-			display: inline-flex;
-			align-items: center;
-			gap: 12px;
-			padding: 8px 16px;
-			border-radius: var(--radius-md);
-			background: var(--surface-soft);
-			border: 1px solid var(--border);
-			cursor: pointer;
-			font-size: 0.75rem;
-			font-weight: 700;
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-			color: var(--muted);
-			transition: all 0.3s ease;
-			box-shadow: var(--shadow-soft);
-			position: relative;
-			user-select: none;
-		}
-
-		.theme-toggle:hover {
-			border-color: var(--border-hover);
-			color: var(--ink);
-			background: var(--surface);
-			transform: translateY(-1px);
-			box-shadow: var(--shadow);
-		}
-
-		.theme-toggle input {
-			display: none;
-		}
-
-		.toggle-track {
-			width: 52px;
-			height: 26px;
-			border-radius: 999px;
-			background: var(--bg-strong);
-			position: relative;
-			flex-shrink: 0;
-			border: 1px solid var(--border);
-			transition: all 0.3s ease;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 0 5px;
-		}
-
-		.toggle-track::before {
-			content: "";
-			position: absolute;
-			width: 18px;
-			height: 18px;
-			border-radius: 50%;
-			background: var(--brand-grad);
-			top: 3px;
-			left: 3px;
-			transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-			z-index: 2;
-			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-		}
-		
-		.toggle-track::after {
-			content: "☀️ 🌙";
-			font-size: 10px;
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-			padding: 0 4px;
-			opacity: 0.8;
-			z-index: 1;
-		}
-
-		.theme-toggle input:checked + .toggle-track::before {
-			transform: translateX(26px);
-		}
-
-
-		.layout {
-			display: grid;
-			grid-template-columns: minmax(0, 1fr) 350px;
-			gap: 32px;
-		}
-
-		.chat-panel {
-			display: flex;
-			flex-direction: column;
-			min-height: 75vh;
-			transition: all 0.3s ease;
-			background: var(--surface);
-			backdrop-filter: blur(var(--glass-blur));
-			-webkit-backdrop-filter: blur(var(--glass-blur));
-			border: 1px solid var(--border);
-			box-shadow: var(--shadow-lg);
-			border-radius: var(--radius-xl);
-			padding: 36px;
-			position: relative;
-			z-index: 1;
-		}
-
-		.chat-header {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
 			gap: 16px;
-			padding-bottom: 28px;
+			padding: 12px 24px;
+			background: var(--surface);
 			border-bottom: 1px solid var(--border);
+			flex-shrink: 0;
+			z-index: 50;
 		}
-
-		.chat-header h2 {
-			margin: 0;
-			font-family: var(--font-display);
-			font-size: 1.45rem;
-			font-weight: 800;
-			letter-spacing: -0.02em;
-			color: var(--ink);
-		}
-
-
-		.status-pill {
-			padding: 6px 14px;
-			border-radius: 999px;
-			background: var(--success-soft);
-			color: var(--success);
-			font-weight: 700;
-			font-size: 0.7rem;
-			text-transform: uppercase;
-			letter-spacing: 0.1em;
-			border: 1px solid rgba(16, 185, 129, 0.15);
+		.app-brand {
 			display: flex;
-			align-items: center;
-			gap: 6px;
-			box-shadow: 0 2px 8px rgba(16, 185, 129, 0.05);
-		}
-		
-		.status-pill::before {
-			content: "";
-			width: 6px;
-			height: 6px;
-			border-radius: 50%;
-			background: var(--success);
-			display: inline-block;
-			animation: pulse 2s infinite;
-		}
-
-		@keyframes pulse {
-			0% { transform: scale(0.9); opacity: 0.6; }
-			50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 10px var(--success); }
-			100% { transform: scale(0.9); opacity: 0.6; }
-		}
-
-
-		.check-button {
-			display: none;
-			margin: 16px 0 0;
-			padding: 16px 28px;
-			border: none;
-			background: var(--brand-grad);
-			color: white;
-			border-radius: var(--radius-md);
-			cursor: pointer;
-			font-weight: 700;
-			font-size: 1rem;
-			letter-spacing: 0.02em;
-			box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
-			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-			position: relative;
-			overflow: hidden;
-			border: 1px solid rgba(255, 255, 255, 0.1);
-		}
-
-		.check-button:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
-		}
-		
-		.check-button:active {
-			transform: translateY(0);
-		}
-
-		.check-button.is-loading,
-		.send-button.is-loading {
-			opacity: 0.7;
-			pointer-events: none;
-		}
-
-		.messages {
-			flex: 1;
-			margin: 28px 0;
-			padding: 12px 8px;
-			overflow-y: auto;
-			display: flex;
-			flex-direction: column;
-			gap: 22px;
-			scroll-behavior: smooth;
-		}
-		
-		/* Scrollbars styling */
-		.messages::-webkit-scrollbar,
-		#resultCards::-webkit-scrollbar,
-		.result-grid::-webkit-scrollbar {
-			width: 6px;
-		}
-		
-		.messages::-webkit-scrollbar-track,
-		#resultCards::-webkit-scrollbar-track,
-		.result-grid::-webkit-scrollbar-track {
-			background: transparent;
-		}
-		
-		.messages::-webkit-scrollbar-thumb,
-		#resultCards::-webkit-scrollbar-thumb,
-		.result-grid::-webkit-scrollbar-thumb {
-			background: var(--border);
-			border-radius: 99px;
-		}
-		
-		.messages::-webkit-scrollbar-thumb:hover,
-		#resultCards::-webkit-scrollbar-thumb:hover,
-		.result-grid::-webkit-scrollbar-thumb:hover {
-			background: var(--border-hover);
-		}
-		
-		.bubble {
-			max-width: 85%;
-			padding: 18px 22px;
-			border-radius: var(--radius-xl);
-			line-height: 1.6;
-			white-space: pre-wrap;
-			font-size: 0.98rem;
-			animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-			transition: all 0.3s ease;
-			background: var(--surface-soft);
-			backdrop-filter: blur(var(--glass-blur));
-			-webkit-backdrop-filter: blur(var(--glass-blur));
-			border: 1px solid var(--border);
-			box-shadow: var(--shadow-soft);
-		}
-
-		.bubble-content {
-			display: block;
-		}
-
-		.readback-button {
-			display: inline-flex;
-			align-items: center;
-			gap: 6px;
-			margin-top: 12px;
-			padding: 6px 10px;
-			border: 1px solid var(--border);
-			border-radius: 999px;
-			background: var(--surface-soft);
-			color: var(--muted);
-			font: inherit;
-			font-size: 0.76rem;
-			font-weight: 700;
-			cursor: pointer;
-		}
-
-		.readback-button:hover,
-		.readback-button:focus-visible {
-			background: var(--accent-soft);
-			color: var(--accent);
-			border-color: var(--border-hover);
-			outline: none;
-		}
-
-		.delete-message-button {
-			display: inline-flex;
-			align-items: center;
-			gap: 6px;
-			margin-top: 12px;
-			margin-left: 8px;
-			padding: 6px 10px;
-			border: 1px solid var(--border);
-			border-radius: 999px;
-			background: transparent;
-			color: var(--muted);
-			font: inherit;
-			font-size: 0.76rem;
-			font-weight: 700;
-			cursor: pointer;
-		}
-
-		.delete-message-button:hover,
-		.delete-message-button:focus-visible {
-			background: var(--danger-soft);
-			color: var(--danger);
-			border-color: var(--danger);
-			outline: none;
-		}
-
-		.bubble:hover {
-			border-color: var(--border-hover);
-		}
-
-		.bubble.loading {
-			display: inline-flex;
 			align-items: center;
 			gap: 12px;
-			font-style: italic;
-			color: var(--muted);
-			background: var(--surface-soft);
 		}
-
-		.dots {
-			display: inline-flex;
-			gap: 5px;
-		}
-
-		.dots span {
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
+		.app-brand-icon {
+			width: 36px; height: 36px;
+			border-radius: var(--radius);
 			background: var(--accent);
-			opacity: 0.4;
-			animation: dotBounce 1.4s infinite ease-in-out;
-		}
-
-		.dots span:nth-child(2) {
-			animation-delay: 0.2s;
-		}
-
-		.dots span:nth-child(3) {
-			animation-delay: 0.4s;
-		}
-
-		@keyframes dotBounce {
-			0%, 100% { transform: translateY(0); opacity: 0.4; }
-			50% { transform: translateY(-5px); opacity: 1; }
-		}
-
-		.bubble.user {
-			margin-left: auto;
-			background: var(--brand-grad);
-			color: #ffffff;
-			border-bottom-right-radius: 6px;
-			border: none;
-			box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-		}
-
-		.bubble.bot {
-			margin-right: auto;
-			border-bottom-left-radius: 6px;
-			background: var(--surface-raised);
-			border: 1px solid var(--border);
-		}
-
-		/* Markdown layout styles inside bot chat bubbles */
-		.bubble p {
-			margin-bottom: 8px;
-		}
-		.bubble p:last-child {
-			margin-bottom: 0;
-		}
-		.bubble strong {
-			font-weight: 700;
-			color: var(--accent);
-		}
-		.bubble.user strong {
-			color: #ffffff;
-			text-decoration: underline;
-		}
-		.bubble ul {
-			margin: 8px 0;
-			padding-left: 20px;
-		}
-		.bubble li {
-			margin-bottom: 4px;
-		}
-
-		.results {
-			padding-top: 28px;
-			border-top: 1px solid var(--border);
-			margin-bottom: 16px;
-			display: none;
-			animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-		}
-
-		.results-loader {
-			display: none;
-			align-items: center;
-			gap: 14px;
-			padding: 16px 20px;
-			border-radius: var(--radius-md);
-			background: var(--surface-soft);
-			border: 1px solid var(--border);
-			margin-bottom: 16px;
-			color: var(--muted);
-			font-size: 0.95rem;
-			font-weight: 500;
-		}
-
-		.spinner {
-			width: 22px;
-			height: 22px;
-			border-radius: 50%;
-			border: 2px solid var(--border);
-			border-top-color: var(--accent);
-			animation: spin 0.8s linear infinite;
-		}
-
-		.results-empty {
-			display: none;
-			padding: 24px;
-			border-radius: var(--radius-md);
-			background: var(--surface-soft);
-			border: 1px dashed var(--border);
-			color: var(--muted);
-			font-size: 0.95rem;
-			text-align: center;
-			font-weight: 500;
-		}
-
-		.results-header {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 12px;
-			margin-bottom: 20px;
-		}
-
-		.results-header h3 {
-			margin: 0;
-			font-family: var(--font-display);
-			font-size: 1.25rem;
-			font-weight: 800;
-			letter-spacing: -0.01em;
-			color: var(--ink);
-		}
-
-		.results-header p {
-			margin: 0;
-			color: var(--muted);
-			font-size: 0.9rem;
-			font-weight: 500;
-		}
-
-		.results-count {
-			display: inline-flex;
-			align-items: center;
-			gap: 6px;
-			padding: 4px 14px;
-			border-radius: 999px;
-			background: var(--success-soft);
-			color: var(--success);
-			font-size: 0.78rem;
-			font-weight: 800;
-			letter-spacing: 0.02em;
-		}
-
-		.result-grid {
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-			max-height: 600px;
-			overflow-y: auto;
-			padding-right: 4px;
-		}
-
-		/* Premium Match Cards Style */
-		.result-card {
-			border: 1px solid var(--border);
-			border-radius: var(--radius-xl);
-			padding: 0;
-			background: var(--surface-raised);
-			backdrop-filter: blur(var(--glass-blur));
-			-webkit-backdrop-filter: blur(var(--glass-blur));
-			box-shadow: var(--shadow-soft);
-			transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-			position: relative;
-			overflow: hidden;
-		}
-
-		.bookmark-button {
-			color: var(--accent);
-		}
-
-		.result-card:hover {
-			border-color: var(--success);
-			box-shadow: 0 12px 36px rgba(24, 121, 78, 0.15);
-			transform: translateY(-3px);
-		}
-
-		.card-top-bar {
-			background: linear-gradient(135deg, var(--success), var(--accent));
-			padding: 14px 24px;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 12px;
-		}
-
-		.card-top-bar .scheme-title {
 			color: #fff;
-			font-family: var(--font-display);
-			font-size: 1.08rem;
-			font-weight: 700;
-			letter-spacing: -0.01em;
-			margin: 0;
-			line-height: 1.3;
-			flex: 1;
+			display: grid; place-items: center;
+			font-weight: 800; font-size: 0.85rem;
 		}
-
-		.eligible-badge {
-			display: inline-flex;
-			align-items: center;
-			gap: 5px;
-			padding: 5px 14px;
-			border-radius: 999px;
-			background: rgba(255,255,255, 0.22);
-			backdrop-filter: blur(8px);
-			color: #fff;
-			font-size: 0.72rem;
-			font-weight: 800;
-			text-transform: uppercase;
-			letter-spacing: 0.06em;
-			white-space: nowrap;
+		.app-brand h1 {
+			font-size: 1.1rem; font-weight: 700;
+			letter-spacing: -0.02em;
 		}
-
-		.card-body {
-			padding: 20px 24px 24px;
+		.app-brand-sub { display: none; }
+		@media (min-width: 768px) {
+			.app-brand-sub { display: block; font-size: 0.8rem; color: var(--ink-muted); font-weight: 400; }
 		}
-
-		.result-header {
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-			gap: 10px;
-			margin-bottom: 12px;
+		.header-controls {
+			display: flex; align-items: center; gap: 8px;
 		}
-
-		.result-card strong {
-			display: block;
-			font-size: 1.05rem;
-			font-weight: 700;
+		.lang-select, .theme-btn {
+			border: 1px solid var(--border);
+			background: var(--surface);
 			color: var(--ink);
-			font-family: var(--font-display);
-			letter-spacing: -0.01em;
-		}
-
-		.result-summary {
-			color: var(--ink);
-			font-size: 0.9rem;
-			line-height: 1.55;
-			font-weight: 500;
-			margin-bottom: 12px;
-		}
-
-		.result-description {
-			margin-bottom: 10px;
-			color: var(--muted);
-			font-size: 0.88rem;
-			line-height: 1.6;
-			font-weight: 400;
-			padding: 12px 16px;
-			background: var(--accent-soft);
-			border-radius: var(--radius-sm);
-			border-left: 3px solid var(--accent);
-		}
-
-		.result-benefits {
-			margin-bottom: 10px;
-			color: var(--ink);
-			font-size: 0.88rem;
-			line-height: 1.6;
-			font-weight: 400;
-			padding: 12px 16px;
-			background: var(--success-soft);
-			border-radius: var(--radius-sm);
-			border-left: 3px solid var(--success);
-		}
-
-		.result-benefits strong {
+			border-radius: var(--radius);
+			padding: 6px 10px;
 			font-size: 0.82rem;
-			text-transform: uppercase;
-			letter-spacing: 0.04em;
-			color: var(--success);
+			font-weight: 600;
+			transition: all 0.15s;
+		}
+		.lang-select:hover, .theme-btn:hover {
+			border-color: var(--border-hover);
+			background: var(--surface-hover);
+		}
+		.theme-btn { width: 36px; height: 36px; padding: 0; font-size: 1rem; display: grid; place-items: center; }
+
+		/* ── Tab Navigation ── */
+		.tab-nav {
+			display: flex;
+			background: var(--surface);
+			border-bottom: 1px solid var(--border);
+			flex-shrink: 0;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+		.tab-btn {
+			flex: 1; min-width: 0;
+			padding: 12px 16px;
+			border: none; background: none;
+			color: var(--ink-muted);
+			font-size: 0.85rem;
+			font-weight: 600;
+			white-space: nowrap;
+			position: relative;
+			transition: color 0.15s;
+		}
+		.tab-btn:hover { color: var(--ink-secondary); }
+		.tab-btn.active {
+			color: var(--accent);
+		}
+		.tab-btn.active::after {
+			content: '';
+			position: absolute;
+			bottom: 0; left: 16px; right: 16px;
+			height: 2px;
+			background: var(--accent);
+			border-radius: 2px 2px 0 0;
+		}
+		.tab-count {
+			font-size: 0.72rem;
+			background: var(--accent-soft);
+			color: var(--accent);
+			padding: 1px 6px;
+			border-radius: 99px;
+			margin-left: 4px;
+			font-weight: 700;
 		}
 
-		.card-yt-thumb {
-			display: block;
-			position: relative;
-			border-radius: var(--radius-sm);
+		/* ── Tab Content ── */
+		.tab-content {
+			flex: 1;
 			overflow: hidden;
-			margin-bottom: 12px;
-			aspect-ratio: 16/9;
-			background: #000;
-			cursor: pointer;
-			transition: transform 0.3s ease;
-			text-decoration: none;
 		}
-		.card-yt-thumb:hover {
-			transform: scale(1.01);
+		.tab-panel {
+			display: none;
+			height: 100%;
 		}
-		.card-yt-thumb img {
+		.tab-panel.active {
+			display: flex;
+		}
+
+		/* ═══════════════════════════ Chat Panel ═══════════════════════════ */
+		.chat-layout {
+			display: flex;
 			width: 100%;
 			height: 100%;
-			object-fit: cover;
-			display: block;
-		}
-		.card-yt-play {
-			position: absolute;
-			top: 50%; left: 50%;
-			transform: translate(-50%,-50%);
-			width: 56px; height: 56px;
-			background: rgba(220,38,38,0.9);
-			border-radius: 50%;
-			display: flex; align-items: center; justify-content: center;
-			box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-			transition: transform 0.2s ease;
-		}
-		.card-yt-thumb:hover .card-yt-play {
-			transform: translate(-50%,-50%) scale(1.12);
-		}
-		.card-yt-play svg {
-			width: 24px; height: 24px; fill: #fff; margin-left: 3px;
+			overflow: hidden;
 		}
 
-		.card-links-row {
+		/* ── Chat Sidebar ── */
+		.chat-sidebar {
+			width: 280px;
+			border-right: 1px solid var(--border);
+			background: var(--surface);
 			display: flex;
-			flex-wrap: wrap;
-			gap: 8px;
-			margin-top: 4px;
+			flex-direction: column;
+			flex-shrink: 0;
 		}
-
-		.result-toggle {
-			border: 1px solid var(--border);
-			background: var(--surface-soft);
-			color: var(--ink);
-			border-radius: 999px;
-			padding: 6px 16px;
-			font-size: 0.72rem;
+		.chat-sidebar-header {
+			padding: 16px;
+			border-bottom: 1px solid var(--border);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.chat-sidebar-header h3 {
+			font-size: 0.85rem;
 			font-weight: 700;
 			text-transform: uppercase;
-			letter-spacing: 0.08em;
-			cursor: pointer;
-			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+			letter-spacing: 0.05em;
+			color: var(--ink-muted);
 		}
-
-		.result-toggle:hover {
+		.new-chat-btn {
+			display: inline-flex; align-items: center; gap: 4px;
+			padding: 6px 12px;
+			border: 1px solid var(--accent);
+			border-radius: var(--radius);
 			background: var(--accent-soft);
-			color: var(--accent-strong);
-			border-color: var(--border-hover);
-			transform: scale(1.05);
-		}
-
-		.result-details {
-			display: none;
-			margin-top: 14px;
-			font-size: 0.9rem;
-			color: var(--muted);
-			padding-top: 14px;
-			border-top: 1px dashed var(--border);
-			animation: fadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-		}
-
-		.result-details ul {
-			margin: 12px 0 0;
-			padding-left: 20px;
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-			gap: 8px;
-		}
-
-		.result-details li {
-			line-height: 1.5;
-			font-weight: 500;
-			list-style-type: none;
-			position: relative;
-			padding-left: 18px;
-		}
-
-		.result-details li::before {
-			content: "✦";
-			position: absolute;
-			left: 0;
 			color: var(--accent);
 			font-size: 0.8rem;
-		}
-
-		.result-card.expanded .result-details {
-			display: block;
-		}
-
-		/* Eligible card glow */
-		.result-card.eligible::after {
-			content: "";
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: linear-gradient(135deg, var(--success-soft), transparent 40%);
-			pointer-events: none;
-			z-index: 0;
-		}
-
-		.card-top-bar, .card-body {
-			position: relative;
-			z-index: 1;
-		}
-
-		/* Progress bar */
-		.match-progress {
-			display: none;
-		}
-
-		.progress-bar-track {
-			flex: 1;
-			height: 6px;
-			border-radius: 99px;
-			background: var(--bg-strong);
-			overflow: hidden;
-			position: relative;
-		}
-
-		.progress-bar-fill {
-			height: 100%;
-			border-radius: 99px;
-			background: var(--brand-grad);
-			transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
-		}
-
-		.composer {
-			display: grid;
-			grid-template-columns: 1fr auto;
-			gap: 16px;
-			padding-top: 28px;
-			border-top: 1px solid var(--border);
-		}
-
-		.composer-input {
-			display: flex;
-			align-items: center;
-			gap: 12px;
-			padding: 14px 20px;
-			border-radius: 999px;
-			background: var(--surface-soft);
-			backdrop-filter: blur(var(--glass-blur));
-			-webkit-backdrop-filter: blur(var(--glass-blur));
-			border: 1px solid var(--border);
-			box-shadow: var(--shadow-soft);
-			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-		}
-
-		.voice-button {
-			border: 1px solid var(--border);
-			background: var(--surface-raised);
-			color: var(--ink);
-			border-radius: var(--radius-sm);
-			padding: 8px 10px;
-			cursor: pointer;
-			font-size: 1.1rem;
-			flex-shrink: 0;
-		}
-
-		.voice-button.active {
-			background: var(--danger);
-			color: #fff;
-		}
-
-		.profile-modal {
-			display: none;
-			position: fixed;
-			inset: 0;
-			z-index: 20;
-			background: rgba(15, 23, 42, 0.55);
-			place-items: center;
-			padding: 20px;
-		}
-
-		.profile-modal.open { display: grid; }
-		.profile-dialog {
-			width: min(720px, 100%);
-			max-height: 90vh;
-			overflow: auto;
-			background: var(--surface-raised);
-			color: var(--ink);
-			border: 1px solid var(--border);
-			border-radius: var(--radius-xl);
-			padding: 32px;
-			box-shadow: var(--shadow-lg);
-		}
-		.profile-dialog .results-header {
-			padding-bottom: 20px;
-			border-bottom: 1px solid var(--border);
-		}
-		.profile-dialog .results-header h3 {
-			margin: 0;
-			color: var(--ink);
-			font-family: var(--font-display);
-			font-size: 1.35rem;
-		}
-		.profile-form {
-			display: grid;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 18px 20px;
-			margin-top: 24px;
-		}
-		.profile-form label {
-			display: grid;
-			gap: 7px;
-			align-content: start;
-			font-size: 0.82rem;
 			font-weight: 700;
-			color: var(--muted);
+			transition: all 0.15s;
 		}
-		.profile-form input, .profile-form select {
-			width: 100%;
-			min-height: 44px;
-			padding: 10px 12px;
-			border: 1px solid var(--border-hover);
-			border-radius: 10px;
-			background: var(--surface);
-			color: var(--ink);
-			font: inherit;
-		}
-		.profile-form-actions {
-			display: flex;
-			justify-content: flex-end;
-			gap: 10px;
-			margin-top: 28px;
-			padding-top: 20px;
-			border-top: 1px solid var(--border);
-		}
-		.profile-form-actions button {
-			min-width: 116px;
-			padding: 12px 18px;
-			border: 0;
-			border-radius: 10px;
-			cursor: pointer;
-			font-weight: 700;
-			font: inherit;
-		}
-		.profile-save { background: var(--accent); color: #fff; }
-		.profile-close { background: var(--bg-strong); color: var(--ink); }
-		.video-link, .application-link {
-			display: inline-flex;
-			align-items: center;
-			gap: 6px;
-			margin: 14px 8px 0 0;
-			padding: 8px 18px;
-			border-radius: 999px;
-			font-size: 0.82rem;
-			font-weight: 700;
-			text-decoration: none;
-			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-		}
-		.application-link {
-			color: var(--accent);
-			background: var(--accent-soft);
-			border: 1px solid var(--accent);
-		}
-		.application-link:hover {
+		.new-chat-btn:hover {
 			background: var(--accent);
 			color: #fff;
-			transform: translateY(-1px);
-			box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
 		}
-		.video-link {
-			color: #dc2626;
-			background: rgba(220, 38, 38, 0.08);
-			border: 1px solid rgba(220, 38, 38, 0.3);
-		}
-		.video-link:hover {
-			background: #dc2626;
-			color: #fff;
-			transform: translateY(-1px);
-			box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
-		}
-		@media (max-width: 640px) {
-			.profile-dialog { padding: 24px 18px; }
-			.profile-form { grid-template-columns: 1fr; }
-			.top-actions { gap: 8px; }
-			.language-select { max-width: 130px; }
-		}
-
-		/* Refined workspace styling */
-		:root {
-			--bg: #f3f7f5;
-			--bg-strong: #e5efeb;
-			--surface: rgba(255, 255, 255, 0.78);
-			--surface-raised: #ffffff;
-			--surface-soft: rgba(235, 245, 241, 0.72);
-			--ink: #16332f;
-			--muted: #607772;
-			--accent: #0f766e;
-			--accent-strong: #0b5c56;
-			--accent-soft: #d9efea;
-			--border: rgba(22, 51, 47, 0.1);
-			--border-hover: rgba(15, 118, 110, 0.32);
-			--brand-grad: linear-gradient(135deg, #0f766e, #e07a5f);
-			--success: #18794e;
-			--success-soft: #e2f4ea;
-			--shadow-lg: 0 24px 70px rgba(33, 78, 69, 0.12);
-			--shadow-soft: 0 6px 18px rgba(33, 78, 69, 0.08);
-		}
-
-		:root[data-theme="dark"] {
-			--bg: #10211f;
-			--bg-strong: #18322f;
-			--surface: rgba(20, 42, 39, 0.84);
-			--surface-raised: #1c3b36;
-			--surface-soft: rgba(29, 64, 58, 0.72);
-			--ink: #effaf6;
-			--muted: #a9c2bb;
-			--accent: #4db6a8;
-			--accent-strong: #7bd1c3;
-			--accent-soft: #244d47;
-			--border: rgba(239, 250, 246, 0.12);
-			--border-hover: rgba(123, 209, 195, 0.4);
-			--brand-grad: linear-gradient(135deg, #2b9d91, #e07a5f);
-			--success: #80d6a5;
-			--success-soft: #214e3d;
-		}
-
-		.page {
-			max-width: 1320px;
-			padding-top: 28px;
-		}
-
-		.topbar {
-			margin-bottom: 24px;
-			padding: 22px 28px;
-			border-radius: 22px;
-		}
-
-		.brand {
-			gap: 16px;
-		}
-
-		.brand-mark {
-			border-radius: 16px;
-			background: var(--brand-grad);
-			color: #fff;
-			box-shadow: 0 10px 20px rgba(15, 118, 110, 0.2);
-		}
-
-		.brand-text h1 {
-			max-width: 580px;
-			line-height: 1.18;
-		}
-
-		.top-actions {
-			gap: 10px;
-			flex-wrap: wrap;
-			justify-content: flex-end;
-		}
-
-		.language-select,
-		.profile-button {
-			min-height: 42px;
-			border-radius: 12px;
-		}
-
-		.profile-button {
-			background: var(--brand-grad);
-			box-shadow: 0 8px 18px rgba(15, 118, 110, 0.18);
-		}
-
-		.layout {
-			grid-template-columns: minmax(0, 1fr) 320px;
-			gap: 24px;
-			align-items: start;
-		}
-
-		.layout > *,
-		.topbar > *,
-		.profile-page-header > div {
-			min-width: 0;
-		}
-
-		.chat-panel,
-		.panel {
-			border-radius: 22px;
-		}
-
-		.chat-panel {
-			min-height: 72vh;
-			padding: 30px;
-		}
-
-		.chat-header {
-			padding-bottom: 22px;
-		}
-
-		.status-pill {
-			padding: 6px 11px;
-		}
-
-		.check-button {
-			align-self: flex-start;
-			margin: 22px 0 6px;
-			border-radius: 11px;
-			background: var(--accent-soft);
-			color: var(--accent-strong);
-			border: 1px solid var(--border-hover);
-		}
-
-		.messages {
-			padding: 18px 4px;
-			min-height: 290px;
-		}
-
-		.bubble {
-			border-radius: 16px;
-			box-shadow: var(--shadow-soft);
-		}
-
-		.panel {
-			padding: 24px;
-			position: sticky;
-			top: 20px;
-		}
-
-		.profile-grid {
-			gap: 8px;
-		}
-
-		.profile-field {
-			min-height: 54px;
-			padding: 10px 12px;
-			border-radius: 12px;
-		}
-
-		.profile-field-label {
-			min-width: 0;
-			font-size: 0.84rem;
-			color: var(--muted);
-		}
-
-		.profile-field-value {
-			max-width: 58%;
-			overflow-wrap: anywhere;
-			text-align: right;
-		}
-
-		.profile-empty {
-			margin: 4px 0;
-			padding: 14px;
-			border: 1px dashed var(--border-hover);
-			border-radius: 12px;
-			color: var(--muted);
-			font-size: 0.86rem;
-			line-height: 1.45;
-		}
-
-		.snapshot-action {
-			width: 100%;
-			margin-top: 16px;
-			padding: 12px 14px;
-			border: 1px solid var(--border-hover);
-			border-radius: 12px;
-			background: transparent;
-			color: var(--accent-strong);
-			font: inherit;
-			font-weight: 700;
-			text-align: left;
-			cursor: pointer;
-		}
-
-		.snapshot-action span {
-			float: right;
-			font-size: 1.1rem;
-		}
-
-		.snapshot-action:hover,
-		.profile-back:hover {
-			background: var(--accent-soft);
-		}
-
-		.profile-page {
-			display: none;
-			max-width: 1040px;
-			margin: 0 auto;
-			padding: 28px 24px 64px;
-			animation: fadeUp 0.3s ease both;
-		}
-
-		.profile-page.open {
-			display: block;
-		}
-
-		body.profile-mode .page {
-			display: none;
-		}
-
-		.history-button {
-			min-height: 42px;
-			padding: 10px 14px;
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			background: var(--surface-raised);
-			color: var(--ink);
-			font: inherit;
-			font-weight: 700;
-			cursor: pointer;
-		}
-
-		.history-button:hover {
-			background: var(--accent-soft);
-			border-color: var(--border-hover);
-		}
-
-		.history-list {
-			display: grid;
-			gap: 12px;
-			max-height: 620px;
+		.session-list {
+			flex: 1;
 			overflow-y: auto;
+			padding: 8px;
 		}
-
-		.history-message {
-			padding: 14px 16px;
-			border: 1px solid var(--border);
-			border-radius: 14px;
-			background: var(--surface-soft);
-		}
-
-		.history-message.user {
-			border-color: var(--border-hover);
-			background: var(--accent-soft);
-		}
-
-		.history-message-meta {
-			display: flex;
-			justify-content: space-between;
-			gap: 12px;
-			margin-bottom: 6px;
-			color: var(--muted);
-			font-size: 0.72rem;
-			font-weight: 700;
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-		}
-
-		.history-message-content {
-			white-space: pre-wrap;
-			line-height: 1.5;
-		}
-
-		.profile-page-header {
-			display: flex;
-			align-items: flex-start;
-			justify-content: space-between;
-			gap: 24px;
-			margin-bottom: 24px;
-		}
-
-		.profile-page-header h2 {
-			margin: 0;
-			font-family: var(--font-display);
-			font-size: clamp(1.8rem, 4vw, 2.8rem);
-			line-height: 1.1;
-		}
-
-		.profile-page-header > div > p:last-child {
-			margin: 10px 0 0;
-			max-width: 580px;
-			color: var(--muted);
-			line-height: 1.55;
-		}
-
-		.profile-back {
-			flex: 0 0 auto;
-			padding: 11px 14px;
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			background: var(--surface-raised);
-			color: var(--ink);
-			font: inherit;
-			font-weight: 700;
-			cursor: pointer;
-		}
-
-		.profile-page-body {
-			padding: 28px;
-			border: 1px solid var(--border);
-			border-radius: 22px;
-			background: var(--surface);
-			box-shadow: var(--shadow-lg);
-			backdrop-filter: blur(var(--glass-blur));
-		}
-
-		.profile-page-note {
-			display: flex;
-			align-items: flex-start;
-			gap: 12px;
-			padding: 14px 16px;
-			border-radius: 14px;
-			background: var(--accent-soft);
-			color: var(--accent-strong);
-		}
-
-		.profile-note-icon {
-			font-size: 1.25rem;
-			line-height: 1;
-		}
-
-		.profile-page-note p {
-			margin: 4px 0 0;
-			color: var(--muted);
-			font-size: 0.86rem;
-			line-height: 1.4;
-		}
-
-		.mobile-verification {
-			margin-top: 20px;
-			padding: 16px;
-			border: 1px solid var(--border);
-			border-radius: 14px;
-			background: var(--surface-soft);
-		}
-
-		.mobile-verification > div:first-child p {
-			margin: 4px 0 0;
-			color: var(--muted);
-			font-size: 0.86rem;
-		}
-
-		.mobile-verification-row {
-			display: flex;
-			gap: 10px;
-			margin-top: 12px;
-		}
-
-		.mobile-verification-row input {
-			min-width: 0;
-			flex: 1;
-			min-height: 44px;
+		.session-item {
+			width: 100%;
+			text-align: left;
+			border: 1px solid transparent;
+			background: none;
 			padding: 10px 12px;
-			border: 1px solid var(--border-hover);
-			border-radius: 10px;
-			background: var(--surface-raised);
+			border-radius: var(--radius);
+			margin-bottom: 2px;
 			color: var(--ink);
-			font: inherit;
+			font-size: 0.88rem;
+			font-weight: 500;
+			transition: all 0.12s;
+			display: block;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.session-item:hover { background: var(--accent-softer); }
+		.session-item.active {
+			background: var(--accent-soft);
+			border-color: var(--accent);
+			color: var(--accent);
+			font-weight: 600;
+		}
+		.session-item-time {
+			display: block;
+			font-size: 0.72rem;
+			color: var(--ink-muted);
+			margin-top: 2px;
+			font-weight: 400;
 		}
 
-		.mobile-verification-row button {
-			flex: 0 0 auto;
-			padding: 10px 14px;
-			border: 0;
-			border-radius: 10px;
+		/* ── Chat Main ── */
+		.chat-main {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+			position: relative;
+		}
+		.chat-header-bar {
+			padding: 14px 20px;
+			border-bottom: 1px solid var(--border);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			flex-shrink: 0;
+			background: var(--surface);
+		}
+		.chat-header-bar h2 { font-size: 1rem; font-weight: 700; }
+		.chat-status {
+			display: inline-flex; align-items: center; gap: 5px;
+			font-size: 0.72rem; font-weight: 700;
+			color: var(--success);
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+		}
+		.chat-status::before {
+			content: '';
+			width: 6px; height: 6px;
+			border-radius: 50%;
+			background: var(--success);
+			animation: pulse-dot 2s infinite;
+		}
+		@keyframes pulse-dot {
+			0%,100% { opacity: 0.5; transform: scale(0.9); }
+			50% { opacity: 1; transform: scale(1.2); }
+		}
+
+		.messages-area {
+			flex: 1;
+			overflow-y: auto;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+			scroll-behavior: smooth;
+		}
+		.messages-area::-webkit-scrollbar { width: 5px; }
+		.messages-area::-webkit-scrollbar-track { background: transparent; }
+		.messages-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+		.msg { max-width: 80%; animation: msgIn 0.25s ease; }
+		@keyframes msgIn {
+			from { opacity: 0; transform: translateY(8px); }
+			to { opacity: 1; transform: none; }
+		}
+		.msg-bubble {
+			padding: 12px 16px;
+			border-radius: var(--radius-lg);
+			line-height: 1.6;
+			font-size: 0.92rem;
+		}
+		.msg.user { align-self: flex-end; }
+		.msg.user .msg-bubble {
 			background: var(--accent);
 			color: #fff;
-			font: inherit;
-			font-weight: 700;
-			cursor: pointer;
+			border-bottom-right-radius: 4px;
 		}
-
-		.verification-status {
-			min-height: 1.2em;
-			margin: 10px 0 0;
-			color: var(--muted);
-			font-size: 0.82rem;
+		.msg.bot .msg-bubble {
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-bottom-left-radius: 4px;
 		}
+		.msg-bubble p { margin-bottom: 6px; }
+		.msg-bubble p:last-child { margin-bottom: 0; }
+		.msg-bubble strong { font-weight: 700; color: var(--accent); }
+		.msg.user .msg-bubble strong { color: #fff; }
+		.msg-bubble ul { margin: 4px 0; padding-left: 18px; }
+		.msg-bubble li { margin-bottom: 2px; }
 
-		.verification-status.success { color: var(--success); }
-		.verification-status.error { color: var(--danger); }
-
-		.profile-page .profile-form {
-			margin-top: 28px;
-			gap: 20px;
-			align-items: stretch;
+		.msg-actions {
+			display: flex; gap: 6px; margin-top: 6px;
 		}
-
-		.profile-page .profile-form label {
-			min-width: 0;
-			font-size: 0.78rem;
-			letter-spacing: 0.02em;
-			text-transform: uppercase;
+		.msg-action-btn {
+			display: inline-flex; align-items: center; gap: 4px;
+			padding: 4px 10px;
+			border: 1px solid var(--border);
+			border-radius: 99px;
+			background: var(--surface);
+			color: var(--ink-muted);
+			font-size: 0.72rem; font-weight: 700;
+			transition: all 0.12s;
 		}
-
-		.required-mark {
-			margin-left: 4px;
+		.msg-action-btn:hover {
+			border-color: var(--accent);
 			color: var(--accent);
-			font-size: 0.66rem;
-			letter-spacing: 0.08em;
+			background: var(--accent-soft);
+		}
+		.msg-action-btn.speaking {
+			border-color: var(--danger);
+			color: var(--danger);
+			background: var(--danger-soft);
 		}
 
-		.profile-page .profile-form input,
-		.profile-page .profile-form select {
-			width: 100%;
-			min-height: 48px;
-			margin-top: 2px;
-			border-radius: 11px;
-			background: var(--surface-raised);
+		.msg-loading {
+			display: inline-flex; align-items: center; gap: 10px;
+			padding: 12px 18px;
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-lg);
+			color: var(--ink-muted);
+			font-size: 0.88rem;
+			font-style: italic;
+		}
+		.typing-dots { display: inline-flex; gap: 3px; }
+		.typing-dots span {
+			width: 6px; height: 6px; border-radius: 50%;
+			background: var(--accent); opacity: 0.3;
+			animation: dotBounce 1.4s infinite ease-in-out;
+		}
+		.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+		.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+		@keyframes dotBounce {
+			0%,100% { opacity: 0.3; transform: translateY(0); }
+			50% { opacity: 1; transform: translateY(-4px); }
 		}
 
-		.profile-page .profile-form input:focus,
-		.profile-page .profile-form select:focus {
-			outline: 3px solid rgba(15, 118, 110, 0.16);
+		/* Scroll to bottom button */
+		.scroll-bottom-btn {
+			position: absolute;
+			bottom: 90px; right: 24px;
+			width: 36px; height: 36px;
+			border-radius: 50%;
+			border: 1px solid var(--border);
+			background: var(--surface);
+			color: var(--ink-secondary);
+			box-shadow: var(--shadow-md);
+			display: none;
+			place-items: center;
+			font-size: 1.1rem;
+			z-index: 10;
+			transition: all 0.15s;
+		}
+		.scroll-bottom-btn.visible { display: grid; }
+		.scroll-bottom-btn:hover {
+			background: var(--accent);
+			color: #fff;
 			border-color: var(--accent);
 		}
 
-		.profile-page .profile-form-actions {
-			display: flex;
-			justify-content: flex-end;
-			align-items: center;
-			margin-top: 30px;
-			padding-top: 22px;
-		}
-
-		.profile-page .profile-save {
-			min-width: 150px;
-			background: var(--brand-grad);
-			box-shadow: 0 8px 18px rgba(15, 118, 110, 0.18);
-		}
-
-		@media (max-width: 860px) {
-			.layout {
-				grid-template-columns: 1fr;
-			}
-
-			.panel {
-				position: static;
-			}
-
-			.profile-page {
-				padding: 22px 16px 44px;
-			}
-		}
-
-		@media (max-width: 640px) {
-			.page {
-				padding: 16px 12px 36px;
-			}
-
-			.topbar,
-			.chat-panel,
-			.profile-page-body {
-				padding: 20px;
-			}
-
-			.top-actions {
-				justify-content: stretch;
-			}
-
-			.top-actions > * {
-				flex: 1;
-			}
-
-			.profile-page-header {
-				flex-direction: column;
-			}
-
-			.profile-back {
-				align-self: flex-start;
-			}
-
-			.profile-page .profile-form {
-				grid-template-columns: 1fr;
-			}
-
-			.mobile-verification-row {
-				flex-direction: column;
-			}
-		}
-		
-		.composer-input:focus-within {
-			border-color: var(--border-hover);
-			background: var(--surface-raised);
-		}
-
-		.composer-input input {
-			flex: 1;
-			border: none;
-			background: transparent;
-			font-size: 0.98rem;
-			color: var(--ink);
-			outline: none;
-			font-family: var(--font-body);
-		}
-		
-		.composer-input input::placeholder {
-			color: var(--muted);
-			opacity: 0.75;
-		}
-
-		.composer-hint {
-			font-size: 0.65rem;
-			font-weight: 700;
-			text-transform: uppercase;
-			letter-spacing: 0.1em;
-			color: var(--muted);
-			padding: 4px 8px;
-			background: var(--bg-strong);
-			border-radius: 6px;
-			border: 1px solid var(--border);
-		}
-
-		.send-button {
-			padding: 14px 28px;
-			border: none;
-			border-radius: 999px;
-			background: var(--brand-grad);
-			color: #ffffff;
-			cursor: pointer;
-			font-weight: 700;
-			font-size: 0.98rem;
-			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-			box-shadow: 0 4px 15px rgba(79, 70, 229, 0.25);
-		}
-
-		.send-button:hover {
-			transform: translateY(-2px) scale(1.02);
-			box-shadow: 0 8px 25px rgba(79, 70, 229, 0.35);
-		}
-		
-		.send-button:active {
-			transform: translateY(0) scale(0.98);
-		}
-
-		.sidebar {
-			display: flex;
-			flex-direction: column;
-			gap: 28px;
-		}
-
-		.panel {
-			display: flex;
-			flex-direction: column;
+		/* ── Composer ── */
+		.composer {
+			padding: 12px 20px 16px;
+			border-top: 1px solid var(--border);
 			background: var(--surface);
-			backdrop-filter: blur(var(--glass-blur));
-			-webkit-backdrop-filter: blur(var(--glass-blur));
+			flex-shrink: 0;
+		}
+		.composer-row {
+			display: flex; align-items: center; gap: 8px;
+		}
+		.mic-btn {
+			width: 40px; height: 40px;
+			border-radius: var(--radius);
 			border: 1px solid var(--border);
-			box-shadow: var(--shadow-lg);
-			border-radius: var(--radius-xl);
-			padding: 28px;
-			transition: all 0.3s ease;
+			background: var(--surface);
+			color: var(--ink-secondary);
+			font-size: 1.1rem;
+			flex-shrink: 0;
+			display: grid; place-items: center;
+			transition: all 0.15s;
 		}
-		
-		.panel:hover {
-			border-color: var(--border-hover);
-			box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
+		.mic-btn:hover { border-color: var(--accent); color: var(--accent); }
+		.mic-btn.recording {
+			background: var(--danger);
+			border-color: var(--danger);
+			color: #fff;
+			animation: mic-pulse 1.5s infinite;
 		}
-
-		.panel-head {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 10px;
-			margin-bottom: 12px;
+		@keyframes mic-pulse {
+			0%,100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.3); }
+			50% { box-shadow: 0 0 0 8px rgba(220,38,38,0); }
 		}
-
-		.panel h3 {
-			margin: 0;
-			font-family: var(--font-display);
-			font-size: 1.2rem;
-			font-weight: 800;
-			letter-spacing: -0.01em;
+		.composer-input {
+			flex: 1;
+			min-height: 40px;
+			padding: 8px 14px;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			background: var(--bg);
 			color: var(--ink);
+			font-size: 0.92rem;
+			font-family: var(--font);
+			outline: none;
+			transition: border-color 0.15s;
 		}
-
-		.panel-subtext {
-			margin: 4px 0 18px;
-			color: var(--muted);
+		.composer-input:focus { border-color: var(--accent); }
+		.composer-input::placeholder { color: var(--ink-muted); }
+		.send-btn {
+			padding: 8px 20px;
+			border-radius: var(--radius);
+			border: none;
+			background: var(--accent);
+			color: #fff;
+			font-weight: 700;
 			font-size: 0.88rem;
-			line-height: 1.5;
-			font-weight: 500;
+			transition: all 0.15s;
+			flex-shrink: 0;
 		}
-
-		.pill {
-			padding: 4px 10px;
-			border-radius: 999px;
+		.send-btn:hover { background: var(--accent-hover); }
+		.send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+		.check-elig-btn {
+			display: none;
+			margin-top: 8px;
+			width: 100%;
+			padding: 10px;
+			border: 1px solid var(--accent);
+			border-radius: var(--radius);
 			background: var(--accent-soft);
 			color: var(--accent);
-			font-size: 0.65rem;
 			font-weight: 700;
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-			border: 1px solid var(--border);
+			font-size: 0.85rem;
+			transition: all 0.15s;
 		}
+		.check-elig-btn:hover { background: var(--accent); color: #fff; }
 
-		.profile-grid {
+		/* ═══════════════════════════ Directory Panel ═══════════════════════════ */
+		.directory-panel {
+			flex-direction: column;
+			padding: 0;
+			overflow-y: auto;
+		}
+		.dir-toolbar {
+			padding: 20px 24px 0;
 			display: flex;
 			flex-direction: column;
 			gap: 12px;
-		}
-
-		.profile-field {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			gap: 10px;
-			padding: 10px 14px;
-			border-radius: var(--radius-sm);
-			background: var(--surface-soft);
-			border: 1px solid var(--border);
-			transition: all 0.2s ease;
-		}
-
-		.profile-field:hover {
-			border-color: var(--border-hover);
-			background: var(--surface-raised);
-		}
-
-		/* Styling icons inside profile tags */
-		.icon {
-			width: 16px;
-			height: 16px;
 			flex-shrink: 0;
 		}
-		.profile-field-label {
-			display: flex;
-			align-items: center;
-			gap: 10px;
+		.dir-toolbar-top {
+			display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
 		}
-
-		.profile-field-icon {
-			width: 18px;
-			height: 18px;
-			color: var(--accent);
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.profile-field-value {
-			font-weight: 700;
+		.dir-search {
+			flex: 1; min-width: 200px;
+			padding: 9px 14px 9px 36px;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			background: var(--surface);
 			color: var(--ink);
+			font-size: 0.88rem;
+			font-family: var(--font);
+			outline: none;
+			transition: border-color 0.15s;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+			background-repeat: no-repeat;
+			background-position: 12px center;
+		}
+		.dir-search:focus { border-color: var(--accent); }
+		.dir-sort-select {
+			padding: 9px 12px;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			background: var(--surface);
+			color: var(--ink);
+			font-size: 0.82rem;
+			font-weight: 600;
+			font-family: var(--font);
+		}
+		.filter-chips {
+			display: flex; gap: 6px; flex-wrap: wrap;
+			padding-bottom: 4px;
+		}
+		.chip {
+			padding: 5px 12px;
+			border: 1px solid var(--border);
+			border-radius: 99px;
+			background: var(--surface);
+			color: var(--ink-secondary);
+			font-size: 0.78rem;
+			font-weight: 600;
+			white-space: nowrap;
+			transition: all 0.12s;
+		}
+		.chip:hover { border-color: var(--accent); color: var(--accent); }
+		.chip.active {
+			background: var(--accent);
+			color: #fff;
+			border-color: var(--accent);
 		}
 
-
-		@keyframes fadeUp {
-			from {
-				opacity: 0;
-				transform: translateY(12px);
-			}
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
+		/* ── Scheme Grid ── */
+		.dir-grid-wrapper {
+			flex: 1; overflow-y: auto;
+			padding: 20px 24px 32px;
+		}
+		.dir-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+			gap: 16px;
+		}
+		@media (max-width: 768px) {
+			.dir-grid { grid-template-columns: 1fr; }
 		}
 
-		@keyframes spin {
-			from {
-				transform: rotate(0deg);
-			}
-			to {
-				transform: rotate(360deg);
-			}
+		/* ── Scheme Card ── */
+		.scheme-card {
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-xl);
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			transition: border-color 0.2s, box-shadow 0.2s;
+		}
+		.scheme-card:hover {
+			border-color: var(--accent);
+			box-shadow: var(--shadow-md);
+		}
+		.card-header {
+			padding: 16px 18px 12px;
+		}
+		.card-badges {
+			display: flex; gap: 6px; flex-wrap: wrap;
+			margin-bottom: 8px;
+		}
+		.badge {
+			display: inline-flex; align-items: center; gap: 3px;
+			padding: 2px 8px;
+			border-radius: 99px;
+			font-size: 0.68rem;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.03em;
+		}
+		.badge-jurisdiction {
+			background: var(--accent-soft);
+			color: var(--accent);
+		}
+		.badge-category {
+			background: var(--warning-soft);
+			color: var(--warning);
+		}
+		.badge-status {
+			background: var(--success-soft);
+			color: var(--success);
+		}
+		.card-title {
+			font-size: 1rem;
+			font-weight: 700;
+			line-height: 1.35;
+			color: var(--ink);
+			margin-bottom: 4px;
+		}
+		.card-ministry {
+			font-size: 0.78rem;
+			color: var(--ink-muted);
+			font-weight: 500;
+		}
+		.card-body {
+			padding: 0 18px;
+			flex: 1;
+		}
+		.card-description {
+			font-size: 0.84rem;
+			line-height: 1.55;
+			color: var(--ink-secondary);
+			margin-bottom: 10px;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.card-benefits {
+			padding: 10px 12px;
+			background: var(--success-soft);
+			border-radius: var(--radius);
+			margin-bottom: 12px;
+		}
+		.card-benefits-title {
+			font-size: 0.72rem;
+			font-weight: 800;
+			color: var(--success);
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			margin-bottom: 4px;
+		}
+		.card-benefits-text {
+			font-size: 0.82rem;
+			color: var(--ink-secondary);
+			line-height: 1.45;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		.card-footer {
+			padding: 12px 18px 16px;
+			display: flex; flex-wrap: wrap; gap: 6px;
+			border-top: 1px solid var(--border);
+			margin-top: auto;
+		}
+		.card-action {
+			display: inline-flex; align-items: center; gap: 4px;
+			padding: 6px 14px;
+			border-radius: 99px;
+			font-size: 0.78rem;
+			font-weight: 700;
+			border: 1px solid transparent;
+			transition: all 0.12s;
+			text-decoration: none;
+		}
+		.card-action:hover { text-decoration: none; }
+		.card-action-primary {
+			background: var(--accent);
+			color: #fff;
+		}
+		.card-action-primary:hover { background: var(--accent-hover); }
+		.card-action-secondary {
+			border-color: var(--border);
+			background: var(--surface);
+			color: var(--ink-secondary);
+		}
+		.card-action-secondary:hover {
+			border-color: var(--accent);
+			color: var(--accent);
+		}
+		.card-action-video {
+			border-color: rgba(220,38,38,0.3);
+			background: var(--danger-soft);
+			color: var(--danger);
+		}
+		.card-action-video:hover {
+			background: var(--danger);
+			color: #fff;
+			border-color: var(--danger);
+		}
+		.card-action-bookmark {
+			border-color: var(--border);
+			background: var(--surface);
+			color: var(--ink-muted);
+			margin-left: auto;
+		}
+		.card-action-bookmark:hover { color: var(--accent); border-color: var(--accent); }
+		.card-action-bookmark.saved {
+			background: var(--accent-soft);
+			border-color: var(--accent);
+			color: var(--accent);
 		}
 
-		@media (max-width: 1080px) {
-			.layout {
-				grid-template-columns: 1fr;
-				gap: 32px;
-			}
+		/* ── Empty States ── */
+		.empty-state {
+			text-align: center;
+			padding: 60px 24px;
+			color: var(--ink-muted);
+		}
+		.empty-state-icon { font-size: 2.5rem; margin-bottom: 12px; }
+		.empty-state h3 { font-size: 1.1rem; font-weight: 700; color: var(--ink-secondary); margin-bottom: 6px; }
+		.empty-state p { font-size: 0.88rem; margin-bottom: 16px; }
+		.reset-btn {
+			padding: 8px 20px;
+			border: 1px solid var(--accent);
+			border-radius: var(--radius);
+			background: var(--accent-soft);
+			color: var(--accent);
+			font-weight: 700;
+			font-size: 0.85rem;
+			transition: all 0.15s;
+		}
+		.reset-btn:hover { background: var(--accent); color: #fff; }
+
+		/* ── Skeleton ── */
+		.skeleton-card {
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-xl);
+			padding: 20px;
+			animation: skeleton-shimmer 1.5s infinite;
+		}
+		.skeleton-line {
+			height: 12px;
+			background: var(--bg-alt);
+			border-radius: 6px;
+			margin-bottom: 10px;
+		}
+		.skeleton-line.w50 { width: 50%; }
+		.skeleton-line.w70 { width: 70%; }
+		.skeleton-line.w100 { width: 100%; }
+		.skeleton-line.h20 { height: 20px; }
+		@keyframes skeleton-shimmer {
+			0% { opacity: 1; }
+			50% { opacity: 0.5; }
+			100% { opacity: 1; }
 		}
 
+		/* ═══════════════════════════ Mobile Sidebar Toggle ═══════════════════════════ */
+		.sidebar-toggle-mobile {
+			display: none;
+			padding: 6px;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			background: var(--surface);
+			color: var(--ink-secondary);
+			font-size: 1.1rem;
+		}
 		@media (max-width: 860px) {
-			.page {
-				padding: 24px 16px 40px;
+			.chat-sidebar {
+				position: fixed;
+				top: 0; left: 0; bottom: 0;
+				z-index: 100;
+				transform: translateX(-100%);
+				transition: transform 0.25s ease;
+				box-shadow: var(--shadow-lg);
 			}
+			.chat-sidebar.open { transform: none; }
+			.sidebar-overlay {
+				position: fixed;
+				inset: 0;
+				background: rgba(0,0,0,0.4);
+				z-index: 99;
+				display: none;
+			}
+			.sidebar-overlay.visible { display: block; }
+			.sidebar-toggle-mobile { display: grid; }
+		}
 
-			.topbar {
-				flex-direction: column;
-				align-items: stretch;
-				gap: 20px;
-				padding: 20px 24px;
-			}
-			
-			.top-actions {
-				flex-direction: column-reverse;
-				align-items: stretch;
-				gap: 16px;
-			}
+		/* ═══════════════════════════ Profile Modal ═══════════════════════════ */
+		.modal-overlay {
+			display: none;
+			position: fixed; inset: 0;
+			background: rgba(0,0,0,0.5);
+			z-index: 200;
+			place-items: center;
+			padding: 20px;
+		}
+		.modal-overlay.open { display: grid; }
+		.modal-dialog {
+			width: min(700px, 100%);
+			max-height: 90vh;
+			overflow-y: auto;
+			background: var(--surface);
+			border-radius: var(--radius-xl);
+			border: 1px solid var(--border);
+			box-shadow: var(--shadow-lg);
+			padding: 28px;
+		}
+		.modal-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+		.modal-header h2 { font-size: 1.2rem; font-weight: 700; }
+		.modal-close {
+			width: 32px; height: 32px;
+			border-radius: var(--radius);
+			border: 1px solid var(--border);
+			background: var(--surface);
+			color: var(--ink-secondary);
+			font-size: 1rem;
+			display: grid; place-items: center;
+		}
+		.profile-form {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 14px;
+		}
+		@media (max-width: 640px) { .profile-form { grid-template-columns: 1fr; } }
+		.profile-form label {
+			font-size: 0.78rem;
+			font-weight: 700;
+			color: var(--ink-secondary);
+			display: flex; flex-direction: column; gap: 4px;
+		}
+		.profile-form input, .profile-form select {
+			padding: 9px 12px;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			background: var(--bg);
+			color: var(--ink);
+			font: inherit; font-size: 0.88rem;
+		}
+		.profile-form input:focus, .profile-form select:focus {
+			outline: 2px solid var(--accent);
+			outline-offset: -1px;
+		}
+		.profile-actions {
+			display: flex; justify-content: flex-end; gap: 8px;
+			margin-top: 20px; padding-top: 16px;
+			border-top: 1px solid var(--border);
+		}
+		.btn-save {
+			padding: 10px 20px;
+			border: none; border-radius: var(--radius);
+			background: var(--accent);
+			color: #fff;
+			font-weight: 700;
+		}
+		.btn-cancel {
+			padding: 10px 20px;
+			border: 1px solid var(--border);
+			border-radius: var(--radius);
+			background: var(--surface);
+			color: var(--ink-secondary);
+			font-weight: 600;
+		}
 
-			.top-stats {
-				grid-template-columns: 1fr 1fr;
-			}
-
-			.bubble {
-				max-width: 90%;
-			}
-
-			.composer {
-				grid-template-columns: 1fr;
-				gap: 12px;
-			}
-			
-			.send-button {
-				width: 100%;
-			}
+		/* ═══════════════════════════ Utilities ═══════════════════════════ */
+		.visually-hidden {
+			position: absolute; width: 1px; height: 1px;
+			padding: 0; margin: -1px; overflow: hidden;
+			clip: rect(0,0,0,0); border: 0;
 		}
 	</style>
 </head>
 <body>
-	<canvas id="pixel-canvas" class="pixel-canvas"></canvas>
-	<div class="page">
-		<header class="topbar">
-			<div class="brand">
-				<div class="brand-mark">SM</div>
-				<div class="brand-text">
-					<p class="eyebrow">SchemeMatch</p>
-					<h1 data-i18n="heroTitle">Find the right government schemes faster</h1>
-					<p data-i18n="heroSubtitle">Chat to build your profile, then verify eligibility in one click.</p>
+<div class="app-shell">
+	<!-- ═══════════ Header ═══════════ -->
+	<header class="app-header">
+		<div class="app-brand">
+			<div class="app-brand-icon" aria-hidden="true">SP</div>
+			<div>
+				<h1>SchemePilot</h1>
+				<span class="app-brand-sub">Government Scheme Eligibility Assistant</span>
+			</div>
+		</div>
+		<div class="header-controls">
+			<select id="langSelect" class="lang-select" aria-label="Select language">
+				<option value="en">🌐 English</option>
+				<option value="ta">🌐 தமிழ்</option>
+				<option value="ml">🌐 മലയാളം</option>
+				<option value="kn">🌐 ಕನ್ನಡ</option>
+			</select>
+			<button id="profileBtn" class="lang-select" type="button" aria-label="Edit profile">👤 Profile</button>
+			<button id="themeBtn" class="theme-btn" type="button" aria-label="Toggle dark mode">🌙</button>
+		</div>
+	</header>
+
+	<!-- ═══════════ Tab Navigation ═══════════ -->
+	<nav class="tab-nav" role="tablist">
+		<button class="tab-btn active" role="tab" data-tab="assistant" aria-selected="true" id="tabAssistant">💬 Eligibility Assistant</button>
+		<button class="tab-btn" role="tab" data-tab="directory" aria-selected="false" id="tabDirectory">🏛️ Schemes Directory <span class="tab-count" id="dirCount">0</span></button>
+		<button class="tab-btn" role="tab" data-tab="bookmarks" aria-selected="false" id="tabBookmarks">⭐ Saved <span class="tab-count" id="bookmarkCount">0</span></button>
+	</nav>
+
+	<!-- ═══════════ Tab Content ═══════════ -->
+	<div class="tab-content">
+
+		<!-- ──── Assistant Tab ──── -->
+		<div class="tab-panel active" id="panelAssistant" role="tabpanel">
+			<div class="chat-layout">
+				<!-- Sidebar Overlay for mobile -->
+				<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+				<!-- Chat Sidebar -->
+				<aside class="chat-sidebar" id="chatSidebar" aria-label="Chat history">
+					<div class="chat-sidebar-header">
+						<h3>Chat History</h3>
+						<button class="new-chat-btn" id="newChatBtn" type="button" aria-label="Start new chat">+ New Chat</button>
+					</div>
+					<div class="session-list" id="sessionList"></div>
+				</aside>
+
+				<!-- Chat Main -->
+				<section class="chat-main">
+					<div class="chat-header-bar">
+						<div style="display:flex;align-items:center;gap:8px;">
+							<button class="sidebar-toggle-mobile" id="sidebarToggle" type="button" aria-label="Open chat history">☰</button>
+							<h2 id="chatTitle">Eligibility Assistant</h2>
+						</div>
+						<span class="chat-status">Live</span>
+					</div>
+
+					<div class="messages-area" id="messagesArea"></div>
+
+					<button class="scroll-bottom-btn" id="scrollBottomBtn" type="button" aria-label="Scroll to latest message">↓</button>
+
+					<div class="composer">
+						<div class="composer-row">
+							<button class="mic-btn" id="micBtn" type="button" aria-label="Start voice input" title="Speak to assistant">🎤</button>
+							<input class="composer-input" id="msgInput" type="text" placeholder="Type your message..." autocomplete="off" />
+							<button class="send-btn" id="sendBtn" type="button">Send</button>
+						</div>
+						<button class="check-elig-btn" id="checkEligBtn" type="button">✅ Check Eligibility</button>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<!-- ──── Directory Tab ──── -->
+		<div class="tab-panel" id="panelDirectory" role="tabpanel">
+			<div class="directory-panel">
+				<div class="dir-toolbar">
+					<div class="dir-toolbar-top">
+						<input class="dir-search" id="dirSearch" type="text" placeholder="Search schemes by name, category, state..." aria-label="Search schemes" />
+						<select class="dir-sort-select" id="dirSort" aria-label="Sort schemes">
+							<option value="default">Sort: Default</option>
+							<option value="az">Sort: A → Z</option>
+							<option value="za">Sort: Z → A</option>
+						</select>
+					</div>
+					<div class="filter-chips" id="filterChips"></div>
+				</div>
+				<div class="dir-grid-wrapper" id="dirGridWrapper">
+					<div class="dir-grid" id="dirGrid"></div>
 				</div>
 			</div>
-			<div class="top-actions">
-				<select id="languageSelect" class="language-select" aria-label="Language">
-					<option value="en">English</option>
-					<option value="ta">தமிழ்</option>
-					<option value="ml">മലയാളം</option>
-					<option value="kn">ಕನ್ನಡ</option>
-				</select>
-				<button id="newChatButton" class="history-button" type="button" data-i18n="newChat">New chat</button>
-				<button id="readAloudToggleBtn" class="history-button" type="button">🔊 Auto Read: OFF</button>
-				<button id="historyButton" class="history-button" type="button" data-i18n="history">Chat history</button>
-				<button id="profileButton" class="profile-button" type="button" data-i18n="edit">Profile</button>
-				<label class="theme-toggle" aria-label="Toggle theme">
-					<input id="themeToggle" type="checkbox" aria-label="Toggle dark mode" />
-					<span class="toggle-track" aria-hidden="true"></span>
-				</label>
+		</div>
+
+		<!-- ──── Bookmarks Tab ──── -->
+		<div class="tab-panel" id="panelBookmarks" role="tabpanel">
+			<div class="directory-panel">
+				<div class="dir-grid-wrapper">
+					<div class="dir-grid" id="bookmarkGrid"></div>
+				</div>
 			</div>
-		</header>
-
-		<main class="layout">
-			<section class="chat-panel">
-				<div class="chat-header">
-					<div>
-						<h2 data-i18n="assistant">Eligibility Assistant</h2>
-					</div>
-					<div class="status-pill" data-i18n="live">Live</div>
-				</div>
-
-				<button id="checkButton" class="check-button" type="button" data-i18n="check">Check Eligibility</button>
-				<div id="messages" class="messages"></div>
-
-				<div id="results" class="results">
-					<div class="results-header">
-						<h3 data-i18n="resultsTitle">Eligibility results</h3>
-						<p data-i18n="resultsSubtitle">Based on the criteria from each scheme.</p>
-					</div>
-					<div id="resultsLoader" class="results-loader" role="status" aria-live="polite">
-						<span class="spinner" aria-hidden="true"></span>
-						<span data-i18n="checking">Checking eligibility...</span>
-					</div>
-					<div id="resultsEmpty" class="results-empty" data-i18n="noResults">No schemes matched yet. Try adding more profile details.</div>
-					<div id="resultCards" class="result-grid"></div>
-				</div>
-
-				<div class="composer">
-					<div class="composer-input">
-						<button id="voiceButton" class="voice-button" type="button" aria-label="Speak to assistant" title="Speak to assistant">🎙️</button>
-						<input id="messageInput" type="text" placeholder="Type your message..." />
-						<span class="composer-hint" data-i18n="enter">Enter</span>
-					</div>
-					<button id="sendButton" class="send-button" type="button" data-i18n="send">Send</button>
-				</div>
-			</section>
-
-			<aside class="sidebar">
-				<div class="panel">
-					<div class="panel-head">
-						<h3 data-i18n="snapshot">Profile snapshot</h3>
-						<span class="pill" data-i18n="private">Private</span>
-					</div>
-					<p class="panel-subtext" data-i18n="snapshotSubtitle">Your essentials at a glance.</p>
-					<div id="profileFields" class="profile-grid"></div>
-					<button id="snapshotProfileButton" class="snapshot-action" type="button"><span data-i18n="openProfile">Open profile</span> <span aria-hidden="true">→</span></button>
-				</div>
-			</aside>
-		</main>
+		</div>
 	</div>
+</div>
 
-	<section id="profilePage" class="profile-page" aria-labelledby="profileTitle">
-		<div class="profile-page-header">
-			<div>
-				<p class="eyebrow" data-i18n="yourInformation">Your information</p>
-				<h2 id="profileTitle" data-i18n="yourProfile">Your profile</h2>
-				<p data-i18n="profileSubtitle">Add your details here, or change them whenever your information is updated.</p>
-			</div>
-			<button id="profileClose" class="profile-back" type="button"><span aria-hidden="true">←</span> <span data-i18n="back">Back to assistant</span></button>
+<!-- ═══════════ Profile Modal ═══════════ -->
+<div class="modal-overlay" id="profileModal">
+	<div class="modal-dialog">
+		<div class="modal-header">
+			<h2>Your Profile</h2>
+			<button class="modal-close" id="profileClose" type="button" aria-label="Close profile">✕</button>
 		</div>
-		<div class="profile-page-body">
-			<div class="profile-page-note">
-				<span class="profile-note-icon" aria-hidden="true">✦</span>
-				<div>
-					<strong data-i18n="keepUpdated">Keep it up to date</strong>
-					<p data-i18n="keepUpdatedSubtitle">You can return here any time to add missing details or edit saved information.</p>
-				</div>
-			</div>
-			<form id="profileForm" class="profile-form"></form>
-			<div class="profile-form-actions">
-				<button id="profileSave" class="profile-save" type="submit" form="profileForm" data-i18n="save">Save profile</button>
-			</div>
+		<p style="color:var(--ink-muted);font-size:0.85rem;margin-bottom:20px;">Add your details to get personalized scheme eligibility results.</p>
+		<form id="profileForm" class="profile-form"></form>
+		<div class="profile-actions">
+			<button class="btn-cancel" id="profileCancelBtn" type="button">Cancel</button>
+			<button class="btn-save" id="profileSaveBtn" type="submit" form="profileForm">Save Profile</button>
 		</div>
-	</section>
+	</div>
+</div>
 
-	<section id="historyPage" class="profile-page history-page" aria-labelledby="historyTitle">
-		<div class="profile-page-header">
-			<div>
-				<p class="eyebrow" data-i18n="savedConversations">Saved conversations</p>
-				<h2 id="historyTitle" data-i18n="historyTitle">Chat history</h2>
-				<p data-i18n="historySubtitle">Review the messages saved to your account.</p>
-			</div>
-			<button id="historyClose" class="profile-back" type="button"><span aria-hidden="true">←</span> <span data-i18n="back">Back to assistant</span></button>
-		</div>
-		<div class="profile-page-body">
-			<div id="historyList" class="history-list"></div>
-		</div>
-	</section>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   SchemePilot — Full Frontend Application
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-	<script>
-		const API_BASE = `${window.location.protocol}//${window.location.hostname}:8000`;
+const API = `${location.protocol}//${location.hostname}:8000`;
 
-		const sessionKey = "schemematch_session_id";
-		let sessionId = localStorage.getItem(sessionKey);
-		if (!sessionId) {
-			sessionId = Math.random().toString(36).slice(2);
-			localStorage.setItem(sessionKey, sessionId);
+/* ──────────────── Language Config ──────────────── */
+const LANGUAGES = {
+	en: { name: 'English', code: 'en', recognition: 'en-IN', synthesis: 'en-IN' },
+	ta: { name: 'தமிழ்', code: 'ta', recognition: 'ta-IN', synthesis: 'ta-IN' },
+	ml: { name: 'മലയാളം', code: 'ml', recognition: 'ml-IN', synthesis: 'ml-IN' },
+	kn: { name: 'ಕನ್ನಡ', code: 'kn', recognition: 'kn-IN', synthesis: 'kn-IN' },
+};
+
+const GREETINGS = {
+	en: 'Hello! Tell me about yourself and I\'ll find government schemes you\'re eligible for.',
+	ta: 'வணக்கம்! உங்களைப் பற்றி சொல்லுங்கள், நீங்கள் தகுதியான அரசு திட்டங்களைக் கண்டறிய உதவுகிறேன்.',
+	ml: 'നമസ്കാരം! നിങ്ങളെക്കുറിച്ച് പറയൂ, നിങ്ങൾക്ക് അനുയോജ്യമായ സർക്കാർ പദ്ധതികൾ കണ്ടെത്താൻ സഹായിക്കാം.',
+	kn: 'ನಮಸ್ಕಾರ! ನಿಮ್ಮ ಬಗ್ಗೆ ತಿಳಿಸಿ, ನಿಮಗೆ ಸೂಕ್ತವಾದ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಲು ನಾನು ಸಹಾಯ ಮಾಡುತ್ತೇನೆ.',
+};
+
+/* ──────────────── Scheme Normalization ──────────────── */
+const CATEGORY_MAP = {
+	'solar': { label: '⚡ Energy & Solar', key: 'energy' },
+	'energy': { label: '⚡ Energy & Solar', key: 'energy' },
+	'bijli': { label: '⚡ Energy & Solar', key: 'energy' },
+	'electricity': { label: '⚡ Energy & Solar', key: 'energy' },
+	'rooftop': { label: '⚡ Energy & Solar', key: 'energy' },
+	'pension': { label: '💰 Pension & Financial Aid', key: 'pension' },
+	'financial': { label: '💰 Pension & Financial Aid', key: 'pension' },
+	'subsidy': { label: '💰 Pension & Financial Aid', key: 'pension' },
+	'stipend': { label: '💰 Pension & Financial Aid', key: 'pension' },
+	'education': { label: '🎓 Education & Youth', key: 'education' },
+	'scholarship': { label: '🎓 Education & Youth', key: 'education' },
+	'student': { label: '🎓 Education & Youth', key: 'education' },
+	'internship': { label: '🎓 Education & Youth', key: 'education' },
+	'youth': { label: '🎓 Education & Youth', key: 'education' },
+	'beti': { label: '🎓 Education & Youth', key: 'education' },
+	'agriculture': { label: '🚜 Agriculture & Workers', key: 'agriculture' },
+	'farmer': { label: '🚜 Agriculture & Workers', key: 'agriculture' },
+	'kisan': { label: '🚜 Agriculture & Workers', key: 'agriculture' },
+	'worker': { label: '🚜 Agriculture & Workers', key: 'agriculture' },
+	'labour': { label: '🚜 Agriculture & Workers', key: 'agriculture' },
+	'health': { label: '🏥 Health & Welfare', key: 'health' },
+	'medical': { label: '🏥 Health & Welfare', key: 'health' },
+	'ayushman': { label: '🏥 Health & Welfare', key: 'health' },
+	'housing': { label: '🏠 Housing', key: 'housing' },
+	'awas': { label: '🏠 Housing', key: 'housing' },
+};
+
+function inferCategory(scheme) {
+	const text = `${scheme.name || ''} ${scheme.description || ''} ${scheme.benefits || ''} ${scheme.ministry || ''}`.toLowerCase();
+	for (const [keyword, cat] of Object.entries(CATEGORY_MAP)) {
+		if (text.includes(keyword)) return cat;
+	}
+	return { label: '📋 General', key: 'general' };
+}
+
+function inferJurisdiction(scheme) {
+	if (scheme.state && scheme.state.trim() && scheme.state.toLowerCase() !== 'central' && scheme.state.toLowerCase() !== 'all india') {
+		return { label: `📍 ${scheme.state}`, type: 'state' };
+	}
+	return { label: '🏛️ Central Scheme', type: 'central' };
+}
+
+function normalizeScheme(s) {
+	const cat = inferCategory(s);
+	const jur = inferJurisdiction(s);
+	return {
+		...s,
+		category: cat.label,
+		categoryKey: cat.key,
+		jurisdiction: jur.label,
+		jurisdictionType: jur.type,
+		ministry: s.ministry || null,
+		searchText: `${s.name||''} ${s.description||''} ${s.ministry||''} ${s.state||''} ${s.benefits||''} ${cat.label} ${jur.label}`.toLowerCase(),
+	};
+}
+
+/* ──────────────── State ──────────────── */
+let currentLang = localStorage.getItem('sp_lang') || 'en';
+let allSchemes = [];
+let bookmarkedIds = new Set(JSON.parse(localStorage.getItem('sp_bookmarks') || '[]'));
+let sessions = JSON.parse(localStorage.getItem('sp_sessions') || '[]');
+let currentSessionId = localStorage.getItem('sp_session') || generateId();
+let sessionMessages = {}; // sessionId -> [{role, content}]
+let recognition = null;
+let currentUtterance = null;
+let speakingMsgEl = null;
+let currentProfile = {};
+
+/* ──────────────── DOM ──────────────── */
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+
+const langSelect = $('#langSelect');
+const themeBtn = $('#themeBtn');
+const profileBtn = $('#profileBtn');
+const messagesArea = $('#messagesArea');
+const msgInput = $('#msgInput');
+const sendBtn = $('#sendBtn');
+const micBtn = $('#micBtn');
+const checkEligBtn = $('#checkEligBtn');
+const scrollBottomBtn = $('#scrollBottomBtn');
+const dirGrid = $('#dirGrid');
+const dirSearch = $('#dirSearch');
+const dirSort = $('#dirSort');
+const filterChips = $('#filterChips');
+const bookmarkGrid = $('#bookmarkGrid');
+const dirCount = $('#dirCount');
+const bookmarkCount = $('#bookmarkCount');
+const sessionList = $('#sessionList');
+const chatTitle = $('#chatTitle');
+const newChatBtn = $('#newChatBtn');
+const sidebarToggle = $('#sidebarToggle');
+const chatSidebar = $('#chatSidebar');
+const sidebarOverlay = $('#sidebarOverlay');
+const profileModal = $('#profileModal');
+const profileForm = $('#profileForm');
+const profileClose = $('#profileClose');
+const profileCancelBtn = $('#profileCancelBtn');
+const profileSaveBtn = $('#profileSaveBtn');
+const dirGridWrapper = $('#dirGridWrapper');
+
+let activeFilter = 'all';
+let searchQuery = '';
+let sortMode = 'default';
+
+/* ──────────────── Utilities ──────────────── */
+function generateId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+function escapeHTML(str) {
+	return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function formatBubbleHTML(text) {
+	let escaped = escapeHTML(text);
+	escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+	const lines = escaped.split('\n');
+	let inList = false, html = '';
+	lines.forEach(line => {
+		const t = line.trim();
+		if (/^[*\-•]\s/.test(t)) {
+			if (!inList) { html += '<ul>'; inList = true; }
+			html += `<li>${t.substring(2)}</li>`;
+		} else {
+			if (inList) { html += '</ul>'; inList = false; }
+			if (t) html += `<p>${t}</p>`;
 		}
+	});
+	if (inList) html += '</ul>';
+	return html;
+}
 
-		const messagesEl = document.getElementById("messages");
-		const messageInput = document.getElementById("messageInput");
-		const sendButton = document.getElementById("sendButton");
-		const checkButton = document.getElementById("checkButton");
-		const results = document.getElementById("results");
-		const resultCards = document.getElementById("resultCards");
-		const profileFields = document.getElementById("profileFields");
-		const themeToggle = document.getElementById("themeToggle");
-		const resultsLoader = document.getElementById("resultsLoader");
-		const resultsEmpty = document.getElementById("resultsEmpty");
-		const languageSelect = document.getElementById("languageSelect");
-		const voiceButton = document.getElementById("voiceButton");
-		const profileButton = document.getElementById("profileButton");
-		const newChatButton = document.getElementById("newChatButton");
-		const historyButton = document.getElementById("historyButton");
-		const readAloudToggleBtn = document.getElementById("readAloudToggleBtn");
-		let autoReadAloud = false;
-		const snapshotProfileButton = document.getElementById("snapshotProfileButton");
-		const profilePage = document.getElementById("profilePage");
-		const historyPage = document.getElementById("historyPage");
-		const profileForm = document.getElementById("profileForm");
-		const profileClose = document.getElementById("profileClose");
-		const historyClose = document.getElementById("historyClose");
-		const historyList = document.getElementById("historyList");
-		let recognition = null;
-		let currentProfile = {};
-		const bookmarkedSchemeIds = new Set();
-		const savedLanguage = localStorage.getItem("schemematch_language");
-		const deleteLabels = { en: "Delete", ta: "நீக்கு", ml: "നീക്കം ചെയ്യുക", kn: "ಅಳಿಸಿ" };
-		const uiText = {
-				en: {
-				edit: "Profile", back: "Back to assistant", assistant: "Eligibility Assistant", send: "Send", check: "Check Eligibility", placeholder: "Type your message...", save: "Save changes", heroTitle: "Find the right government schemes faster", heroSubtitle: "Chat to build your profile, then verify eligibility in one click.", live: "Live", resultsTitle: "Eligibility results", resultsSubtitle: "Based on the criteria from each scheme.", checking: "Checking eligibility...", noResults: "No schemes matched yet. Try adding more profile details.", enter: "Enter", snapshot: "Profile snapshot", private: "Private", snapshotSubtitle: "Your essentials at a glance.", openProfile: "Open profile", yourInformation: "Your information", yourProfile: "Your profile", profileSubtitle: "Add your details here, or change them whenever your information is updated.", keepUpdated: "Keep it up to date", keepUpdatedSubtitle: "You can return here any time to add missing details or edit saved information.", listen: "Listen", thinking: "Thinking", greeting: "Hello! Tell me about yourself and I will find schemes you are eligible for.", details: "Details", hideDetails: "Hide Details", missingDetails: "Missing Details", status: "Status", schemeId: "Scheme ID", apply: "Apply / official details", source: "Source", video: "Watch an explainer video", noDetails: "No additional details were provided.", profileEmpty: "Add your details to personalize your matches.", select: "Select", required: "Required", fields: { name: "Name", age: "Age", gender: "Gender", state: "State", district: "District", caste_category: "Caste category", annual_income: "Annual income (INR)", land_ownership: "Land ownership", occupation: "Occupation", education_level: "Education level", family_size: "Family size", bpl_status: "BPL status", disability: "Disability", has_bank_account: "Has bank account", aadhaar_linked: "Aadhaar linked" }
-			},
-				ta: {
-				edit: "சுயவிவரம்", back: "உதவியாளரிடம் திரும்பு", assistant: "தகுதி உதவியாளர்", send: "அனுப்பு", check: "தகுதியைச் சரிபார்", placeholder: "உங்கள் செய்தியைத் தட்டச்சு செய்யவும்...", save: "மாற்றங்களைச் சேமி", heroTitle: "சரியான அரசு திட்டங்களை விரைவாகக் கண்டறியுங்கள்", heroSubtitle: "உங்கள் சுயவிவரத்தை உருவாக்கி, ஒரே கிளிக்கில் தகுதியைச் சரிபார்க்கவும்.", live: "நேரலை", resultsTitle: "தகுதி முடிவுகள்", resultsSubtitle: "ஒவ்வொரு திட்டத்தின் அளவுகோல்களின் அடிப்படையில்.", checking: "தகுதியைச் சரிபார்க்கிறது...", noResults: "இன்னும் எந்தத் திட்டமும் பொருந்தவில்லை.", enter: "Enter", snapshot: "சுயவிவர சுருக்கம்", private: "தனிப்பட்டது", snapshotSubtitle: "உங்கள் முக்கிய விவரங்கள்.", openProfile: "சுயவிவரத்தைத் திற", yourInformation: "உங்கள் தகவல்", yourProfile: "உங்கள் சுயவிவரம்", profileSubtitle: "உங்கள் விவரங்களைச் சேர்க்கவும் அல்லது மாற்றவும்.", keepUpdated: "புதுப்பித்து வைத்திருங்கள்", keepUpdatedSubtitle: "சேமித்த தகவல்களை எப்போது வேண்டுமானாலும் மாற்றலாம்.", listen: "கேளுங்கள்", thinking: "சிந்திக்கிறது", greeting: "வணக்கம்! உங்களைப் பற்றி சொல்லுங்கள்; நீங்கள் தகுதியான அரசு திட்டங்களைக் கண்டறிய உதவுகிறேன்.", details: "விவரங்கள்", hideDetails: "விவரங்களை மறை", missingDetails: "காணாமல் போன விவரங்கள்", status: "நிலை", schemeId: "திட்ட ID", apply: "விண்ணப்பம் / அதிகாரப்பூர்வ விவரங்கள்", source: "மூலம்", video: "விளக்க வீடியோவைப் பார்க்கவும்", noDetails: "கூடுதல் விவரங்கள் இல்லை.", profileEmpty: "உங்கள் பொருத்தங்களை மேம்படுத்த விவரங்களைச் சேர்க்கவும்.", select: "தேர்ந்தெடுக்கவும்", required: "தேவை", fields: { name: "பெயர்", age: "வயது", gender: "பாலினம்", state: "மாநிலம்", district: "மாவட்டம்", caste_category: "சாதி வகை", annual_income: "ஆண்டு வருமானம் (INR)", land_ownership: "நில உரிமை", occupation: "தொழில்", education_level: "கல்வி நிலை", family_size: "குடும்ப அளவு", bpl_status: "BPL நிலை", disability: "மாற்றுத்திறன்", has_bank_account: "வங்கி கணக்கு", aadhaar_linked: "ஆதார் இணைப்பு" }
-			},
-				ml: {
-				edit: "പ്രൊഫൈൽ", back: "സഹായിയിലേക്ക് മടങ്ങുക", assistant: "യോഗ്യതാ സഹായി", send: "അയയ്ക്കുക", check: "യോഗ്യത പരിശോധിക്കുക", placeholder: "നിങ്ങളുടെ സന്ദേശം ടൈപ്പ് ചെയ്യുക...", save: "മാറ്റങ്ങൾ സംരക്ഷിക്കുക", heroTitle: "ശരിയായ സർക്കാർ പദ്ധതികൾ വേഗത്തിൽ കണ്ടെത്തൂ", heroSubtitle: "നിങ്ങളുടെ പ്രൊഫൈൽ പൂരിപ്പിച്ച് ഒറ്റ ക്ലിക്കിൽ യോഗ്യത പരിശോധിക്കൂ.", live: "ലൈവ്", resultsTitle: "യോഗ്യതാ ഫലങ്ങൾ", resultsSubtitle: "ഓരോ പദ്ധതിയുടെയും മാനദണ്ഡങ്ങൾ അടിസ്ഥാനമാക്കി.", checking: "യോഗ്യത പരിശോധിക്കുന്നു...", noResults: "ഇതുവരെ പദ്ധതികളൊന്നും പൊരുത്തപ്പെട്ടിട്ടില്ല.", enter: "Enter", snapshot: "പ്രൊഫൈൽ സംഗ്രഹം", private: "സ്വകാര്യം", snapshotSubtitle: "നിങ്ങളുടെ പ്രധാന വിവരങ്ങൾ.", openProfile: "പ്രൊഫൈൽ തുറക്കുക", yourInformation: "നിങ്ങളുടെ വിവരങ്ങൾ", yourProfile: "നിങ്ങളുടെ പ്രൊഫൈൽ", profileSubtitle: "വിവരങ്ങൾ ചേർക്കുകയോ മാറ്റുകയോ ചെയ്യാം.", keepUpdated: "പുതുക്കി വയ്ക്കുക", keepUpdatedSubtitle: "സേവ് ചെയ്ത വിവരങ്ങൾ എപ്പോൾ വേണമെങ്കിലും മാറ്റാം.", listen: "കേൾക്കുക", thinking: "ചിന്തിക്കുന്നു", greeting: "നമസ്കാരം! നിങ്ങളെക്കുറിച്ച് പറയൂ; നിങ്ങൾക്ക് അനുയോജ്യമായ സർക്കാർ പദ്ധതികൾ കണ്ടെത്താൻ ഞാൻ സഹായിക്കാം.", details: "വിശദാംശങ്ങൾ", hideDetails: "വിശദാംശങ്ങൾ മറയ്ക്കുക", missingDetails: "കാണാതായ വിവരങ്ങൾ", status: "നില", schemeId: "പദ്ധതി ID", apply: "അപേക്ഷ / ഔദ്യോഗിക വിവരങ്ങൾ", source: "ഉറവിടം", video: "വിശദീകരണ വീഡിയോ കാണുക", noDetails: "കൂടുതൽ വിവരങ്ങളില്ല.", profileEmpty: "നിങ്ങളുടെ പൊരുത്തങ്ങൾ മെച്ചപ്പെടുത്താൻ വിവരങ്ങൾ ചേർക്കുക.", select: "തിരഞ്ഞെടുക്കുക", required: "ആവശ്യമാണ്", fields: { name: "പേര്", age: "വയസ്സ്", gender: "ലിംഗം", state: "സംസ്ഥാനം", district: "ജില്ല", caste_category: "ജാതി വിഭാഗം", annual_income: "വാർഷിക വരുമാനം (INR)", land_ownership: "ഭൂ ഉടമസ്ഥത", occupation: "തൊഴിൽ", education_level: "വിദ്യാഭ്യാസം", family_size: "കുടുംബ വലുപ്പം", bpl_status: "BPL നില", disability: "വൈകല്യം", has_bank_account: "ബാങ്ക് അക്കൗണ്ട്", aadhaar_linked: "ആധാർ ലിങ്ക്" }
-			},
-			kn: {
-				edit: "ಪ್ರೊಫೈಲ್", back: "ಸಹಾಯಕನಿಗೆ ಹಿಂತಿರುಗಿ", assistant: "ಅರ್ಹತಾ ಸಹಾಯಕ", send: "ಕಳುಹಿಸಿ", check: "ಅರ್ಹತೆ ಪರಿಶೀಲಿಸಿ", placeholder: "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ಟೈಪ್ ಮಾಡಿ...", save: "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ", heroTitle: "ಸರಿಯಾದ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳನ್ನು ವೇಗವಾಗಿ ಹುಡುಕಿ", heroSubtitle: "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ರಚಿಸಿ, ಒಂದೇ ಕ್ಲಿಕ್‌ನಲ್ಲಿ ಅರ್ಹತೆ ಪರಿಶೀಲಿಸಿ.", live: "ಲೈವ್", resultsTitle: "ಅರ್ಹತಾ ಫಲಿತಾಂಶಗಳು", resultsSubtitle: "ಪ್ರತಿ ಯೋಜನೆಯ ಮಾನದಂಡಗಳ ಆಧಾರದ ಮೇಲೆ.", checking: "ಅರ್ಹತೆ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...", noResults: "ಇನ್ನೂ ಯಾವುದೇ ಯೋಜನೆ ಹೊಂದಿಕೆಯಾಗಿಲ್ಲ.", enter: "Enter", snapshot: "ಪ್ರೊಫೈಲ್ ಸಾರಾಂಶ", private: "ಖಾಸಗಿ", snapshotSubtitle: "ನಿಮ್ಮ ಮುಖ್ಯ ವಿವರಗಳು.", openProfile: "ಪ್ರೊಫೈಲ್ ತೆರೆಯಿರಿ", yourInformation: "ನಿಮ್ಮ ಮಾಹಿತಿ", yourProfile: "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್", profileSubtitle: "ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಸೇರಿಸಿ ಅಥವಾ ಬದಲಾಯಿಸಿ.", keepUpdated: "ನವೀಕರಿಸಿ ಇಡಿ", keepUpdatedSubtitle: "ಉಳಿಸಿದ ಮಾಹಿತಿಯನ್ನು ಯಾವಾಗ ಬೇಕಾದರೂ ಬದಲಾಯಿಸಬಹುದು.", listen: "ಕೇಳಿ", thinking: "ಯೋಚಿಸಲಾಗುತ್ತಿದೆ", greeting: "ನಮಸ್ಕಾರ! ನಿಮ್ಮ ಬಗ್ಗೆ ತಿಳಿಸಿ; ನಿಮಗೆ ಸೂಕ್ತವಾದ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಲು ನಾನು ಸಹಾಯ ಮಾಡುತ್ತೇನೆ.", details: "ವಿವರಗಳು", hideDetails: "ವಿವರಗಳನ್ನು ಮರೆಮಾಡಿ", missingDetails: "ಕಾಣೆಯಾದ ವಿವರಗಳು", status: "ಸ್ಥಿತಿ", schemeId: "ಯೋಜನೆ ID", apply: "ಅರ್ಜಿ / ಅಧಿಕೃತ ವಿವರಗಳು", source: "ಮೂಲ", video: "ವಿವರಣಾ ವೀಡಿಯೊ ವೀಕ್ಷಿಸಿ", noDetails: "ಹೆಚ್ಚುವರಿ ವಿವರಗಳಿಲ್ಲ.", profileEmpty: "ನಿಮ್ಮ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ಸುಧಾರಿಸಲು ವಿವರಗಳನ್ನು ಸೇರಿಸಿ.", select: "ಆಯ್ಕೆಮಾಡಿ", required: "ಅಗತ್ಯ", fields: { name: "ಹೆಸರು", age: "ವಯಸ್ಸು", gender: "ಲಿಂಗ", state: "ರಾಜ್ಯ", district: "ಜಿಲ್ಲೆ", caste_category: "ಜಾತಿ ವರ್ಗ", annual_income: "ವಾರ್ಷಿಕ ಆದಾಯ (INR)", land_ownership: "ಭೂ ಮಾಲೀಕತ್ವ", occupation: "ಉದ್ಯೋಗ", education_level: "ಶಿಕ್ಷಣ ಮಟ್ಟ", family_size: "ಕುಟುಂಬದ ಗಾತ್ರ", bpl_status: "BPL ಸ್ಥಿತಿ", disability: "ಅಂಗವೈಕಲ್ಯ", has_bank_account: "ಬ್ಯಾಂಕ್ ಖಾತೆ", aadhaar_linked: "ಆಧಾರ್ ಲಿಂಕ್" }
-			}
-		};
+function stripMarkdown(text) {
+	return (text || '').replace(/\*\*/g, '').replace(/[#*_~`]/g, '').replace(/https?:\/\/\S+/gi, '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+}
 
-		Object.assign(uiText.en, { newChat: "New chat", bookmark: "Bookmark", bookmarked: "Bookmarked", history: "Chat history", savedConversations: "Saved conversations", historyTitle: "Chat history", historySubtitle: "Review the messages saved to your account.", user: "You", assistantRole: "Assistant", noHistory: "No chat history yet.", readAloudOn: "🔊 Auto Read: ON", readAloudOff: "🔊 Auto Read: OFF" });
-		Object.assign(uiText.ta, { newChat: "புதிய அரட்டை", bookmark: "சேமி", bookmarked: "சேமிக்கப்பட்டது", history: "அரட்டை வரலாறு", savedConversations: "சேமித்த உரையாடல்கள்", historyTitle: "அரட்டை வரலாறு", historySubtitle: "உங்கள் கணக்கில் சேமிக்கப்பட்ட செய்திகளைப் பார்க்கவும்.", user: "நீங்கள்", assistantRole: "உதவியாளர்", noHistory: "அரட்டை வரலாறு இல்லை.", readAloudOn: "🔊 தானாக வாசி: ON", readAloudOff: "🔊 தானாக வாசி: OFF" });
-		Object.assign(uiText.ml, { newChat: "പുതിയ ചാറ്റ്", bookmark: "സേവ് ചെയ്യുക", bookmarked: "സേവ് ചെയ്തു", history: "ചാറ്റ് ചരിത്രം", savedConversations: "സേവ് ചെയ്ത സംഭാഷണങ്ങൾ", historyTitle: "ചാറ്റ് ചരിത്രം", historySubtitle: "നിങ്ങളുടെ അക്കൗണ്ടിൽ സേവ് ചെയ്ത സന്ദേശങ്ങൾ കാണുക.", user: "നിങ്ങൾ", assistantRole: "സഹായി", noHistory: "ചാറ്റ് ചരിത്രമില്ല.", readAloudOn: "🔊 സ്വയം വായിക്കുക: ON", readAloudOff: "🔊 സ്വയം വായിക്കുക: OFF" });
-		Object.assign(uiText.kn, { newChat: "ಹೊಸ ಚಾಟ್", bookmark: "ಉಳಿಸಿ", bookmarked: "ಉಳಿಸಲಾಗಿದೆ", history: "ಚಾಟ್ ಇತಿಹಾಸ", savedConversations: "ಉಳಿಸಿದ ಸಂಭಾಷಣೆಗಳು", historyTitle: "ಚಾಟ್ ಇತಿಹಾಸ", historySubtitle: "ನಿಮ್ಮ ಖಾತೆಯಲ್ಲಿ ಉಳಿಸಿದ ಸಂದೇಶಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.", user: "ನೀವು", assistantRole: "ಸಹಾಯಕ", noHistory: "ಚಾಟ್ ಇತಿಹಾಸವಿಲ್ಲ.", readAloudOn: "🔊 ಸ್ವಯಂ ಓದಿ: ON", readAloudOff: "🔊 ಸ್ವಯಂ ಓದಿ: OFF" });
-		uiText.en.fields.mobile_number = "Mobile number";
-		uiText.ta.fields.mobile_number = "மொபைல் எண்";
-		uiText.ml.fields.mobile_number = "മൊബൈൽ നമ്പർ";
-		uiText.kn.fields.mobile_number = "ಮೊಬೈಲ್ ಸಂಖ್ಯೆ";
+function timeAgo(iso) {
+	if (!iso) return '';
+	const d = new Date(iso);
+	const diff = Date.now() - d.getTime();
+	const mins = Math.floor(diff / 60000);
+	if (mins < 1) return 'Just now';
+	if (mins < 60) return `${mins}m ago`;
+	const hrs = Math.floor(mins / 60);
+	if (hrs < 24) return `${hrs}h ago`;
+	const days = Math.floor(hrs / 24);
+	if (days < 7) return `${days}d ago`;
+	return d.toLocaleDateString();
+}
 
-		function applyLanguage() {
-			const text = uiText[languageSelect.value] || uiText.en;
-			document.querySelectorAll("[data-i18n]").forEach((element) => {
-				const value = text[element.dataset.i18n];
-				if (value) element.textContent = value;
-			});
-			messageInput.placeholder = text.placeholder;
-			voiceButton.title = text.voice || "Speak to assistant";
-			voiceButton.setAttribute("aria-label", text.voice || "Speak to assistant");
-			document.querySelectorAll(".delete-message-button").forEach((button) => {
-				const label = deleteLabels[languageSelect.value] || deleteLabels.en;
-				button.setAttribute("aria-label", label);
-				button.textContent = `🗑️ ${label}`;
-			});
-			if (readAloudToggleBtn) {
-				readAloudToggleBtn.textContent = autoReadAloud ? (text.readAloudOn || uiText.en.readAloudOn) : (text.readAloudOff || uiText.en.readAloudOff);
-			}
-			document.documentElement.lang = languageSelect.value;
-			document.title = text.edit + " - SchemeMatch";
-			if (profilePage.classList.contains("open")) openProfileEditor(currentProfile);
-			if (historyPage.classList.contains("open")) openHistoryPage();
+/* ──────────────── Theme ──────────────── */
+function setTheme(dark) {
+	document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+	localStorage.setItem('sp_theme', dark ? 'dark' : 'light');
+	themeBtn.textContent = dark ? '☀️' : '🌙';
+}
+const savedTheme = localStorage.getItem('sp_theme');
+setTheme(savedTheme === 'dark' || (!savedTheme && matchMedia('(prefers-color-scheme: dark)').matches));
+themeBtn.addEventListener('click', () => {
+	setTheme(document.documentElement.dataset.theme !== 'dark');
+});
+
+/* ──────────────── Language ──────────────── */
+langSelect.value = currentLang;
+langSelect.addEventListener('change', () => {
+	currentLang = langSelect.value;
+	localStorage.setItem('sp_lang', currentLang);
+	document.documentElement.lang = currentLang;
+});
+
+/* ──────────────── Tab Navigation ──────────────── */
+$$('.tab-btn').forEach(btn => {
+	btn.addEventListener('click', () => {
+		$$('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+		$$('.tab-panel').forEach(p => p.classList.remove('active'));
+		btn.classList.add('active');
+		btn.setAttribute('aria-selected','true');
+		const panel = $(`#panel${btn.dataset.tab.charAt(0).toUpperCase()+btn.dataset.tab.slice(1)}`);
+		if (panel) panel.classList.add('active');
+		if (btn.dataset.tab === 'bookmarks') renderBookmarks();
+	});
+});
+
+function switchToTab(tab) {
+	$$('.tab-btn').forEach(b => {
+		const active = b.dataset.tab === tab;
+		b.classList.toggle('active', active);
+		b.setAttribute('aria-selected', active);
+	});
+	$$('.tab-panel').forEach(p => p.classList.remove('active'));
+	const panel = $(`#panel${tab.charAt(0).toUpperCase()+tab.slice(1)}`);
+	if (panel) panel.classList.add('active');
+}
+
+/* ──────────────── Sessions ──────────────── */
+function ensureSession(id) {
+	if (!sessions.find(s => s.id === id)) {
+		sessions.unshift({ id, title: 'New Chat', created: new Date().toISOString(), updated: new Date().toISOString() });
+	}
+	if (!sessionMessages[id]) sessionMessages[id] = [];
+	saveSessions();
+}
+
+function saveSessions() {
+	localStorage.setItem('sp_sessions', JSON.stringify(sessions));
+	localStorage.setItem('sp_session', currentSessionId);
+	for (const [id, msgs] of Object.entries(sessionMessages)) {
+		localStorage.setItem(`sp_msgs_${id}`, JSON.stringify(msgs));
+	}
+}
+
+function loadSessionMessages(id) {
+	if (!sessionMessages[id]) {
+		const stored = localStorage.getItem(`sp_msgs_${id}`);
+		sessionMessages[id] = stored ? JSON.parse(stored) : [];
+	}
+	return sessionMessages[id];
+}
+
+function autoTitleSession(id, text) {
+	const s = sessions.find(s => s.id === id);
+	if (s && s.title === 'New Chat') {
+		const words = text.split(/\s+/).slice(0, 7);
+		s.title = words.join(' ');
+		if (s.title.length > 50) s.title = s.title.slice(0, 47) + '...';
+		saveSessions();
+		renderSessionList();
+		// Also update backend
+		fetch(`${API}/chat-sessions/${id}/title`, {
+			method: 'PUT', headers: {'Content-Type':'application/json'},
+			body: JSON.stringify({ title: s.title })
+		}).catch(() => {});
+	}
+}
+
+function renderSessionList() {
+	sessionList.innerHTML = '';
+	if (!sessions.length) {
+		sessionList.innerHTML = '<p style="padding:16px;color:var(--ink-muted);font-size:0.85rem;text-align:center;">No conversations yet.</p>';
+		return;
+	}
+	sessions.forEach(s => {
+		const btn = document.createElement('button');
+		btn.type = 'button';
+		btn.className = `session-item${s.id === currentSessionId ? ' active' : ''}`;
+		btn.innerHTML = `${escapeHTML(s.title)}<span class="session-item-time">${timeAgo(s.updated)}</span>`;
+		btn.addEventListener('click', () => selectSession(s.id));
+		sessionList.appendChild(btn);
+	});
+}
+
+function selectSession(id) {
+	currentSessionId = id;
+	ensureSession(id);
+	localStorage.setItem('sp_session', id);
+	renderSessionList();
+	renderChatMessages();
+	closeSidebar();
+	const s = sessions.find(s => s.id === id);
+	chatTitle.textContent = s ? s.title : 'Eligibility Assistant';
+}
+
+function startNewChat() {
+	const id = generateId();
+	currentSessionId = id;
+	ensureSession(id);
+	renderSessionList();
+	renderChatMessages();
+	closeSidebar();
+	chatTitle.textContent = 'New Chat';
+	checkEligBtn.style.display = 'none';
+}
+
+newChatBtn.addEventListener('click', startNewChat);
+
+/* ──────────────── Chat Messages ──────────────── */
+function renderChatMessages() {
+	messagesArea.innerHTML = '';
+	const msgs = loadSessionMessages(currentSessionId);
+	if (!msgs.length) {
+		addBubble(GREETINGS[currentLang] || GREETINGS.en, 'bot', false);
+		return;
+	}
+	msgs.forEach(m => addBubble(m.content, m.role === 'user' ? 'user' : 'bot', false));
+	scrollToBottom(true);
+}
+
+function addBubble(text, role, save = true) {
+	const msg = document.createElement('div');
+	msg.className = `msg ${role}`;
+	const bubble = document.createElement('div');
+	bubble.className = 'msg-bubble';
+	bubble.innerHTML = formatBubbleHTML(text);
+	msg.appendChild(bubble);
+
+	if (role === 'bot') {
+		const actions = document.createElement('div');
+		actions.className = 'msg-actions';
+		const ttsBtn = document.createElement('button');
+		ttsBtn.type = 'button';
+		ttsBtn.className = 'msg-action-btn';
+		ttsBtn.setAttribute('aria-label', 'Read response aloud');
+		ttsBtn.innerHTML = '🔊 Listen';
+		ttsBtn.addEventListener('click', () => toggleTTS(text, ttsBtn, msg));
+		actions.appendChild(ttsBtn);
+		msg.appendChild(actions);
+	}
+
+	messagesArea.appendChild(msg);
+
+	if (save) {
+		const msgs = loadSessionMessages(currentSessionId);
+		msgs.push({ role: role === 'user' ? 'user' : 'assistant', content: text });
+		saveSessions();
+		if (role === 'user') autoTitleSession(currentSessionId, text);
+		// Update session timestamp
+		const s = sessions.find(s => s.id === currentSessionId);
+		if (s) { s.updated = new Date().toISOString(); saveSessions(); renderSessionList(); }
+	}
+
+	// Auto-scroll if near bottom
+	const area = messagesArea;
+	const isNearBottom = area.scrollHeight - area.scrollTop - area.clientHeight < 150;
+	if (isNearBottom || role === 'user') {
+		requestAnimationFrame(() => scrollToBottom());
+	} else {
+		scrollBottomBtn.classList.add('visible');
+	}
+
+	return msg;
+}
+
+function addLoadingBubble() {
+	const msg = document.createElement('div');
+	msg.className = 'msg bot';
+	msg.innerHTML = `<div class="msg-loading">Thinking <span class="typing-dots"><span></span><span></span><span></span></span></div>`;
+	messagesArea.appendChild(msg);
+	scrollToBottom();
+	return msg;
+}
+
+/* ──────────────── Scroll ──────────────── */
+function scrollToBottom(instant) {
+	messagesArea.scrollTo({ top: messagesArea.scrollHeight, behavior: instant ? 'auto' : 'smooth' });
+}
+
+messagesArea.addEventListener('scroll', () => {
+	const { scrollHeight, scrollTop, clientHeight } = messagesArea;
+	scrollBottomBtn.classList.toggle('visible', scrollHeight - scrollTop - clientHeight > 200);
+});
+scrollBottomBtn.addEventListener('click', () => {
+	scrollToBottom();
+	scrollBottomBtn.classList.remove('visible');
+});
+
+/* ──────────────── "List Schemes" Bypass ──────────────── */
+const LIST_PATTERNS = [
+	/^(list|show|display)\s*(the\s*)?(all\s*)?(available\s*)?schemes?\s*$/i,
+	/^(list|show)\s*(me\s*)?(the\s*)?schemes?\s*$/i,
+	/^what\s*(are\s*)?(the\s*)?(available\s*)?schemes?\s*$/i,
+];
+
+function isListSchemesIntent(text) {
+	return LIST_PATTERNS.some(p => p.test(text.trim()));
+}
+
+function handleListSchemes() {
+	if (!allSchemes.length) {
+		addBubble('Loading the schemes directory for you...', 'bot');
+		switchToTab('directory');
+		return;
+	}
+	let md = '**Here are the available government schemes:**\n\n';
+	allSchemes.forEach((s, i) => {
+		md += `**${i+1}. ${s.name || 'Unnamed Scheme'}**\n`;
+		if (s.description) {
+			const desc = s.description.length > 100 ? s.description.slice(0, 100) + '...' : s.description;
+			md += `${desc}\n`;
 		}
-
-		if (savedLanguage && uiText[savedLanguage]) {
-			languageSelect.value = savedLanguage;
-		}
-
-		const setTheme = (theme) => {
-			document.documentElement.dataset.theme = theme;
-			localStorage.setItem("schemematch_theme", theme);
-			if (themeToggle) {
-				themeToggle.checked = theme === "dark";
-			}
-		};
-
-		const getPreferredTheme = () => {
-			const stored = localStorage.getItem("schemematch_theme");
-			if (stored) {
-				return stored;
-			}
-			return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-		};
-
-		const setButtonLoading = (button, isLoading, label) => {
-			if (!button) {
-				return;
-			}
-			if (isLoading) {
-				if (!button.dataset.label) {
-					button.dataset.label = button.textContent;
-				}
-				button.textContent = label || "Loading...";
-				button.classList.add("is-loading");
-				button.disabled = true;
-				return;
-			}
-			button.textContent = button.dataset.label || button.textContent;
-			button.classList.remove("is-loading");
-			button.disabled = false;
-		};
-
-		const addLoadingBubble = () => {
-			const bubble = document.createElement("div");
-			bubble.className = "bubble bot loading";
-
-			const text = document.createElement("span");
-			text.textContent = (uiText[languageSelect.value] || uiText.en).thinking;
-			bubble.appendChild(text);
-
-			const dots = document.createElement("span");
-			dots.className = "dots";
-			for (let i = 0; i < 3; i += 1) {
-				const dot = document.createElement("span");
-				dots.appendChild(dot);
-			}
-			bubble.appendChild(dots);
-
-			messagesEl.appendChild(bubble);
-			messagesEl.scrollTop = messagesEl.scrollHeight;
-			return bubble;
-		};
-
-		const showResultsLoading = (isLoading) => {
-			results.style.display = "block";
-			if (resultsLoader) {
-				resultsLoader.style.display = isLoading ? "flex" : "none";
-			}
-			if (resultsEmpty && isLoading) {
-				resultsEmpty.style.display = "none";
-			}
-		};
-
-		function formatBubbleText(text) {
-			// Escape HTML to prevent XSS
-			let escaped = text
-				.replace(/&/g, "&amp;")
-				.replace(/</g, "&lt;")
-				.replace(/>/g, "&gt;");
-			
-			// Replace double asterisks with bold tags
-			escaped = escaped.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-			
-			// Split by newlines to build paragraphs and list items
-			const lines = escaped.split("\n");
-			let inList = false;
-			let html = "";
-			
-			lines.forEach(line => {
-				const trimmed = line.trim();
-				// Check for bullet list (e.g. starting with * or - or •)
-				if (trimmed.startsWith("* ") || trimmed.startsWith("- ") || trimmed.startsWith("• ")) {
-					if (!inList) {
-						html += "<ul>";
-						inList = true;
-					}
-					const content = trimmed.substring(2);
-					html += `<li>${content}</li>`;
-				} else {
-					if (inList) {
-						html += "</ul>";
-						inList = false;
-					}
-					if (trimmed) {
-						html += `<p>${trimmed}</p>`;
-					} else {
-						// empty line acts as paragraph divider
-						html += "<div style='height: 8px;'></div>";
-					}
-				}
-			});
-			
-			if (inList) {
-				html += "</ul>";
-			}
-			return html;
-		}
-
-		function addBubble(text, role) {
-			const bubble = document.createElement("div");
-			bubble.className = `bubble ${role}`;
-			const content = document.createElement("div");
-			content.className = "bubble-content";
-			content.innerHTML = formatBubbleText(text);
-			bubble.appendChild(content);
-
-			if (role === "bot") {
-				const readbackButton = document.createElement("button");
-				readbackButton.type = "button";
-				readbackButton.className = "readback-button";
-				readbackButton.setAttribute("aria-label", (uiText[languageSelect.value] || uiText.en).listen);
-				readbackButton.innerHTML = `🔊 <span>${(uiText[languageSelect.value] || uiText.en).listen}</span>`;
-				readbackButton.addEventListener("click", () => speak(text));
-				bubble.appendChild(readbackButton);
-			}
-			if (role === "user") {
-				const deleteButton = document.createElement("button");
-				deleteButton.type = "button";
-				deleteButton.className = "delete-message-button";
-				deleteButton.setAttribute("aria-label", deleteLabels[languageSelect.value] || deleteLabels.en);
-				deleteButton.textContent = `🗑️ ${deleteLabels[languageSelect.value] || deleteLabels.en}`;
-				deleteButton.addEventListener("click", () => bubble.remove());
-				bubble.appendChild(deleteButton);
-			}
-			messagesEl.appendChild(bubble);
-			messagesEl.scrollTop = messagesEl.scrollHeight;
-		}
-
-		async function refreshProfile() {
-			try {
-				const res = await fetch(`${API_BASE}/profile/${sessionId}`);
-				if (!res.ok) {
-					return;
-				}
-				const data = await res.json();
-				renderProfile(data);
-			} catch (err) {
-				console.error(err);
-			}
-		}
-
-		const profileIcons = {
-			age: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
-			gender: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="m16.2 7.8-8.4 8.4m0-8.4h8.4v8.4"></path></svg>`,
-			income: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>`,
-			annual_income: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>`,
-			state: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`,
-			caste: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
-			occupation: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`,
-			disability: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="4.9" y1="4.9" x2="19.1" y2="19.1"></line></svg>`,
-			student: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>`,
-			qualification: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>`,
-			default: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`
-		};
-
-		function cleanProfileLabel(key) {
-			return key
-				.replace(/_/g, " ")
-				.split(" ")
-				.map(word => word.charAt(0).toUpperCase() + word.slice(1))
-				.join(" ");
-		}
-
-		function translateOption(key, value) {
-			const language = languageSelect.value;
-			const optionText = {
-				ta: {
-					Female: "பெண்", Male: "ஆண்", Transgender: "திருநங்கை", "Prefer not to say": "சொல்ல விரும்பவில்லை", General: "பொது", OBC: "OBC", SC: "SC", ST: "ST", EWS: "EWS", Other: "மற்றவை", None: "எதுவுமில்லை", Owned: "சொந்தம்", Leased: "குத்தகை", "Shared ownership": "பகிரப்பட்ட உரிமை", Student: "மாணவர்", Farmer: "விவசாயி", "Agricultural worker": "விவசாயத் தொழிலாளர்", "Self-employed": "சுயதொழில்", "Private sector employee": "தனியார் ஊழியர்", "Government employee": "அரசு ஊழியர்", "Daily wage worker": "தினக்கூலி தொழிலாளர்", Homemaker: "குடும்பத் தலைவர்", Unemployed: "வேலையில்லாதவர்", Retired: "ஓய்வு பெற்றவர்", "No formal education": "முறையான கல்வி இல்லை", "Primary school": "தொடக்கப் பள்ளி", "Secondary school": "மேல்நிலைப் பள்ளி", "Higher secondary": "மேல்நிலை", Diploma: "டிப்ளமோ", Undergraduate: "இளங்கலை", Postgraduate: "முதுகலை", "Professional degree": "தொழில்முறை பட்டம்", "Below poverty line": "வறுமைக் கோட்டிற்கு கீழ்", "Above poverty line": "வறுமைக் கோட்டிற்கு மேல்", Yes: "ஆம்", No: "இல்லை"
-				},
-				ml: {
-					Female: "സ്ത്രീ", Male: "പുരുഷൻ", Transgender: "ട്രാൻസ്ജെൻഡർ", "Prefer not to say": "പറയാൻ താൽപര്യമില്ല", General: "ജനറൽ", Other: "മറ്റുള്ളവ", None: "ഇല്ല", Owned: "സ്വന്തം", Leased: "പാട്ടത്തിന്", "Shared ownership": "പങ്കിട്ട ഉടമസ്ഥത", Student: "വിദ്യാർത്ഥി", Farmer: "കർഷകൻ", "Agricultural worker": "കാർഷിക തൊഴിലാളി", "Self-employed": "സ്വയം തൊഴിൽ", "Private sector employee": "സ്വകാര്യ ജീവനക്കാരൻ", "Government employee": "സർക്കാർ ജീവനക്കാരൻ", "Daily wage worker": "ദിവസക്കൂലി തൊഴിലാളി", Homemaker: "വീട്ടമ്മ", Unemployed: "തൊഴിലില്ലാത്തവർ", Retired: "വിരമിച്ചവർ", "No formal education": "ഔപചാരിക വിദ്യാഭ്യാസമില്ല", "Primary school": "പ്രാഥമികം", "Secondary school": "സെക്കൻഡറി", "Higher secondary": "ഹയർ സെക്കൻഡറി", Diploma: "ഡിപ്ലോമ", Undergraduate: "ബിരുദം", Postgraduate: "ബിരുദാനന്തര ബിരുദം", "Professional degree": "പ്രൊഫഷണൽ ബിരുദം", "Below poverty line": "ദാരിദ്ര്യരേഖയ്ക്ക് താഴെ", "Above poverty line": "ദാരിദ്ര്യരേഖയ്ക്ക് മുകളിൽ", Yes: "അതെ", No: "ഇല്ല"
-				},
-				kn: {
-					Female: "ಮಹಿಳೆ", Male: "ಪುರುಷ", Transgender: "ಟ್ರಾನ್ಸ್‌ಜೆಂಡರ್", "Prefer not to say": "ಹೇಳಲು ಇಷ್ಟವಿಲ್ಲ", General: "ಸಾಮಾನ್ಯ", Other: "ಇತರೆ", None: "ಯಾವುದೂ ಇಲ್ಲ", Owned: "ಸ್ವಂತ", Leased: "ಗುತ್ತಿಗೆ", "Shared ownership": "ಹಂಚಿಕೆಯ ಮಾಲೀಕತ್ವ", Student: "ವಿದ್ಯಾರ್ಥಿ", Farmer: "ರೈತ", "Agricultural worker": "ಕೃಷಿ ಕಾರ್ಮಿಕ", "Self-employed": "ಸ್ವಯಂ ಉದ್ಯೋಗ", "Private sector employee": "ಖಾಸಗಿ ಉದ್ಯೋಗಿ", "Government employee": "ಸರ್ಕಾರಿ ಉದ್ಯೋಗಿ", "Daily wage worker": "ದಿನಗೂಲಿ ಕಾರ್ಮಿಕ", Homemaker: "ಗೃಹಿಣಿ", Unemployed: "ನಿರುದ್ಯೋಗಿ", Retired: "ನಿವೃತ್ತ", "No formal education": "ಔಪಚಾರಿಕ ಶಿಕ್ಷಣವಿಲ್ಲ", "Primary school": "ಪ್ರಾಥಮಿಕ", "Secondary school": "ಮಾಧ್ಯಮಿಕ", "Higher secondary": "ಪಿಯುಸಿ", Diploma: "ಡಿಪ್ಲೊಮಾ", Undergraduate: "ಪದವಿ", Postgraduate: "ಸ್ನಾತಕೋತ್ತರ", "Professional degree": "ವೃತ್ತಿಪರ ಪದವಿ", "Below poverty line": "ಬಡತನ ರೇಖೆಯ ಕೆಳಗೆ", "Above poverty line": "ಬಡತನ ರೇಖೆಯ ಮೇಲೆ", Yes: "ಹೌದು", No: "ಇಲ್ಲ"
-				}
-			};
-			return optionText[language]?.[value] || value;
-		}
-
-		function formatProfileValue(key, value) {
-			if (typeof value === "number" || !isNaN(value)) {
-				if (key.toLowerCase().includes("income")) {
-					return "₹" + Number(value).toLocaleString("en-IN");
-				}
-			}
-			if (typeof value === "string") {
-				return value.charAt(0).toUpperCase() + value.slice(1);
-			}
-			return value;
-		}
-
-		function renderProfile(profile) {
-			currentProfile = profile;
-			profileFields.innerHTML = "";
-			const text = uiText[languageSelect.value] || uiText.en;
-			["name", "age", "gender", "state"].forEach((key) => {
-				if (!(key in profile)) {
-					return;
-				}
-				if (key === "session_id" || key === "updated_at" || profile[key] === null || profile[key] === "") {
-					return;
-				}
-				const cleanKey = key.toLowerCase();
-				const icon = profileIcons[cleanKey] || profileIcons.default;
-				const label = text.fields[key] || cleanProfileLabel(key);
-				const formattedVal = formatProfileValue(cleanKey, profile[key]);
-
-				const row = document.createElement("div");
-				row.className = "profile-field";
-				row.innerHTML = `
-					<div class="profile-field-label">
-						<span class="profile-field-icon">${icon}</span>
-						<span>${label}</span>
-					</div>
-					<span class="profile-field-value">${formattedVal}</span>
-				`;
-				profileFields.appendChild(row);
-			});
-			if (!profileFields.children.length) {
-				profileFields.innerHTML = `<p class="profile-empty">${text.profileEmpty}</p>`;
-			}
-		}
-
-		const profileFormFields = [
-			["name", "Name", "text", null, false],
-			["mobile_number", "Mobile number", "tel", null, false],
-			["age", "Age", "number", null, true],
-			["gender", "Gender", "select", ["Female", "Male", "Transgender", "Prefer not to say"], true],
-			["state", "State", "select", ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep", "Puducherry"], true],
-			["district", "District", "text", null, false],
-			["caste_category", "Caste category", "select", ["General", "OBC", "SC", "ST", "EWS", "Other", "Prefer not to say"], true],
-			["annual_income", "Annual income (INR)", "number", null, true],
-			["land_ownership", "Land ownership", "select", ["None", "Owned", "Leased", "Shared ownership"], false],
-			["occupation", "Occupation", "select", ["Student", "Farmer", "Agricultural worker", "Self-employed", "Private sector employee", "Government employee", "Daily wage worker", "Homemaker", "Unemployed", "Retired", "Other"], true],
-			["education_level", "Education level", "select", ["No formal education", "Primary school", "Secondary school", "Higher secondary", "Diploma", "Undergraduate", "Postgraduate", "Professional degree"], false],
-			["family_size", "Family size", "number", null, false],
-			["bpl_status", "BPL status", "select", [["true", "Below poverty line"], ["false", "Above poverty line"]], false],
-			["disability", "Disability", "select", [["true", "Yes"], ["false", "No"]], false],
-			["has_bank_account", "Has bank account", "select", [["true", "Yes"], ["false", "No"]], false],
-			["aadhaar_linked", "Aadhaar linked", "select", [["true", "Yes"], ["false", "No"]], false]
-		];
-
-		function openProfileEditor(profile = {}) {
-			currentProfile = profile;
-			historyPage.classList.remove("open");
-			const text = uiText[languageSelect.value] || uiText.en;
-			profileForm.innerHTML = profileFormFields.map(([key, label, type, options, required]) => {
-				const localizedLabel = text.fields[key] || label;
-				if (type === "select") {
-					const optionMarkup = options.map((option) => {
-						const [value, text] = Array.isArray(option) ? option : [option, option];
-						return `<option value="${value}">${translateOption(key, text)}</option>`;
-					}).join("");
-					return `<label>${localizedLabel}${required ? ` <span class="required-mark">${text.required}</span>` : ""}<select name="${key}"${required ? " required" : ""}>
-						<option value="">${text.select} ${localizedLabel.toLowerCase()}</option>${optionMarkup}
-					</select></label>`;
-				}
-				const constraints = key === "age" ? ' min="0" max="120"' : key === "annual_income" ? ' min="0"' : key === "family_size" ? ' min="1" max="50"' : "";
-				return `<label>${localizedLabel}${required ? ` <span class="required-mark">${text.required}</span>` : ""}<input name="${key}" type="${type}" value="${profile[key] ?? ""}"${constraints}${required ? " required" : ""} /></label>`;
-			}).join("");
-			profileFormFields.forEach(([key]) => {
-				const input = profileForm.elements[key];
-				if (input && input.tagName === "SELECT" && profile[key] !== null && profile[key] !== undefined) {
-					input.value = String(profile[key]);
-				}
-			});
-			profilePage.classList.add("open");
-			document.body.classList.add("profile-mode");
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		}
-
-		async function loadProfileEditor() {
-			openProfileEditor(currentProfile || {});
-			try {
-				const controller = new AbortController();
-				const timeoutId = window.setTimeout(() => controller.abort(), 5000);
-				const res = await fetch(`${API_BASE}/profile/${sessionId}`, { signal: controller.signal });
-				window.clearTimeout(timeoutId);
-				if (res.ok) {
-					openProfileEditor(await res.json());
-				}
-			} catch (err) {
-				console.error(err);
-			}
-		}
-
-		async function saveProfile(event) {
-			event.preventDefault();
-			const payload = Object.fromEntries(new FormData(profileForm).entries());
-			["age", "annual_income", "family_size"].forEach((key) => {
-				if (payload[key] !== "") payload[key] = Number(payload[key]);
-				else delete payload[key];
-			});
-			["bpl_status", "disability", "has_bank_account", "aadhaar_linked"].forEach((key) => {
-				if (payload[key] !== "") payload[key] = payload[key] === "true";
-				else delete payload[key];
-			});
-			try {
-				const res = await fetch(`${API_BASE}/profile/${sessionId}`, {
-					method: "PUT",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(payload)
-				});
-				if (!res.ok) throw new Error("Profile update failed");
-				renderProfile(await res.json());
-				profilePage.classList.remove("open");
-				document.body.classList.remove("profile-mode");
-				addBubble("Your profile was updated. You can check eligibility again when ready.", "bot");
-			} catch (err) {
-				console.error(err);
-				addBubble("Unable to save your profile right now. Please try again.", "bot");
-			}
-		}
-
-		function cleanSpeechText(text) {
-			return String(text || "")
-				.replace(/https?:\/\/\S+/gi, " ")
-				.replace(/<[^>]*>/g, " ")
-				.replace(/[^\p{L}\p{M}\p{N}\s.,?!]/gu, " ")
-				.replace(/\s+/g, " ")
-				.trim();
-		}
-
-		function speak(text) {
-			const speechText = cleanSpeechText(text);
-			if (!("speechSynthesis" in window) || !speechText) return;
-			window.speechSynthesis.cancel();
-			const utterance = new SpeechSynthesisUtterance(speechText);
-			const targetLang = { en: "en-IN", ta: "ta-IN", ml: "ml-IN", kn: "kn-IN" }[languageSelect.value] || "en-IN";
-			utterance.lang = targetLang;
-			
-			const voices = window.speechSynthesis.getVoices();
-			if (voices && voices.length > 0) {
-				const baseLang = targetLang.split('-')[0].toLowerCase();
-				const normalizedTarget = targetLang.toLowerCase();
-				let voice = voices.find(v => v.lang.replace('_', '-').toLowerCase() === normalizedTarget) || 
-							voices.find(v => v.lang.toLowerCase().startsWith(baseLang));
-				if (voice) {
-					utterance.voice = voice;
-				}
-			}
-			
-			window.speechSynthesis.speak(utterance);
-		}
-
-		function startVoiceInput() {
-			const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-			if (!Recognition) {
-				addBubble("Voice input is not supported in this browser. You can still type your message.", "bot");
-				return;
-			}
-			if (recognition) {
-				recognition.stop();
-				return;
-			}
-			recognition = new Recognition();
-			recognition.lang = { en: "en-IN", ta: "ta-IN", ml: "ml-IN", kn: "kn-IN" }[languageSelect.value] || "en-IN";
-			recognition.interimResults = false;
-			recognition.onstart = () => voiceButton.classList.add("active");
-			recognition.onresult = (event) => {
-				messageInput.value = event.results[0][0].transcript;
-				sendMessage();
-			};
-			recognition.onerror = () => addBubble("I could not hear that clearly. Please try again or type your message.", "bot");
-			recognition.onend = () => {
-				voiceButton.classList.remove("active");
-				recognition = null;
-			};
-			recognition.start();
-		}
-
-		async function sendMessage() {
-			const text = messageInput.value.trim();
-			if (!text) {
-				return;
-			}
-			addBubble(text, "user");
-			messageInput.value = "";
-			const loadingBubble = addLoadingBubble();
-			setButtonLoading(sendButton, true, "Sending...");
-
-			try {
-				const res = await fetch(`${API_BASE}/chat`, {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ session_id: sessionId, message: text, language: languageSelect.value }),
-				});
-				const data = await res.json();
-				if (!res.ok) {
-					throw new Error(data.detail || "The assistant could not respond.");
-				}
-				if (loadingBubble) {
-					loadingBubble.remove();
-				}
-				addBubble(data.reply || "", "bot");
-				if (autoReadAloud) {
-					speak(data.reply || "");
-				}
-
-				if (data.profile_complete) {
-					checkButton.style.display = "inline-block";
-				}
-
-				if (data.trigger_check) {
-					await checkEligibility();
-				}
-
-				await refreshProfile();
-			} catch (err) {
-				console.error(err);
-				if (loadingBubble) {
-					loadingBubble.remove();
-				}
-				addBubble(err.message || "Sorry, something went wrong.", "bot");
-			} finally {
-				setButtonLoading(sendButton, false);
-			}
-		}
-
-		async function checkEligibility() {
-			showResultsLoading(true);
-			setButtonLoading(checkButton, true, "Checking...");
-			try {
-				const res = await fetch(`${API_BASE}/check-eligibility`, {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ session_id: sessionId }),
-				});
-				const data = await res.json();
-				if (!res.ok) {
-					throw new Error(data.detail || "Eligibility could not be checked.");
-				}
-				renderResults(data);
-				addEligibilitySummaryBubble(data);
-			} catch (err) {
-				console.error(err);
-				addBubble(err.message || "Unable to check eligibility right now.", "bot");
-			} finally {
-				showResultsLoading(false);
-				setButtonLoading(checkButton, false);
-			}
-		}
-
-		function addEligibilitySummaryBubble(data) {
-			const resultsList = data.results || [];
-			if (!resultsList.length) {
-				addBubble("No matching schemes were found. Try adding more profile details to improve your results.", "bot");
-				return;
-			}
-
-			const eligible = resultsList.filter(r => r.status === "eligible");
-			const needsInfo = resultsList.filter(r => r.status === "needs_more_info");
-			const notEligible = resultsList.filter(r => r.status === "not_eligible");
-
-			let summaryLines = [];
-			summaryLines.push(`**I found ${resultsList.length} scheme(s) for you.** Here's a quick summary:\n`);
-
-			if (eligible.length) {
-				summaryLines.push(`**✅ Eligible (${eligible.length}):**`);
-				eligible.forEach(scheme => {
-					let line = `• **${scheme.scheme_name || "Unnamed Scheme"}**`;
-					if (scheme.description) {
-						const desc = scheme.description.length > 120 ? scheme.description.substring(0, 120) + "..." : scheme.description;
-						line += ` — ${desc}`;
-					}
-					summaryLines.push(line);
-				});
-				summaryLines.push("");
-			}
-
-			if (needsInfo.length) {
-				summaryLines.push(`**⚠️ Needs more info (${needsInfo.length}):**`);
-				needsInfo.forEach(scheme => {
-					let line = `• **${scheme.scheme_name || "Unnamed Scheme"}**`;
-					if (scheme.missing_fields && scheme.missing_fields.length) {
-						line += ` — missing: ${scheme.missing_fields.map(f => f.replace(/_/g, " ")).join(", ")}`;
-					}
-					summaryLines.push(line);
-				});
-				summaryLines.push("");
-			}
-
-			if (notEligible.length) {
-				summaryLines.push(`**❌ Not eligible (${notEligible.length}):**`);
-				notEligible.forEach(scheme => {
-					let line = `• ${scheme.scheme_name || "Unnamed Scheme"}`;
-					if (scheme.reason) {
-						line += ` — ${scheme.reason}`;
-					}
-					summaryLines.push(line);
-				});
-				summaryLines.push("");
-			}
-
-			summaryLines.push("Scroll down to see the full result cards with descriptions, application links, and explainer videos for each scheme.");
-
-			const summaryText = summaryLines.join("\n");
-			addBubble(summaryText, "bot");
-			if (autoReadAloud) {
-				speak(summaryText);
-			}
-		}
-
-		function getYoutubeThumbnail(url) {
-			if (!url) return null;
-			let videoId = null;
-			try {
-				const u = new URL(url);
-				if (u.hostname.includes("youtube.com") && u.searchParams.get("v")) {
-					videoId = u.searchParams.get("v");
-				} else if (u.hostname === "youtu.be") {
-					videoId = u.pathname.slice(1);
-				}
-			} catch (e) { /* ignore */ }
-			return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
-		}
-
-		function renderResults(data) {
-			const text = uiText[languageSelect.value] || uiText.en;
-			results.style.display = "block";
-			resultCards.innerHTML = "";
-			if (resultsEmpty) {
-				resultsEmpty.style.display = "none";
-			}
-
-			const allResults = data.results || [];
-			// Show only eligible schemes as cards
-			const eligibleList = allResults.filter(r => r.status === "eligible");
-
-			if (!eligibleList.length) {
-				if (resultsEmpty) {
-					resultsEmpty.style.display = "block";
-				}
-				return;
-			}
-
-			// Update header with count badge
-			const headerEl = results.querySelector(".results-header");
-			if (headerEl) {
-				const existing = headerEl.querySelector(".results-count");
-				if (existing) existing.remove();
-				const badge = document.createElement("span");
-				badge.className = "results-count";
-				badge.textContent = `✅ ${eligibleList.length} scheme${eligibleList.length > 1 ? "s" : ""} found`;
-				headerEl.appendChild(badge);
-			}
-
-			eligibleList.forEach((entry, idx) => {
-				const card = document.createElement("div");
-				card.className = "result-card eligible";
-				card.style.animationDelay = `${idx * 0.08}s`;
-
-				// ── Top color bar with title + badge ──
-				const topBar = document.createElement("div");
-				topBar.className = "card-top-bar";
-
-				const schemeName = document.createElement("span");
-				schemeName.className = "scheme-title";
-				schemeName.textContent = entry.scheme_name || "Scheme";
-
-				const eligBadge = document.createElement("span");
-				eligBadge.className = "eligible-badge";
-				eligBadge.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Eligible`;
-
-				topBar.append(schemeName, eligBadge);
-
-				// ── Card Body ──
-				const body = document.createElement("div");
-				body.className = "card-body";
-
-				// Action buttons row (bookmark + details)
-				const header = document.createElement("div");
-				header.className = "result-header";
-
-				const bookmarkButton = document.createElement("button");
-				bookmarkButton.type = "button";
-				bookmarkButton.className = "result-toggle bookmark-button";
-				const schemeId = String(entry.scheme_id || entry.scheme_name || "");
-				bookmarkButton.dataset.schemeId = schemeId;
-				bookmarkButton.textContent = bookmarkedSchemeIds.has(schemeId) ? (text.bookmarked || "Bookmarked") : (text.bookmark || "Bookmark");
-				bookmarkButton.addEventListener("click", async () => {
-					if (bookmarkedSchemeIds.has(schemeId)) {
-						await fetch(`${API_BASE}/bookmarks/${sessionId}/${encodeURIComponent(schemeId)}`, { method: "DELETE" });
-						bookmarkedSchemeIds.delete(schemeId);
-						bookmarkButton.textContent = text.bookmark || "Bookmark";
-						return;
-					}
-					const response = await fetch(`${API_BASE}/bookmarks/${sessionId}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ scheme_id: schemeId, scheme_name: entry.scheme_name || "Scheme", deadline: entry.deadline || null }) });
-					if (response.ok) {
-						bookmarkedSchemeIds.add(schemeId);
-						bookmarkButton.textContent = text.bookmarked || "Bookmarked";
-					}
-				});
-
-				const toggle = document.createElement("button");
-				toggle.type = "button";
-				toggle.className = "result-toggle";
-				toggle.textContent = text.details;
-
-				header.append(bookmarkButton, toggle);
-
-				// Eligibility reason
-				const summary = document.createElement("div");
-				summary.className = "result-summary";
-				summary.innerHTML = `<svg style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:6px;color:var(--success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>${entry.reason || text.noDetails}`;
-
-				// Description
-				const descriptionEl = document.createElement("div");
-				if (entry.description) {
-					descriptionEl.className = "result-description";
-					const descIcon = `<svg style="width:14px;height:14px;flex-shrink:0;margin-top:2px;color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>`;
-					descriptionEl.innerHTML = `<div style="display:flex;align-items:flex-start;gap:8px;">${descIcon}<span>${entry.description}</span></div>`;
-				}
-
-				// Benefits
-				const benefitsEl = document.createElement("div");
-				if (entry.benefits) {
-					benefitsEl.className = "result-benefits";
-					const benefitsIcon = `<svg style="width:14px;height:14px;flex-shrink:0;margin-top:2px;color:var(--success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>`;
-					benefitsEl.innerHTML = `<div style="display:flex;align-items:flex-start;gap:8px;">${benefitsIcon}<span><strong>Benefits:</strong> ${entry.benefits}</span></div>`;
-				}
-
-				// YouTube thumbnail preview
-				const ytThumbEl = document.createElement("div");
-				const ytThumb = getYoutubeThumbnail(entry.youtube_url);
-				if (ytThumb && entry.youtube_url) {
-					const link = document.createElement("a");
-					link.className = "card-yt-thumb";
-					link.href = entry.youtube_url;
-					link.target = "_blank";
-					link.rel = "noopener";
-					link.innerHTML = `<img src="${ytThumb}" alt="Video thumbnail" loading="lazy"><div class="card-yt-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>`;
-					ytThumbEl.appendChild(link);
-				}
-
-				// Links row
-				const linksRow = document.createElement("div");
-				linksRow.className = "card-links-row";
-				const linkParts = [];
-				if (entry.application_url) {
-					linkParts.push(`<a class="application-link" href="${entry.application_url}" target="_blank" rel="noopener">🔗 ${text.apply}</a>`);
-				}
-				if (entry.source_url && entry.source_url !== entry.application_url) {
-					linkParts.push(`<a class="application-link" href="${entry.source_url}" target="_blank" rel="noopener">📄 ${text.source}</a>`);
-				}
-				if (entry.youtube_url && !ytThumb) {
-					// Fallback text link if no thumbnail could be extracted
-					linkParts.push(`<a class="video-link" href="${entry.youtube_url}" target="_blank" rel="noopener">▶️ ${text.video}</a>`);
-				}
-				linksRow.innerHTML = linkParts.join("");
-
-				// Details drawer
-				const details = document.createElement("div");
-				details.className = "result-details";
-				details.innerHTML = `
-					<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-						<div>
-							<span style="display: block; font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 2px;">${text.status}</span>
-							<span style="font-weight: 700; font-size: 0.85rem; color: var(--success);">✅ Eligible</span>
-						</div>
-						<div>
-							<span style="display: block; font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 2px;">${text.schemeId}</span>
-							<span style="font-weight: 700; font-size: 0.85rem; color: var(--ink);">${entry.scheme_id || "N/A"}</span>
-						</div>
-					</div>
-				`;
-
-				toggle.addEventListener("click", () => {
-					const expanded = card.classList.toggle("expanded");
-					toggle.textContent = expanded ? text.hideDetails : text.details;
-				});
-
-				body.append(header, summary, descriptionEl, benefitsEl, ytThumbEl, linksRow, details);
-				card.append(topBar, body);
-				resultCards.appendChild(card);
-			});
-		}
-
-		async function loadBookmarks() {
-			try {
-				const response = await fetch(`${API_BASE}/bookmarks/${sessionId}`);
-				if (!response.ok) return;
-				const data = await response.json();
-				(data.bookmarks || []).forEach((bookmark) => bookmarkedSchemeIds.add(String(bookmark.scheme_id)));
-				checkUpcomingDeadlines(data.bookmarks || []);
-			} catch (error) {
-				console.error(error);
-			}
-		}
-
-		async function checkUpcomingDeadlines(bookmarks) {
-			const upcoming = bookmarks.filter((bookmark) => {
-				if (!bookmark.deadline) return false;
-				const days = (new Date(bookmark.deadline).getTime() - Date.now()) / 86400000;
-				return days >= 0 && days <= 7;
-			});
-			if (!upcoming.length || !("Notification" in window)) return;
-			if (Notification.permission === "default") await Notification.requestPermission();
-			if (Notification.permission === "granted") {
-				upcoming.forEach((bookmark) => new Notification("Scheme deadline approaching", { body: `${bookmark.scheme_name} is due on ${bookmark.deadline}.` }));
-			}
-		}
-
-		async function loadChatHistory() {
-			try {
-				const response = await fetch(`${API_BASE}/chat-history/${sessionId}`);
-				if (!response.ok) throw new Error("history unavailable");
-				const data = await response.json();
-				if (data.messages && data.messages.length) {
-					messagesEl.innerHTML = "";
-					data.messages.forEach((message) => addBubble(message.content, message.role === "user" ? "user" : "bot"));
-					return;
-				}
-			} catch (error) {
-				console.error(error);
-			}
-			addBubble((uiText[languageSelect.value] || uiText.en).greeting, "bot");
-		}
-
-		function startNewChat() {
-			sessionId = Math.random().toString(36).slice(2);
-			localStorage.setItem(sessionKey, sessionId);
-			messagesEl.innerHTML = "";
-			resultCards.innerHTML = "";
-			results.style.display = "none";
-			checkButton.style.display = "none";
-			bookmarkedSchemeIds.clear();
-			closeSecondaryPage();
-			renderProfile({});
-			addBubble((uiText[languageSelect.value] || uiText.en).greeting, "bot");
-		}
-
-		async function openHistoryPage() {
-			profilePage.classList.remove("open");
-			historyPage.classList.add("open");
-			document.body.classList.add("profile-mode");
-			historyList.innerHTML = "";
-			try {
-				const response = await fetch(`${API_BASE}/chat-history/${sessionId}`);
-				const data = await response.json();
-				const text = uiText[languageSelect.value] || uiText.en;
-				if (!response.ok || !data.messages?.length) {
-					historyList.innerHTML = `<p class="profile-empty">${text.noHistory}</p>`;
-					return;
-				}
-				data.messages.forEach((message) => {
-					const item = document.createElement("article");
-					item.className = `history-message ${message.role === "user" ? "user" : "assistant"}`;
-					item.innerHTML = `<div class="history-message-meta"><span>${message.role === "user" ? text.user : text.assistantRole}</span></div><div class="history-message-content"></div>`;
-					item.querySelector(".history-message-content").textContent = message.content;
-					historyList.appendChild(item);
-				});
-			} catch (error) {
-				historyList.innerHTML = `<p class="profile-empty">${(uiText[languageSelect.value] || uiText.en).noHistory}</p>`;
-			}
-		}
-
-		function closeSecondaryPage() {
-			profilePage.classList.remove("open");
-			historyPage.classList.remove("open");
-			document.body.classList.remove("profile-mode");
-		}
-
-		setTheme(getPreferredTheme());
-		
-		if ("speechSynthesis" in window) {
-			window.speechSynthesis.getVoices();
-			window.speechSynthesis.onvoiceschanged = () => {
-				window.speechSynthesis.getVoices();
-			};
-		}
-
-		languageSelect.addEventListener("change", () => {
-			localStorage.setItem("schemematch_language", languageSelect.value);
-			applyLanguage();
+		if (s.application_url) md += `Apply: ${s.application_url}\n`;
+		md += '\n';
+	});
+	addBubble(md, 'bot');
+	switchToTab('directory');
+}
+
+/* ──────────────── Send Message ──────────────── */
+async function sendMessage() {
+	const text = msgInput.value.trim();
+	if (!text) return;
+
+	addBubble(text, 'user');
+	msgInput.value = '';
+	sendBtn.disabled = true;
+
+	// Check for list schemes intent
+	if (isListSchemesIntent(text)) {
+		handleListSchemes();
+		sendBtn.disabled = false;
+		return;
+	}
+
+	const loader = addLoadingBubble();
+
+	try {
+		const res = await fetch(`${API}/chat`, {
+			method: 'POST',
+			headers: {'Content-Type':'application/json'},
+			body: JSON.stringify({ session_id: currentSessionId, message: text, language: currentLang }),
 		});
-		applyLanguage();
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.detail || 'Failed to get response');
+		loader.remove();
+		addBubble(data.reply || '', 'bot');
 
-		if (themeToggle) {
-			themeToggle.addEventListener("change", (event) => {
-				setTheme(event.target.checked ? "dark" : "light");
-			});
-		}
-
-		sendButton.addEventListener("click", sendMessage);
-		messageInput.addEventListener("keypress", (event) => {
-			if (event.key === "Enter") {
-				sendMessage();
-			}
-		});
-		checkButton.addEventListener("click", checkEligibility);
-		newChatButton.addEventListener("click", startNewChat);
-		if (readAloudToggleBtn) {
-			readAloudToggleBtn.addEventListener("click", () => {
-				autoReadAloud = !autoReadAloud;
-				readAloudToggleBtn.setAttribute("aria-pressed", autoReadAloud);
-				const text = uiText[languageSelect.value] || uiText.en;
-				readAloudToggleBtn.textContent = autoReadAloud ? (text.readAloudOn || uiText.en.readAloudOn) : (text.readAloudOff || uiText.en.readAloudOff);
-				if (!autoReadAloud && window.speechSynthesis) {
-					window.speechSynthesis.cancel();
-				}
-			});
-		}
-		profileButton.addEventListener("click", loadProfileEditor);
-		snapshotProfileButton.addEventListener("click", loadProfileEditor);
-		historyButton.addEventListener("click", openHistoryPage);
-		profileClose.addEventListener("click", closeSecondaryPage);
-		historyClose.addEventListener("click", closeSecondaryPage);
-		profileForm.addEventListener("submit", saveProfile);
-		voiceButton.addEventListener("click", startVoiceInput);
-
-		loadBookmarks();
-		window.setInterval(loadBookmarks, 300000);
-		loadChatHistory();
+		if (data.profile_complete) checkEligBtn.style.display = 'block';
+		if (data.trigger_check) await checkEligibility();
 		refreshProfile();
+	} catch (err) {
+		loader.remove();
+		addBubble(err.message || 'Sorry, something went wrong. Please try again.', 'bot');
+	} finally {
+		sendBtn.disabled = false;
+	}
+}
 
-		// Background Pixel Canvas Logic
-		(() => {
-			const canvas = document.getElementById("pixel-canvas");
-			if (!canvas) return;
-			const ctx = canvas.getContext("2d");
+sendBtn.addEventListener('click', sendMessage);
+msgInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
 
-			let width = canvas.width = window.innerWidth;
-			let height = canvas.height = window.innerHeight;
-			const cellSize = 44;
-			let cols = Math.ceil(width / cellSize);
-			let rows = Math.ceil(height / cellSize);
+/* ──────────────── Eligibility Check ──────────────── */
+async function checkEligibility() {
+	checkEligBtn.disabled = true;
+	checkEligBtn.textContent = 'Checking...';
+	try {
+		const res = await fetch(`${API}/check-eligibility`, {
+			method: 'POST',
+			headers: {'Content-Type':'application/json'},
+			body: JSON.stringify({ session_id: currentSessionId }),
+		});
+		const data = await res.json();
+		if (!res.ok) throw new Error(data.detail || 'Eligibility check failed');
+		const results = data.results || [];
+		if (!results.length) {
+			addBubble('No matching schemes were found. Try adding more profile details.', 'bot');
+			return;
+		}
+		const eligible = results.filter(r => r.status === 'eligible');
+		const needsInfo = results.filter(r => r.status === 'needs_more_info');
+		let summary = `**I found ${results.length} scheme(s).** Here\'s the summary:\n\n`;
+		if (eligible.length) {
+			summary += `**✅ Eligible (${eligible.length}):**\n`;
+			eligible.forEach(s => summary += `• **${s.scheme_name}** — ${(s.description||'').slice(0,80)}...\n`);
+			summary += '\n';
+		}
+		if (needsInfo.length) {
+			summary += `**⚠️ Needs more info (${needsInfo.length}):**\n`;
+			needsInfo.forEach(s => summary += `• **${s.scheme_name}**\n`);
+		}
+		addBubble(summary, 'bot');
+	} catch (err) {
+		addBubble(err.message, 'bot');
+	} finally {
+		checkEligBtn.disabled = false;
+		checkEligBtn.textContent = '✅ Check Eligibility';
+	}
+}
+checkEligBtn.addEventListener('click', checkEligibility);
 
-			let grid = [];
-			function initGrid() {
-				cols = Math.ceil(width / cellSize);
-				rows = Math.ceil(height / cellSize);
-				grid = [];
-				for (let c = 0; c < cols; c++) {
-					grid[c] = [];
-					for (let r = 0; r < rows; r++) {
-						grid[c][r] = {
-							glow: 0,
-							targetGlow: 0,
-							hue: 0
-						};
-					}
-				}
+/* ──────────────── Profile ──────────────── */
+const PROFILE_FIELDS = [
+	['name', 'Name', 'text'],
+	['age', 'Age', 'number'],
+	['gender', 'Gender', 'select', ['Female','Male','Transgender','Prefer not to say']],
+	['state', 'State', 'select', ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal','Delhi','Puducherry']],
+	['district', 'District', 'text'],
+	['caste_category', 'Caste Category', 'select', ['General','OBC','SC','ST','EWS']],
+	['annual_income', 'Annual Income (INR)', 'number'],
+	['occupation', 'Occupation', 'select', ['Student','Farmer','Self-employed','Private sector','Government','Daily wage','Homemaker','Unemployed','Retired']],
+	['education_level', 'Education Level', 'select', ['No formal education','Primary school','Secondary','Higher secondary','Diploma','Undergraduate','Postgraduate']],
+	['family_size', 'Family Size', 'number'],
+	['bpl_status', 'BPL Status', 'select', [['true','Below poverty line'],['false','Above poverty line']]],
+	['disability', 'Disability', 'select', [['true','Yes'],['false','No']]],
+	['has_bank_account', 'Bank Account', 'select', [['true','Yes'],['false','No']]],
+];
+
+function buildProfileForm(profile) {
+	profileForm.innerHTML = PROFILE_FIELDS.map(([key, label, type, options]) => {
+		if (type === 'select') {
+			const opts = options.map(o => {
+				const [val, txt] = Array.isArray(o) ? o : [o, o];
+				return `<option value="${val}">${txt}</option>`;
+			}).join('');
+			return `<label>${label}<select name="${key}"><option value="">Select...</option>${opts}</select></label>`;
+		}
+		const constraints = key === 'age' ? ' min="0" max="120"' : key === 'annual_income' ? ' min="0"' : key === 'family_size' ? ' min="1"' : '';
+		return `<label>${label}<input name="${key}" type="${type}" value="${profile[key] ?? ''}"${constraints} /></label>`;
+	}).join('');
+	PROFILE_FIELDS.forEach(([key]) => {
+		const el = profileForm.elements[key];
+		if (el && el.tagName === 'SELECT' && profile[key] != null) el.value = String(profile[key]);
+	});
+}
+
+async function refreshProfile() {
+	try {
+		const res = await fetch(`${API}/profile/${currentSessionId}`);
+		if (res.ok) currentProfile = await res.json();
+	} catch {}
+}
+
+profileBtn.addEventListener('click', async () => {
+	await refreshProfile();
+	buildProfileForm(currentProfile);
+	profileModal.classList.add('open');
+});
+profileClose.addEventListener('click', () => profileModal.classList.remove('open'));
+profileCancelBtn.addEventListener('click', () => profileModal.classList.remove('open'));
+profileModal.addEventListener('click', e => { if (e.target === profileModal) profileModal.classList.remove('open'); });
+
+profileForm.addEventListener('submit', async e => {
+	e.preventDefault();
+	const payload = Object.fromEntries(new FormData(profileForm).entries());
+	['age','annual_income','family_size'].forEach(k => { if (payload[k] !== '') payload[k] = Number(payload[k]); else delete payload[k]; });
+	['bpl_status','disability','has_bank_account'].forEach(k => { if (payload[k] !== '') payload[k] = payload[k] === 'true'; else delete payload[k]; });
+	Object.keys(payload).forEach(k => { if (payload[k] === '') delete payload[k]; });
+	try {
+		const res = await fetch(`${API}/profile/${currentSessionId}`, {
+			method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)
+		});
+		if (res.ok) {
+			currentProfile = await res.json();
+			profileModal.classList.remove('open');
+			addBubble('Your profile was updated. You can check eligibility when ready.', 'bot');
+		}
+	} catch {}
+});
+
+/* ──────────────── Schemes Directory ──────────────── */
+async function loadSchemes() {
+	dirGrid.innerHTML = Array(6).fill(0).map(() => `
+		<div class="skeleton-card">
+			<div class="skeleton-line w50 h20"></div>
+			<div class="skeleton-line w100"></div>
+			<div class="skeleton-line w70"></div>
+			<div class="skeleton-line w50"></div>
+		</div>
+	`).join('');
+
+	try {
+		const res = await fetch(`${API}/schemes`);
+		const data = await res.json();
+		allSchemes = (data.schemes || []).map(normalizeScheme);
+		dirCount.textContent = allSchemes.length;
+		buildFilterChips();
+		renderSchemes();
+	} catch (err) {
+		dirGrid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Could not load schemes</h3><p>${err.message}. Please check the backend is running.</p><button class="reset-btn" onclick="loadSchemes()">Retry</button></div>`;
+	}
+}
+
+function buildFilterChips() {
+	const cats = [
+		{ key: 'all', label: 'All' },
+		{ key: 'central', label: '🏛️ Central' },
+		{ key: 'state', label: '📍 State' },
+		{ key: 'pension', label: '💰 Pension' },
+		{ key: 'energy', label: '⚡ Energy' },
+		{ key: 'education', label: '🎓 Education' },
+		{ key: 'agriculture', label: '🚜 Agriculture' },
+		{ key: 'saved', label: '⭐ Saved Only' },
+	];
+	filterChips.innerHTML = '';
+	cats.forEach(c => {
+		const btn = document.createElement('button');
+		btn.type = 'button';
+		btn.className = `chip${activeFilter === c.key ? ' active' : ''}`;
+		btn.textContent = c.label;
+		btn.addEventListener('click', () => {
+			activeFilter = c.key;
+			$$('.chip').forEach(ch => ch.classList.remove('active'));
+			btn.classList.add('active');
+			renderSchemes();
+		});
+		filterChips.appendChild(btn);
+	});
+}
+
+function getFilteredSchemes() {
+	let filtered = [...allSchemes];
+
+	// Search
+	if (searchQuery) {
+		const q = searchQuery.toLowerCase();
+		filtered = filtered.filter(s => s.searchText.includes(q));
+	}
+
+	// Filter
+	if (activeFilter === 'central') filtered = filtered.filter(s => s.jurisdictionType === 'central');
+	else if (activeFilter === 'state') filtered = filtered.filter(s => s.jurisdictionType === 'state');
+	else if (activeFilter === 'saved') filtered = filtered.filter(s => bookmarkedIds.has(s.id));
+	else if (activeFilter !== 'all') filtered = filtered.filter(s => s.categoryKey === activeFilter);
+
+	// Sort
+	if (sortMode === 'az') filtered.sort((a,b) => (a.name||'').localeCompare(b.name||''));
+	else if (sortMode === 'za') filtered.sort((a,b) => (b.name||'').localeCompare(a.name||''));
+
+	return filtered;
+}
+
+function renderSchemes() {
+	const filtered = getFilteredSchemes();
+	dirGrid.innerHTML = '';
+
+	if (!filtered.length) {
+		dirGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
+			<div class="empty-state-icon">🔍</div>
+			<h3>No schemes found</h3>
+			<p>Try changing your search or filters.</p>
+			<button class="reset-btn" onclick="resetFilters()">Reset Filters</button>
+		</div>`;
+		return;
+	}
+
+	filtered.forEach(s => {
+		dirGrid.appendChild(createSchemeCard(s));
+	});
+}
+
+function resetFilters() {
+	searchQuery = '';
+	activeFilter = 'all';
+	sortMode = 'default';
+	dirSearch.value = '';
+	dirSort.value = 'default';
+	buildFilterChips();
+	renderSchemes();
+}
+
+function createSchemeCard(s) {
+	const card = document.createElement('article');
+	card.className = 'scheme-card';
+
+	const isSaved = bookmarkedIds.has(s.id);
+
+	// Benefits HTML
+	let benefitsHTML = '';
+	if (s.benefits && s.benefits.trim()) {
+		benefitsHTML = `<div class="card-benefits">
+			<div class="card-benefits-title">Key Benefits</div>
+			<div class="card-benefits-text">${escapeHTML(s.benefits)}</div>
+		</div>`;
+	}
+
+	// Ministry
+	const ministryText = s.ministry ? `${s.ministry}` : '';
+
+	// Video button
+	let videoBtn = '';
+	if (s.youtube_url) {
+		videoBtn = `<a class="card-action card-action-video" href="${s.youtube_url}" target="_blank" rel="noopener" aria-label="Watch video explainer for ${escapeHTML(s.name||'')}">▶ Watch Video</a>`;
+	}
+
+	// Apply URL
+	const applyUrl = s.application_url || s.source_url || '#';
+	const sourceUrl = s.source_url || s.application_url || '#';
+
+	card.innerHTML = `
+		<div class="card-header">
+			<div class="card-badges">
+				<span class="badge badge-jurisdiction">${s.jurisdiction}</span>
+				<span class="badge badge-category">${s.category}</span>
+				<span class="badge badge-status">✅ Available</span>
+			</div>
+			<h3 class="card-title">${escapeHTML(s.name || 'Government Scheme')}</h3>
+			${ministryText ? `<div class="card-ministry">${escapeHTML(ministryText)}</div>` : ''}
+		</div>
+		<div class="card-body">
+			${s.description ? `<p class="card-description">${escapeHTML(s.description)}</p>` : ''}
+			${benefitsHTML}
+		</div>
+		<div class="card-footer">
+			<a class="card-action card-action-primary" href="${applyUrl}" target="_blank" rel="noopener">Apply Online ↗</a>
+			${sourceUrl !== applyUrl ? `<a class="card-action card-action-secondary" href="${sourceUrl}" target="_blank" rel="noopener">Official Portal 📄</a>` : ''}
+			${videoBtn}
+			<button class="card-action card-action-bookmark${isSaved ? ' saved' : ''}" type="button" data-scheme-id="${s.id}" aria-label="${isSaved ? 'Remove bookmark' : 'Bookmark scheme'}">${isSaved ? '★ Saved' : '☆ Bookmark'}</button>
+		</div>
+	`;
+
+	// Bookmark click
+	const bmBtn = card.querySelector('.card-action-bookmark');
+	bmBtn.addEventListener('click', () => toggleBookmark(s, bmBtn));
+
+	return card;
+}
+
+function toggleBookmark(scheme, btn) {
+	const id = scheme.id;
+	if (bookmarkedIds.has(id)) {
+		bookmarkedIds.delete(id);
+		btn.textContent = '☆ Bookmark';
+		btn.classList.remove('saved');
+		btn.setAttribute('aria-label', 'Bookmark scheme');
+		// Backend
+		fetch(`${API}/bookmarks/${currentSessionId}/${encodeURIComponent(id)}`, { method: 'DELETE' }).catch(() => {});
+	} else {
+		bookmarkedIds.add(id);
+		btn.textContent = '★ Saved';
+		btn.classList.add('saved');
+		btn.setAttribute('aria-label', 'Remove bookmark');
+		// Backend
+		fetch(`${API}/bookmarks/${currentSessionId}`, {
+			method: 'POST', headers: {'Content-Type':'application/json'},
+			body: JSON.stringify({ scheme_id: id, scheme_name: scheme.name || 'Scheme' })
+		}).catch(() => {});
+	}
+	localStorage.setItem('sp_bookmarks', JSON.stringify([...bookmarkedIds]));
+	bookmarkCount.textContent = bookmarkedIds.size;
+}
+
+dirSearch.addEventListener('input', () => {
+	searchQuery = dirSearch.value.trim();
+	renderSchemes();
+});
+dirSort.addEventListener('change', () => {
+	sortMode = dirSort.value;
+	renderSchemes();
+});
+
+/* ──────────────── Bookmarks Tab ──────────────── */
+function renderBookmarks() {
+	bookmarkGrid.innerHTML = '';
+	bookmarkCount.textContent = bookmarkedIds.size;
+
+	if (!bookmarkedIds.size) {
+		bookmarkGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
+			<div class="empty-state-icon">⭐</div>
+			<h3>No saved schemes</h3>
+			<p>Bookmark schemes from the directory to see them here.</p>
+			<button class="reset-btn" onclick="switchToTab('directory')">Browse Schemes</button>
+		</div>`;
+		return;
+	}
+
+	const saved = allSchemes.filter(s => bookmarkedIds.has(s.id));
+	if (!saved.length && bookmarkedIds.size) {
+		bookmarkGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
+			<div class="empty-state-icon">⏳</div>
+			<h3>Loading bookmarked schemes...</h3>
+			<p>Your bookmarked schemes will appear once the directory loads.</p>
+		</div>`;
+		return;
+	}
+
+	saved.forEach(s => bookmarkGrid.appendChild(createSchemeCard(s)));
+}
+
+/* ──────────────── STT (Speech-to-Text) ──────────────── */
+function startVoiceInput() {
+	const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+	if (!Recognition) {
+		addBubble('Speech recognition is not supported in this browser. Please use text input.', 'bot');
+		return;
+	}
+
+	// Toggle off
+	if (recognition) {
+		recognition.stop();
+		return;
+	}
+
+	try {
+		recognition = new Recognition();
+	} catch {
+		addBubble('Could not initialize speech recognition.', 'bot');
+		return;
+	}
+
+	const langConfig = LANGUAGES[currentLang] || LANGUAGES.en;
+	recognition.lang = langConfig.recognition;
+	recognition.interimResults = false;
+	recognition.continuous = false;
+
+	recognition.onstart = () => {
+		micBtn.classList.add('recording');
+		micBtn.textContent = '🔴';
+		micBtn.setAttribute('aria-label', 'Stop voice input');
+	};
+
+	recognition.onresult = (event) => {
+		const transcript = event.results[0][0].transcript;
+		if (transcript && transcript.trim()) {
+			msgInput.value = transcript;
+			msgInput.focus();
+			// Don't auto-send — let user review and edit
+		}
+	};
+
+	recognition.onerror = (event) => {
+		if (event.error === 'not-allowed') {
+			addBubble('Microphone permission is required for voice input.', 'bot');
+		} else if (event.error !== 'aborted') {
+			addBubble('Could not hear that clearly. Please try again or type your message.', 'bot');
+		}
+	};
+
+	recognition.onend = () => {
+		micBtn.classList.remove('recording');
+		micBtn.textContent = '🎤';
+		micBtn.setAttribute('aria-label', 'Start voice input');
+		recognition = null;
+	};
+
+	recognition.start();
+}
+
+micBtn.addEventListener('click', startVoiceInput);
+
+/* ──────────────── TTS (Text-to-Speech) ──────────────── */
+function toggleTTS(text, btn, msgEl) {
+	const synth = window.speechSynthesis;
+	if (!synth) return;
+
+	// If already speaking this message, stop
+	if (currentUtterance && speakingMsgEl === msgEl) {
+		synth.cancel();
+		btn.innerHTML = '🔊 Listen';
+		btn.classList.remove('speaking');
+		currentUtterance = null;
+		speakingMsgEl = null;
+		return;
+	}
+
+	// Stop any other
+	synth.cancel();
+	if (speakingMsgEl) {
+		const prevBtn = speakingMsgEl.querySelector('.msg-action-btn');
+		if (prevBtn) { prevBtn.innerHTML = '🔊 Listen'; prevBtn.classList.remove('speaking'); }
+	}
+
+	const cleanText = stripMarkdown(text);
+	if (!cleanText) return;
+
+	const langConfig = LANGUAGES[currentLang] || LANGUAGES.en;
+	const utterance = new SpeechSynthesisUtterance(cleanText);
+	utterance.lang = langConfig.synthesis;
+
+	// Try to find matching voice
+	const voices = synth.getVoices();
+	if (voices.length) {
+		const base = langConfig.synthesis.split('-')[0].toLowerCase();
+		const normalized = langConfig.synthesis.toLowerCase();
+		let voice = voices.find(v => v.lang.replace('_', '-').toLowerCase() === normalized)
+			|| voices.find(v => v.lang.toLowerCase().startsWith(base));
+		if (voice) utterance.voice = voice;
+	}
+
+	btn.innerHTML = '⏹ Stop';
+	btn.classList.add('speaking');
+	currentUtterance = utterance;
+	speakingMsgEl = msgEl;
+
+	utterance.onend = () => {
+		btn.innerHTML = '🔊 Listen';
+		btn.classList.remove('speaking');
+		currentUtterance = null;
+		speakingMsgEl = null;
+	};
+
+	utterance.onerror = () => {
+		btn.innerHTML = '🔊 Listen';
+		btn.classList.remove('speaking');
+		currentUtterance = null;
+		speakingMsgEl = null;
+	};
+
+	synth.speak(utterance);
+}
+
+// Preload voices
+if ('speechSynthesis' in window) {
+	speechSynthesis.getVoices();
+	speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+}
+
+/* ──────────────── Mobile Sidebar ──────────────── */
+function closeSidebar() {
+	chatSidebar.classList.remove('open');
+	sidebarOverlay.classList.remove('visible');
+}
+
+sidebarToggle.addEventListener('click', () => {
+	chatSidebar.classList.toggle('open');
+	sidebarOverlay.classList.toggle('visible');
+});
+sidebarOverlay.addEventListener('click', closeSidebar);
+
+/* ──────────────── Bookmarks from backend ──────────────── */
+async function loadBookmarksFromBackend() {
+	try {
+		const res = await fetch(`${API}/bookmarks/${currentSessionId}`);
+		if (!res.ok) return;
+		const data = await res.json();
+		(data.bookmarks || []).forEach(b => bookmarkedIds.add(String(b.scheme_id)));
+		localStorage.setItem('sp_bookmarks', JSON.stringify([...bookmarkedIds]));
+		bookmarkCount.textContent = bookmarkedIds.size;
+	} catch {}
+}
+
+/* ──────────────── Load sessions from backend ──────────────── */
+async function loadSessionsFromBackend() {
+	try {
+		const res = await fetch(`${API}/chat-sessions`);
+		if (!res.ok) return;
+		const data = await res.json();
+		const backendSessions = (data.sessions || []).map(s => ({
+			id: s.session_id,
+			title: s.title || 'New Chat',
+			created: s.created_at,
+			updated: s.updated_at,
+		}));
+		// Merge: backend sessions that aren't local
+		backendSessions.forEach(bs => {
+			if (!sessions.find(ls => ls.id === bs.id)) {
+				sessions.push(bs);
 			}
+		});
+		sessions.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+		saveSessions();
+		renderSessionList();
+	} catch {}
+}
 
-			// Mouse tracking
-			let mouse = { x: -1000, y: -1000, active: false };
-
-			window.addEventListener("resize", () => {
-				width = canvas.width = window.innerWidth;
-				height = canvas.height = window.innerHeight;
-				initGrid();
-			});
-
-			document.addEventListener("mousemove", (e) => {
-				mouse.x = e.clientX;
-				mouse.y = e.clientY;
-				mouse.active = true;
-			});
-
-			document.addEventListener("mouseleave", () => {
-				mouse.active = false;
-				mouse.x = -1000;
-				mouse.y = -1000;
-			});
-
-			function draw() {
-				ctx.clearRect(0, 0, width, height);
-
-				const isDark = document.documentElement.dataset.theme === "dark";
-				const gridColor = isDark ? "rgba(255, 255, 255, 0.02)" : "rgba(0, 0, 0, 0.02)";
-				const baseHue = 270; // Purple/Indigo base
-
-				// Random active glow
-				if (Math.random() < 0.05) {
-					const rc = Math.floor(Math.random() * cols);
-					const rr = Math.floor(Math.random() * rows);
-					if (grid[rc] && grid[rc][rr]) {
-						grid[rc][rr].glow = 0.05 + Math.random() * 0.15;
-						grid[rc][rr].hue = baseHue - 30 + Math.random() * 80; // range 240-350 (Blues, Purples, Pinks)
-					}
-				}
-
-				for (let c = 0; c < cols; c++) {
-					for (let r = 0; r < rows; r++) {
-						const cell = grid[c][r];
-						if (!cell) continue;
-						const cx = c * cellSize;
-						const cy = r * cellSize;
-
-						// Mouse proximity glow
-						if (mouse.active) {
-							const dx = (cx + cellSize / 2) - mouse.x;
-							const dy = (cy + cellSize / 2) - mouse.y;
-							const dist = Math.sqrt(dx * dx + dy * dy);
-							if (dist < 120) {
-								const factor = (1 - dist / 120);
-								if (cell.glow < factor * 0.4) {
-									cell.glow = factor * 0.4;
-									cell.hue = baseHue + (dist % 60);
-								}
-							}
-						}
-
-						// Draw grid border lines
-						ctx.strokeStyle = gridColor;
-						ctx.lineWidth = 0.5;
-						ctx.strokeRect(cx, cy, cellSize, cellSize);
-
-						// Glow decay & render
-						if (cell.glow > 0.01) {
-							cell.glow -= 0.012; // Decay rate
-							const centerX = cx + cellSize / 2;
-							const centerY = cy + cellSize / 2;
-							const maxRadius = (cellSize / 2) * 0.85; 
-							const currentRadius = maxRadius * (0.5 + cell.glow * 0.5); // Soft pulsing size
-
-							const grad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, currentRadius);
-							const alpha = cell.glow * 0.25;
-							grad.addColorStop(0, `hsla(${cell.hue}, 100%, 55%, ${alpha})`);
-							grad.addColorStop(1, `hsla(${cell.hue}, 100%, 55%, 0)`);
-
-							ctx.fillStyle = grad;
-							ctx.beginPath();
-							ctx.arc(centerX, centerY, currentRadius, 0, Math.PI * 2);
-							ctx.fill();
-						}
-					}
-				}
-
-				requestAnimationFrame(draw);
+/* ──────────────── Load chat history from backend for current session ──────────────── */
+async function loadChatFromBackend() {
+	try {
+		const res = await fetch(`${API}/chat-history/${currentSessionId}`);
+		if (!res.ok) return;
+		const data = await res.json();
+		if (data.messages && data.messages.length) {
+			const localMsgs = loadSessionMessages(currentSessionId);
+			if (!localMsgs.length) {
+				data.messages.forEach(m => localMsgs.push(m));
+				saveSessions();
+				renderChatMessages();
 			}
+		}
+	} catch {}
+}
 
-			initGrid();
-			draw();
-		})();
-	</script>
+/* ──────────────── Init ──────────────── */
+function init() {
+	ensureSession(currentSessionId);
+	renderSessionList();
+	renderChatMessages();
+	loadSchemes();
+	loadBookmarksFromBackend();
+	loadSessionsFromBackend();
+	loadChatFromBackend();
+	refreshProfile();
+	bookmarkCount.textContent = bookmarkedIds.size;
+}
+
+init();
+</script>
 </body>
 </html>

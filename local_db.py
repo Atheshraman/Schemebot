@@ -87,6 +87,16 @@ def init_db() -> None:
             )
             """
         )
+        conn.execute(
+            """
+            create table if not exists chat_sessions (
+                session_id text primary key,
+                title text not null default 'New Chat',
+                created_at text not null,
+                updated_at text not null
+            )
+            """
+        )
 
 
 def get_profile(session_id: str) -> Optional[Dict[str, Any]]:
@@ -153,17 +163,54 @@ def get_missing_fields(session_id: str) -> List[str]:
     return missing
 
 
-def save_chat_message(session_id: str, role: str, content: str) -> None:
-    if role not in {"user", "assistant"} or not content.strip():
-        return
-    with _get_connection() as conn:
+def _ensure_session(session_id: str, conn: sqlite3.Connection) -> None:
+    """Create a chat_sessions row if one does not already exist."""
+    existing = conn.execute(
+        "select session_id from chat_sessions where session_id = ?",
+        (session_id,),
+    ).fetchone()
+    if not existing:
+        now = datetime.now(timezone.utc).isoformat()
         conn.execute(
-            "insert into chat_messages (session_id, role, content, created_at) values (?, ?, ?, ?)",
-            (session_id, role, content.strip(), datetime.now(timezone.utc).isoformat()),
+            "insert into chat_sessions (session_id, title, created_at, updated_at) values (?, ?, ?, ?)",
+            (session_id, "New Chat", now, now),
         )
 
 
+def save_chat_message(session_id: str, role: str, content: str) -> None:
+    if role not in {"user", "assistant"} or not content.strip():
+        return
+    init_db()
+    with _get_connection() as conn:
+        _ensure_session(session_id, conn)
+        now = datetime.now(timezone.utc).isoformat()
+        conn.execute(
+            "insert into chat_messages (session_id, role, content, created_at) values (?, ?, ?, ?)",
+            (session_id, role, content.strip(), now),
+        )
+        conn.execute(
+            "update chat_sessions set updated_at = ? where session_id = ?",
+            (now, session_id),
+        )
+        # Auto-title: if this is the first user message, set title from it
+        if role == "user":
+            row = conn.execute(
+                "select title from chat_sessions where session_id = ?",
+                (session_id,),
+            ).fetchone()
+            if row and row["title"] == "New Chat":
+                words = content.strip().split()
+                title = " ".join(words[:8])
+                if len(title) > 60:
+                    title = title[:57] + "..."
+                conn.execute(
+                    "update chat_sessions set title = ? where session_id = ?",
+                    (title, session_id),
+                )
+
+
 def get_chat_history(session_id: str, limit: int = 20) -> List[Dict[str, str]]:
+    init_db()
     with _get_connection() as conn:
         rows = conn.execute(
             "select role, content from chat_messages where session_id = ? order by id desc limit ?",
@@ -172,7 +219,27 @@ def get_chat_history(session_id: str, limit: int = 20) -> List[Dict[str, str]]:
     return [{"role": row["role"], "content": row["content"]} for row in reversed(rows)]
 
 
+def get_all_sessions() -> List[Dict[str, Any]]:
+    """Return all chat sessions ordered by most recent first."""
+    init_db()
+    with _get_connection() as conn:
+        rows = conn.execute(
+            "select session_id, title, created_at, updated_at from chat_sessions order by updated_at desc"
+        ).fetchall()
+    return [dict(row) for row in rows]
+
+
+def rename_session(session_id: str, title: str) -> None:
+    init_db()
+    with _get_connection() as conn:
+        conn.execute(
+            "update chat_sessions set title = ? where session_id = ?",
+            (title, session_id),
+        )
+
+
 def list_bookmarks(session_id: str) -> List[Dict[str, Any]]:
+    init_db()
     with _get_connection() as conn:
         rows = conn.execute(
             "select scheme_id, scheme_name, deadline, created_at from bookmarked_schemes where session_id = ? order by created_at desc",
@@ -182,6 +249,7 @@ def list_bookmarks(session_id: str) -> List[Dict[str, Any]]:
 
 
 def save_bookmark(session_id: str, scheme_id: str, scheme_name: str, deadline: Optional[str] = None) -> None:
+    init_db()
     with _get_connection() as conn:
         conn.execute(
             "insert or replace into bookmarked_schemes (session_id, scheme_id, scheme_name, deadline, created_at) values (?, ?, ?, ?, ?)",
@@ -190,6 +258,7 @@ def save_bookmark(session_id: str, scheme_id: str, scheme_name: str, deadline: O
 
 
 def delete_bookmark(session_id: str, scheme_id: str) -> None:
+    init_db()
     with _get_connection() as conn:
         conn.execute("delete from bookmarked_schemes where session_id = ? and scheme_id = ?", (session_id, scheme_id))
 

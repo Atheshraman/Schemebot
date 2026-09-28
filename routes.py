@@ -1,9 +1,9 @@
 import asyncio
 import os
-from typing import Any, Dict
+from typing import Any, Dict, List
 import httpx
 from fastapi import APIRouter, BackgroundTasks, Header, HTTPException
-from postgrest.exceptions import APIError
+from fastapi.responses import FileResponse
 
 from profile_chat import ProfileChatbot
 from local_db import (
@@ -14,18 +14,61 @@ from local_db import (
     save_bookmark,
     update_profile,
     upsert_profile,
+    get_chat_history,
+    get_all_sessions,
+    rename_session,
 )
 from retriever import retrieve_candidate_schemes
 from verifier import verify_eligibility
 from embedder import embed_all_schemes
 from myscheme_scraper import scrape_all
+from supabase_client import get_supabase_client
 
 router = APIRouter()
+
+_STATIC_DIR = os.path.dirname(__file__)
+
+
+@router.get("/")
+async def serve_index():
+    return FileResponse(os.path.join(_STATIC_DIR, "index.html"))
+
+
+@router.get("/schemes")
+async def list_schemes() -> Dict[str, Any]:
+    """Return all schemes from Supabase for the directory view."""
+    try:
+        supabase = get_supabase_client()
+        response = (
+            supabase.table("schemes")
+            .select("id,name,ministry,state,description,benefits,application_url,source_url,youtube_url")
+            .limit(200)
+            .execute()
+        )
+        schemes = response.data or []
+        return {"schemes": schemes}
+    except Exception as exc:
+        return {"schemes": [], "error": str(exc)}
+
+
+@router.get("/chat-sessions")
+async def list_chat_sessions() -> Dict[str, Any]:
+    """Return all chat sessions with their metadata."""
+    sessions = get_all_sessions()
+    return {"sessions": sessions}
+
+
+@router.put("/chat-sessions/{session_id}/title")
+async def update_session_title(session_id: str, payload: Dict[str, Any]) -> Dict[str, str]:
+    title = str(payload.get("title", "")).strip()
+    if not title:
+        raise HTTPException(status_code=400, detail="title required")
+    rename_session(session_id, title)
+    return {"status": "ok"}
 
 
 @router.get("/chat-history/{session_id}")
 async def chat_history(session_id: str) -> Dict[str, Any]:
-    from local_db import get_chat_history
     return {"messages": get_chat_history(session_id, limit=100)}
 
 
