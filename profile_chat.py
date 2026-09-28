@@ -54,7 +54,8 @@ class ProfileChatbot:
             upsert_profile(self.session_id, **update_fields)
             self.profile = get_profile(self.session_id) or self.profile
 
-        reply_text = re.sub(r"\n?PROFILE_UPDATE:.*", "", response_text, flags=re.DOTALL).strip()
+        reply_text = re.sub(r"\n?PROFILE_UPDATE:.*", "", response_text, flags=re.DOTALL)
+        reply_text = re.sub(r"\n?(PROFILE_COMPLETE|TRIGGER_CHECK)", "", reply_text).strip()
 
         profile_complete = "PROFILE_COMPLETE" in response_text
         trigger_check = "TRIGGER_CHECK" in response_text

@@ -1812,6 +1812,7 @@
 					<option value="kn">ಕನ್ನಡ</option>
 				</select>
 				<button id="newChatButton" class="history-button" type="button" data-i18n="newChat">New chat</button>
+				<button id="readAloudToggleBtn" class="history-button" type="button">🔊 Auto Read: OFF</button>
 				<button id="historyButton" class="history-button" type="button" data-i18n="history">Chat history</button>
 				<button id="profileButton" class="profile-button" type="button" data-i18n="edit">Profile</button>
 				<label class="theme-toggle" aria-label="Toggle theme">
@@ -1933,6 +1934,8 @@
 		const profileButton = document.getElementById("profileButton");
 		const newChatButton = document.getElementById("newChatButton");
 		const historyButton = document.getElementById("historyButton");
+		const readAloudToggleBtn = document.getElementById("readAloudToggleBtn");
+		let autoReadAloud = false;
 		const snapshotProfileButton = document.getElementById("snapshotProfileButton");
 		const profilePage = document.getElementById("profilePage");
 		const historyPage = document.getElementById("historyPage");
@@ -1960,10 +1963,10 @@
 			}
 		};
 
-		Object.assign(uiText.en, { newChat: "New chat", bookmark: "Bookmark", bookmarked: "Bookmarked", history: "Chat history", savedConversations: "Saved conversations", historyTitle: "Chat history", historySubtitle: "Review the messages saved to your account.", user: "You", assistantRole: "Assistant", noHistory: "No chat history yet." });
-		Object.assign(uiText.ta, { newChat: "புதிய அரட்டை", bookmark: "சேமி", bookmarked: "சேமிக்கப்பட்டது", history: "அரட்டை வரலாறு", savedConversations: "சேமித்த உரையாடல்கள்", historyTitle: "அரட்டை வரலாறு", historySubtitle: "உங்கள் கணக்கில் சேமிக்கப்பட்ட செய்திகளைப் பார்க்கவும்.", user: "நீங்கள்", assistantRole: "உதவியாளர்", noHistory: "அரட்டை வரலாறு இல்லை." });
-		Object.assign(uiText.ml, { newChat: "പുതിയ ചാറ്റ്", bookmark: "സേവ് ചെയ്യുക", bookmarked: "സേവ് ചെയ്തു", history: "ചാറ്റ് ചരിത്രം", savedConversations: "സേവ് ചെയ്ത സംഭാഷണങ്ങൾ", historyTitle: "ചാറ്റ് ചരിത്രം", historySubtitle: "നിങ്ങളുടെ അക്കൗണ്ടിൽ സേവ് ചെയ്ത സന്ദേശങ്ങൾ കാണുക.", user: "നിങ്ങൾ", assistantRole: "സഹായി", noHistory: "ചാറ്റ് ചരിത്രമില്ല." });
-		Object.assign(uiText.kn, { newChat: "ಹೊಸ ಚಾಟ್", bookmark: "ಉಳಿಸಿ", bookmarked: "ಉಳಿಸಲಾಗಿದೆ", history: "ಚಾಟ್ ಇತಿಹಾಸ", savedConversations: "ಉಳಿಸಿದ ಸಂಭಾಷಣೆಗಳು", historyTitle: "ಚಾಟ್ ಇತಿಹಾಸ", historySubtitle: "ನಿಮ್ಮ ಖಾತೆಯಲ್ಲಿ ಉಳಿಸಿದ ಸಂದೇಶಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.", user: "ನೀವು", assistantRole: "ಸಹಾಯಕ", noHistory: "ಚಾಟ್ ಇತಿಹಾಸವಿಲ್ಲ." });
+		Object.assign(uiText.en, { newChat: "New chat", bookmark: "Bookmark", bookmarked: "Bookmarked", history: "Chat history", savedConversations: "Saved conversations", historyTitle: "Chat history", historySubtitle: "Review the messages saved to your account.", user: "You", assistantRole: "Assistant", noHistory: "No chat history yet.", readAloudOn: "🔊 Auto Read: ON", readAloudOff: "🔊 Auto Read: OFF" });
+		Object.assign(uiText.ta, { newChat: "புதிய அரட்டை", bookmark: "சேமி", bookmarked: "சேமிக்கப்பட்டது", history: "அரட்டை வரலாறு", savedConversations: "சேமித்த உரையாடல்கள்", historyTitle: "அரட்டை வரலாறு", historySubtitle: "உங்கள் கணக்கில் சேமிக்கப்பட்ட செய்திகளைப் பார்க்கவும்.", user: "நீங்கள்", assistantRole: "உதவியாளர்", noHistory: "அரட்டை வரலாறு இல்லை.", readAloudOn: "🔊 தானாக வாசி: ON", readAloudOff: "🔊 தானாக வாசி: OFF" });
+		Object.assign(uiText.ml, { newChat: "പുതിയ ചാറ്റ്", bookmark: "സേവ് ചെയ്യുക", bookmarked: "സേവ് ചെയ്തു", history: "ചാറ്റ് ചരിത്രം", savedConversations: "സേവ് ചെയ്ത സംഭാഷണങ്ങൾ", historyTitle: "ചാറ്റ് ചരിത്രം", historySubtitle: "നിങ്ങളുടെ അക്കൗണ്ടിൽ സേവ് ചെയ്ത സന്ദേശങ്ങൾ കാണുക.", user: "നിങ്ങൾ", assistantRole: "സഹായി", noHistory: "ചാറ്റ് ചരിത്രമില്ല.", readAloudOn: "🔊 സ്വയം വായിക്കുക: ON", readAloudOff: "🔊 സ്വയം വായിക്കുക: OFF" });
+		Object.assign(uiText.kn, { newChat: "ಹೊಸ ಚಾಟ್", bookmark: "ಉಳಿಸಿ", bookmarked: "ಉಳಿಸಲಾಗಿದೆ", history: "ಚಾಟ್ ಇತಿಹಾಸ", savedConversations: "ಉಳಿಸಿದ ಸಂಭಾಷಣೆಗಳು", historyTitle: "ಚಾಟ್ ಇತಿಹಾಸ", historySubtitle: "ನಿಮ್ಮ ಖಾತೆಯಲ್ಲಿ ಉಳಿಸಿದ ಸಂದೇಶಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.", user: "ನೀವು", assistantRole: "ಸಹಾಯಕ", noHistory: "ಚಾಟ್ ಇತಿಹಾಸವಿಲ್ಲ.", readAloudOn: "🔊 ಸ್ವಯಂ ಓದಿ: ON", readAloudOff: "🔊 ಸ್ವಯಂ ಓದಿ: OFF" });
 		uiText.en.fields.mobile_number = "Mobile number";
 		uiText.ta.fields.mobile_number = "மொபைல் எண்";
 		uiText.ml.fields.mobile_number = "മൊബൈൽ നമ്പർ";
@@ -1983,6 +1986,9 @@
 				button.setAttribute("aria-label", label);
 				button.textContent = `🗑️ ${label}`;
 			});
+			if (readAloudToggleBtn) {
+				readAloudToggleBtn.textContent = autoReadAloud ? (text.readAloudOn || uiText.en.readAloudOn) : (text.readAloudOff || uiText.en.readAloudOff);
+			}
 			document.documentElement.lang = languageSelect.value;
 			document.title = text.edit + " - SchemeMatch";
 			if (profilePage.classList.contains("open")) openProfileEditor(currentProfile);
@@ -2323,7 +2329,7 @@
 			return String(text || "")
 				.replace(/https?:\/\/\S+/gi, " ")
 				.replace(/<[^>]*>/g, " ")
-				.replace(/[^\p{L}\p{N}\s]/gu, " ")
+				.replace(/[^\p{L}\p{M}\p{N}\s.,?!]/gu, " ")
 				.replace(/\s+/g, " ")
 				.trim();
 		}
@@ -2333,7 +2339,20 @@
 			if (!("speechSynthesis" in window) || !speechText) return;
 			window.speechSynthesis.cancel();
 			const utterance = new SpeechSynthesisUtterance(speechText);
-			utterance.lang = { en: "en-IN", ta: "ta-IN", ml: "ml-IN", kn: "kn-IN" }[languageSelect.value] || "en-IN";
+			const targetLang = { en: "en-IN", ta: "ta-IN", ml: "ml-IN", kn: "kn-IN" }[languageSelect.value] || "en-IN";
+			utterance.lang = targetLang;
+			
+			const voices = window.speechSynthesis.getVoices();
+			if (voices && voices.length > 0) {
+				const baseLang = targetLang.split('-')[0].toLowerCase();
+				const normalizedTarget = targetLang.toLowerCase();
+				let voice = voices.find(v => v.lang.replace('_', '-').toLowerCase() === normalizedTarget) || 
+							voices.find(v => v.lang.toLowerCase().startsWith(baseLang));
+				if (voice) {
+					utterance.voice = voice;
+				}
+			}
+			
 			window.speechSynthesis.speak(utterance);
 		}
 
@@ -2387,7 +2406,9 @@
 					loadingBubble.remove();
 				}
 				addBubble(data.reply || "", "bot");
-				speak(data.reply || "");
+				if (autoReadAloud) {
+					speak(data.reply || "");
+				}
 
 				if (data.profile_complete) {
 					checkButton.style.display = "inline-block";
@@ -2488,7 +2509,9 @@
 
 			const summaryText = summaryLines.join("\n");
 			addBubble(summaryText, "bot");
-			speak(summaryText);
+			if (autoReadAloud) {
+				speak(summaryText);
+			}
 		}
 
 		function getYoutubeThumbnail(url) {
@@ -2752,6 +2775,14 @@
 		}
 
 		setTheme(getPreferredTheme());
+		
+		if ("speechSynthesis" in window) {
+			window.speechSynthesis.getVoices();
+			window.speechSynthesis.onvoiceschanged = () => {
+				window.speechSynthesis.getVoices();
+			};
+		}
+
 		languageSelect.addEventListener("change", () => {
 			localStorage.setItem("schemematch_language", languageSelect.value);
 			applyLanguage();
@@ -2772,6 +2803,17 @@
 		});
 		checkButton.addEventListener("click", checkEligibility);
 		newChatButton.addEventListener("click", startNewChat);
+		if (readAloudToggleBtn) {
+			readAloudToggleBtn.addEventListener("click", () => {
+				autoReadAloud = !autoReadAloud;
+				readAloudToggleBtn.setAttribute("aria-pressed", autoReadAloud);
+				const text = uiText[languageSelect.value] || uiText.en;
+				readAloudToggleBtn.textContent = autoReadAloud ? (text.readAloudOn || uiText.en.readAloudOn) : (text.readAloudOff || uiText.en.readAloudOff);
+				if (!autoReadAloud && window.speechSynthesis) {
+					window.speechSynthesis.cancel();
+				}
+			});
+		}
 		profileButton.addEventListener("click", loadProfileEditor);
 		snapshotProfileButton.addEventListener("click", loadProfileEditor);
 		historyButton.addEventListener("click", openHistoryPage);

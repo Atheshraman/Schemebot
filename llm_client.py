@@ -53,10 +53,15 @@ def _strip_thinking_tags(text: str) -> str:
     """Remove <think>...</think> blocks emitted by reasoning models (e.g. Qwen3).
     Also strips incomplete <think> blocks if the model ran out of tokens mid-think.
     """
-    # Remove complete <think>...</think> blocks
-    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+    # Remove complete <think>...</think> blocks (allowing for attributes, spaces, and tag variants)
+    text = re.sub(r"<\s*(think|thinking|thought|reasoning)[^>]*>.*?</\s*\1\s*>", "", text, flags=re.DOTALL | re.IGNORECASE)
     # Remove incomplete <think>... (model ran out of tokens inside thinking block)
-    text = re.sub(r"<think>.*", "", text, flags=re.DOTALL)
+    text = re.sub(r"<\s*(think|thinking|thought|reasoning)[^>]*>.*", "", text, flags=re.DOTALL | re.IGNORECASE)
+    
+    # Remove markdown-style thinking blocks like "Thought: ...\n\n" or "**Thinking Process:** ...\n\n"
+    # We look for "Thought:" followed by anything up to a double newline.
+    text = re.sub(r"(?i)^[\*\s]*(?:thought|thinking process|reasoning)[\*\s]*:.*?(\n\s*\n|$)", "", text, flags=re.DOTALL)
+    
     return text.strip()
 
 
@@ -86,9 +91,10 @@ def _extract_content(data: Dict[str, Any]) -> str:
                 stripped = _strip_thinking_tags(raw)
                 if stripped:
                     return stripped
-                # Fall back to reasoning_content if content is empty
-                if reasoning.strip():
-                    return _strip_thinking_tags(reasoning)
+                
+                # If content is empty after stripping, we should NOT return reasoning_content 
+                # because reasoning_content contains the raw thoughts!
+                # We return empty string so call_llm can trigger a retry with larger max_tokens.
                 return ""
 
             if first.get("text") is not None:
