@@ -172,6 +172,33 @@ def get_chat_history(session_id: str, limit: int = 20) -> List[Dict[str, str]]:
     return [{"role": row["role"], "content": row["content"]} for row in reversed(rows)]
 
 
+def get_all_chat_history(limit: int = 200) -> List[Dict[str, Any]]:
+    with _get_connection() as conn:
+        rows = conn.execute(
+            "select session_id, role, content, created_at from chat_messages order by id desc limit ?",
+            (limit,),
+        ).fetchall()
+    # Group by session_id but keep chronological order within groups
+    sessions = {}
+    for row in reversed(rows):
+        sid = row["session_id"]
+        if sid not in sessions:
+            sessions[sid] = []
+        sessions[sid].append({
+            "role": row["role"],
+            "content": row["content"],
+            "created_at": row["created_at"]
+        })
+    # Convert dict to a list of sessions ordered by latest activity
+    session_list = [
+        {"session_id": sid, "messages": msgs}
+        for sid, msgs in sessions.items()
+    ]
+    # Reverse so the most recent sessions appear first
+    session_list.reverse()
+    return session_list
+
+
 def list_bookmarks(session_id: str) -> List[Dict[str, Any]]:
     with _get_connection() as conn:
         rows = conn.execute(

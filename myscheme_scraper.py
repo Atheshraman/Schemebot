@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 
 from supabase_client import get_supabase_client
 from youtube_search import find_youtube_video
+from playwright.async_api import async_playwright
 
 DOTENV_PATH = os.path.join(os.path.dirname(__file__), ".env")
 load_dotenv(dotenv_path=DOTENV_PATH)
@@ -557,32 +558,24 @@ def _extract_serpapi_results(data: Dict[str, Any]) -> List[Dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 async def _fetch_html(client: httpx.AsyncClient, url: str) -> Optional[str]:
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        ),
-        "Accept-Language": "en-IN,en;q=0.9",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Referer": "https://www.myscheme.gov.in/",
-    }
-
-    for _ in range(3):
+    for attempt in range(3):
         try:
-            response = await client.get(url, headers=headers, follow_redirects=True)
-        except httpx.RequestError:
-            _log(f"Request error while fetching {url}")
-            await asyncio.sleep(1.0)
+            async with async_playwright() as p:
+                browser = await p.chromium.launch(headless=True)
+                context = await browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+                )
+                page = await context.new_page()
+                await page.goto(url, wait_until="networkidle", timeout=30000)
+                # Give the SPA an extra moment to populate the DOM
+                await asyncio.sleep(2)
+                content = await page.content()
+                await browser.close()
+                return content
+        except Exception as e:
+            _log(f"Playwright error fetching {url}: {e}")
+            await asyncio.sleep(2.0)
             continue
-
-        if response.status_code == 200:
-            return response.text
-        if response.status_code in {403, 429, 500, 502, 503}:
-            _log(f"Retrying {url} after status {response.status_code}")
-            await asyncio.sleep(1.5)
-            continue
-        return None
-
     return None
 
 

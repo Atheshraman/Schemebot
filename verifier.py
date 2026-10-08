@@ -160,19 +160,14 @@ def verify_eligibility(profile: Dict[str, Any], schemes: List[Dict[str, Any]]) -
             if not criteria:
                 reason = "No eligibility criteria listed for this scheme."
 
-        results.append(
-            {
-                "scheme_id": scheme.get("id"),
-                "scheme_name": scheme.get("name"),
-                "description": scheme.get("description"),
-                "benefits": scheme.get("benefits"),
-                "application_url": scheme.get("application_url"),
-                "source_url": scheme.get("source_url"),
-                "youtube_url": scheme.get("youtube_url"),
-                "status": status,
-                "reason": reason,
-                "missing_fields": missing_fields,
-            }
-        )
+        result = scheme.copy()
+        result.update({
+            "scheme_id": scheme.get("id"),
+            "scheme_name": scheme.get("name"),
+            "status": status,
+            "reason": reason,
+            "missing_fields": missing_fields,
+        })
+        results.append(result)
 
     return {"results": results}

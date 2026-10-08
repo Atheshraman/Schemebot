@@ -29,6 +29,12 @@ async def chat_history(session_id: str) -> Dict[str, Any]:
     return {"messages": get_chat_history(session_id, limit=100)}
 
 
+@router.get("/all-chat-history")
+async def all_chat_history() -> Dict[str, Any]:
+    from local_db import get_all_chat_history
+    return {"sessions": get_all_chat_history(limit=500)}
+
+
 @router.get("/bookmarks/{session_id}")
 async def bookmarks(session_id: str) -> Dict[str, Any]:
     return {"bookmarks": list_bookmarks(session_id)}
@@ -54,6 +60,16 @@ def _run_scrape_and_embed() -> None:
     asyncio.run(scrape_all())
     embed_all_schemes()
 
+
+@router.get("/schemes")
+async def get_all_schemes() -> Dict[str, Any]:
+    from supabase_client import get_supabase_client
+    supabase = get_supabase_client()
+    response = supabase.table("schemes").select("*").execute()
+    schemes = response.data or []
+    for s in schemes:
+        s.pop("embedding", None)
+    return {"schemes": schemes}
 
 
 @router.post("/chat")

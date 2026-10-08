@@ -1790,6 +1790,567 @@
 				width: 100%;
 			}
 		}
+
+		/* ═══════ HEADER ACTIONS (uniform control height, no wrapping surprises) ═══════ */
+		.top-actions > * {
+			min-height: 42px;
+			white-space: nowrap;
+		}
+		.top-actions > button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.theme-toggle {
+			min-height: 42px;
+			padding-block: 0;
+		}
+		.topbar-schemes-btn {
+			padding: 10px 14px;
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			background: var(--surface-raised);
+			color: var(--ink);
+			font: inherit;
+			font-weight: 700;
+			cursor: pointer;
+			transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+		}
+		.topbar-schemes-btn:hover {
+			background: var(--accent-soft);
+			border-color: var(--border-hover);
+			color: var(--accent-strong);
+		}
+		@media (min-width: 861px) {
+			/* Wraps as 4 + 3: chat controls on the first row, Schemes / Profile / theme on the second */
+			.top-actions { max-width: 600px; }
+		}
+		@media (max-width: 860px) {
+			.top-actions {
+				display: grid;
+				grid-template-columns: repeat(4, minmax(0, 1fr));
+				gap: 8px;
+			}
+			.language-select { max-width: none; }
+		}
+		@media (max-width: 640px) {
+			.top-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+			.language-select { order: 1; }
+			.theme-toggle { order: 2; justify-content: center; }
+			#newChatButton { order: 3; }
+			#historyButton { order: 4; }
+			#topbarSchemesBtn { order: 5; }
+			#profileButton { order: 6; }
+			#readAloudToggleBtn { order: 7; grid-column: 1 / -1; }
+		}
+
+		/* ═══════ VIEW SWITCHER ═══════ */
+		.view-tabs {
+			display: flex;
+			gap: 4px;
+			margin-bottom: 24px;
+			padding: 4px;
+			background: var(--surface-soft);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			overflow-x: auto;
+			scrollbar-width: none;
+		}
+		.view-tabs::-webkit-scrollbar { display: none; }
+		.view-tab {
+			flex: 1 1 0;
+			min-width: max-content;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-height: 40px;
+			padding: 0 16px;
+			border: 1px solid transparent;
+			background: transparent;
+			color: var(--muted);
+			font: inherit;
+			font-size: 0.88rem;
+			font-weight: 600;
+			border-radius: 12px;
+			cursor: pointer;
+			white-space: nowrap;
+			transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+		}
+		.view-tab:hover {
+			color: var(--ink);
+			background: var(--surface);
+		}
+		.view-tab.active {
+			background: var(--surface-raised);
+			color: var(--accent-strong);
+			border-color: var(--border-hover);
+			box-shadow: var(--shadow-soft);
+		}
+		.tab-count {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 20px;
+			height: 20px;
+			padding: 0 6px;
+			border-radius: 999px;
+			background: var(--accent-soft);
+			color: var(--accent-strong);
+			font-size: 0.7rem;
+			font-weight: 800;
+			line-height: 1;
+		}
+		.view-tab.active .tab-count {
+			background: var(--accent);
+			color: #fff;
+		}
+		.view-tab:focus-visible,
+		.filter-chip:focus-visible,
+		.scheme-action-btn:focus-visible,
+		.schemes-empty-btn:focus-visible,
+		.topbar-schemes-btn:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+		@media (max-width: 640px) {
+			.view-tab { font-size: 0.82rem; padding: 0 12px; }
+		}
+
+		/* ═══════ VIEW PANELS ═══════ */
+		.view-panel { display: none; }
+		.view-panel.active { display: block; }
+
+		/* ═══════ DIRECTORY CONTROLS ═══════ */
+		.schemes-controls {
+			display: flex;
+			align-items: stretch;
+			gap: 12px;
+			margin-bottom: 14px;
+		}
+		.schemes-search,
+		.schemes-sort {
+			min-height: 42px;
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			background: var(--surface-raised);
+			color: var(--ink);
+			font: inherit;
+			font-size: 0.92rem;
+		}
+		.schemes-search {
+			flex: 1 1 auto;
+			min-width: 0;
+			padding: 0 16px;
+			outline: none;
+			transition: border-color 0.2s ease, box-shadow 0.2s ease;
+		}
+		.schemes-search:focus {
+			border-color: var(--accent);
+			box-shadow: 0 0 0 3px var(--accent-soft);
+		}
+		.schemes-search::placeholder {
+			color: var(--muted);
+			opacity: 0.8;
+		}
+		.schemes-sort {
+			flex: 0 0 auto;
+			padding: 0 12px;
+			font-weight: 600;
+			cursor: pointer;
+		}
+		.schemes-sort:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+
+		/* ═══════ FILTER CHIPS ═══════ */
+		.filter-chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-bottom: 14px;
+		}
+		.filter-chip {
+			flex: 0 0 auto;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 34px;
+			padding: 0 14px;
+			border: 1px solid var(--border);
+			background: var(--surface-raised);
+			color: var(--muted);
+			border-radius: 999px;
+			font: inherit;
+			font-size: 0.8rem;
+			font-weight: 600;
+			line-height: 1;
+			white-space: nowrap;
+			cursor: pointer;
+			transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+		}
+		.filter-chip:hover {
+			border-color: var(--border-hover);
+			color: var(--ink);
+		}
+		.filter-chip.active {
+			background: var(--accent);
+			border-color: var(--accent);
+			color: #fff;
+		}
+		@media (max-width: 640px) {
+			/* One scrollable row instead of 3-4 wrapped rows */
+			.filter-chips {
+				flex-wrap: nowrap;
+				overflow-x: auto;
+				margin-inline: -12px;
+				padding: 2px 12px;
+				scrollbar-width: none;
+			}
+			.filter-chips::-webkit-scrollbar { display: none; }
+		}
+		.schemes-results-info {
+			min-height: 1.2em;
+			margin-bottom: 14px;
+			color: var(--muted);
+			font-size: 0.82rem;
+			font-weight: 500;
+		}
+
+		/* ═══════ SCHEME GRID ═══════ */
+		.scheme-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+			gap: clamp(14px, 2vw, 20px);
+			align-items: stretch;
+		}
+		.scheme-grid > * { min-width: 0; }
+
+		/* ═══════ SCHEME CARD ═══════ */
+		.scheme-card {
+			display: flex;
+			flex-direction: column;
+			border: 1px solid var(--border);
+			border-radius: 22px;
+			background: var(--surface-raised);
+			box-shadow: var(--shadow-soft);
+			transition: border-color 0.2s ease, box-shadow 0.2s ease;
+		}
+		.scheme-card:hover {
+			border-color: var(--border-hover);
+			box-shadow: var(--shadow-lg);
+		}
+		.scheme-card-header {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			padding: 16px 18px 0;
+		}
+		.scheme-card-top {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 10px;
+		}
+		.scheme-card-badges {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px;
+			min-width: 0;
+		}
+		.scheme-badge {
+			display: inline-flex;
+			align-items: center;
+			min-height: 24px;
+			padding: 0 10px;
+			border-radius: 999px;
+			font-size: 0.7rem;
+			font-weight: 700;
+			letter-spacing: 0.02em;
+			line-height: 1.2;
+		}
+		.scheme-badge.jurisdiction {
+			background: var(--accent-soft);
+			color: var(--accent-strong);
+		}
+		.scheme-badge.category {
+			background: var(--success-soft);
+			color: var(--success);
+		}
+		.scheme-card-title {
+			margin: 0;
+			color: var(--ink);
+			font-family: var(--font-display);
+			font-size: 1.02rem;
+			font-weight: 700;
+			line-height: 1.3;
+			letter-spacing: -0.01em;
+			overflow-wrap: anywhere;
+		}
+		.scheme-card-body {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			padding: 10px 18px 16px;
+		}
+		.scheme-card-desc {
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.86rem;
+			line-height: 1.55;
+			display: inline;
+		}
+		.read-more-btn {
+			background: none;
+			border: none;
+			color: var(--primary);
+			font-size: 0.86rem;
+			font-weight: 600;
+			cursor: pointer;
+			padding: 0 0 0 6px;
+			text-decoration: underline;
+			display: inline-block;
+		}
+		.read-more-btn:hover {
+			color: var(--primary-hover);
+		}
+		.scheme-card-meta {
+			display: grid;
+			grid-template-columns: auto minmax(0, 1fr);
+			gap: 4px 12px;
+			margin: 0;
+			font-size: 0.78rem;
+			line-height: 1.4;
+		}
+		.scheme-card-meta dt {
+			color: var(--muted);
+			font-weight: 500;
+		}
+		.scheme-card-meta dd {
+			margin: 0;
+			color: var(--ink);
+			font-weight: 600;
+			overflow-wrap: anywhere;
+		}
+		.scheme-card-meta dd.is-active::before {
+			content: "";
+			display: inline-block;
+			width: 6px;
+			height: 6px;
+			margin-right: 6px;
+			border-radius: 50%;
+			background: var(--success);
+			vertical-align: middle;
+		}
+		.scheme-card-benefit {
+			padding: 10px 12px;
+			background: var(--success-soft);
+			border-left: 3px solid var(--success);
+			border-radius: 10px;
+			color: var(--ink);
+			font-size: 0.82rem;
+			line-height: 1.45;
+		}
+		.scheme-card-benefit .benefit-label {
+			display: block;
+			margin-bottom: 2px;
+			color: var(--success);
+			font-size: 0.7rem;
+			font-weight: 800;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+		}
+		.scheme-card-actions {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 8px;
+			padding: 14px 18px 18px;
+			border-top: 1px solid var(--border);
+		}
+		.scheme-action-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 6px;
+			min-height: 34px;
+			padding: 0 14px;
+			border: 1px solid transparent;
+			border-radius: 999px;
+			font: inherit;
+			font-size: 0.78rem;
+			font-weight: 700;
+			line-height: 1;
+			text-decoration: none;
+			white-space: nowrap;
+			cursor: pointer;
+			transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+		}
+		.scheme-action-btn.primary {
+			background: var(--accent);
+			border-color: var(--accent);
+			color: #fff;
+		}
+		.scheme-action-btn.primary:hover {
+			background: var(--accent-strong);
+			border-color: var(--accent-strong);
+		}
+		.scheme-action-btn.secondary {
+			background: transparent;
+			border-color: var(--border-hover);
+			color: var(--accent-strong);
+		}
+		.scheme-action-btn.secondary:hover {
+			background: var(--accent-soft);
+			border-color: var(--accent);
+		}
+		.scheme-action-btn.video-pill {
+			background: rgba(220, 38, 38, 0.08);
+			border-color: rgba(220, 38, 38, 0.3);
+			color: #dc2626;
+		}
+		.scheme-action-btn.video-pill:hover {
+			background: #dc2626;
+			border-color: #dc2626;
+			color: #fff;
+		}
+		/* Bookmark lives in the card's top-right corner: fixed width, never pushes the action row */
+		.scheme-action-btn.bookmark-toggle {
+			flex: 0 0 auto;
+			min-width: 112px;
+			min-height: 30px;
+			padding: 0 12px;
+			background: transparent;
+			border-color: var(--border);
+			color: var(--muted);
+		}
+		.scheme-action-btn.bookmark-toggle:hover {
+			border-color: var(--accent);
+			color: var(--accent-strong);
+		}
+		.scheme-action-btn.bookmark-toggle.bookmarked {
+			background: var(--accent-soft);
+			border-color: var(--accent);
+			color: var(--accent-strong);
+		}
+
+		/* ═══════ EMPTY STATES ═══════ */
+		.schemes-empty {
+			padding: 32px 20px;
+			border: 1px dashed var(--border-hover);
+			border-radius: 22px;
+			background: var(--surface-soft);
+			color: var(--muted);
+			text-align: center;
+		}
+		.schemes-empty-icon {
+			margin-bottom: 8px;
+			font-size: 1.6rem;
+			line-height: 1;
+		}
+		.schemes-empty h4 {
+			margin: 0 0 6px;
+			color: var(--ink);
+			font-family: var(--font-display);
+			font-size: 1rem;
+		}
+		.schemes-empty p {
+			max-width: 44ch;
+			margin: 0 auto 14px;
+			font-size: 0.88rem;
+			line-height: 1.5;
+		}
+		.schemes-empty-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 34px;
+			padding: 0 18px;
+			border: 1px solid var(--border-hover);
+			border-radius: 999px;
+			background: var(--surface-raised);
+			color: var(--accent-strong);
+			font: inherit;
+			font-size: 0.82rem;
+			font-weight: 700;
+			cursor: pointer;
+			transition: background 0.2s ease, border-color 0.2s ease;
+		}
+		.schemes-empty-btn:hover {
+			background: var(--accent-soft);
+			border-color: var(--accent);
+		}
+
+		/* ═══════ CHAT: scheme list reply scrolls inside its bubble so the input stays on screen ═══════ */
+		.bubble.scheme-list {
+			max-height: min(360px, 48vh);
+			overflow-y: auto;
+		}
+		.bubble-content a {
+			color: var(--accent-strong);
+			font-weight: 600;
+			text-decoration: underline;
+			text-underline-offset: 2px;
+		}
+
+		/* ═══════ CHAT COMPOSER: let the input shrink so it never overflows the panel on narrow screens ═══════ */
+		.composer { grid-template-columns: minmax(0, 1fr) auto; }
+		.composer-input { min-width: 0; }
+		.composer-input input { min-width: 0; }
+		@media (max-width: 860px) {
+			.composer { grid-template-columns: minmax(0, 1fr); }
+		}
+
+		/* ═══════ CHAT SCROLL AREA + SCROLL BUTTON ═══════ */
+		.messages-wrap {
+			position: relative;
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			min-height: 0;
+		}
+		.messages-wrap > .messages {
+			flex: 1;
+			max-height: clamp(320px, 62vh, 680px);
+			overscroll-behavior: contain;
+		}
+		.scroll-latest-btn {
+			position: absolute;
+			right: 14px;
+			bottom: 38px;
+			z-index: 3;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			padding: 0;
+			border: 1px solid var(--border-hover);
+			border-radius: 50%;
+			background: var(--surface-raised);
+			color: var(--accent-strong);
+			box-shadow: var(--shadow-soft);
+			cursor: pointer;
+			opacity: 0;
+			transform: translateY(6px);
+			pointer-events: none;
+			transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+		}
+		.scroll-latest-btn.visible {
+			opacity: 1;
+			transform: none;
+			pointer-events: auto;
+		}
+		.scroll-latest-btn:hover { background: var(--accent-soft); }
+		.scroll-latest-btn:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+		@media (prefers-reduced-motion: reduce) {
+			.scroll-latest-btn { transition: none; }
+		}
 	</style>
 </head>
 <body>
@@ -1814,6 +2375,7 @@
 				<button id="newChatButton" class="history-button" type="button" data-i18n="newChat">New chat</button>
 				<button id="readAloudToggleBtn" class="history-button" type="button">🔊 Auto Read: OFF</button>
 				<button id="historyButton" class="history-button" type="button" data-i18n="history">Chat history</button>
+				<button id="topbarSchemesBtn" class="topbar-schemes-btn" type="button" aria-label="Open Schemes Directory">🏛️ Schemes (<span id="topbarSchemeCount">0</span>)</button>
 				<button id="profileButton" class="profile-button" type="button" data-i18n="edit">Profile</button>
 				<label class="theme-toggle" aria-label="Toggle theme">
 					<input id="themeToggle" type="checkbox" aria-label="Toggle dark mode" />
@@ -1822,54 +2384,100 @@
 			</div>
 		</header>
 
-		<main class="layout">
-			<section class="chat-panel">
-				<div class="chat-header">
-					<div>
-						<h2 data-i18n="assistant">Eligibility Assistant</h2>
-					</div>
-					<div class="status-pill" data-i18n="live">Live</div>
-				</div>
+		<!-- ═══ TAB NAVIGATION ═══ -->
+		<nav class="view-tabs" aria-label="Main navigation">
+			<button class="view-tab active" data-view="assistant" type="button">💬 Eligibility Assistant</button>
+			<button class="view-tab" data-view="directory" type="button">🏛️ Schemes Directory <span id="dirTabCount" class="tab-count">0</span></button>
+			<button class="view-tab" data-view="saved" type="button">⭐ Saved Bookmarks <span id="savedTabCount" class="tab-count">0</span></button>
+		</nav>
 
-				<button id="checkButton" class="check-button" type="button" data-i18n="check">Check Eligibility</button>
-				<div id="messages" class="messages"></div>
+		<!-- ═══ VIEW: ELIGIBILITY ASSISTANT ═══ -->
+		<div id="viewAssistant" class="view-panel active">
+			<main class="layout">
+				<section class="chat-panel">
+					<div class="chat-header">
+						<div>
+							<h2 data-i18n="assistant">Eligibility Assistant</h2>
+						</div>
+						<div class="status-pill" data-i18n="live">Live</div>
+					</div>
 
-				<div id="results" class="results">
-					<div class="results-header">
-						<h3 data-i18n="resultsTitle">Eligibility results</h3>
-						<p data-i18n="resultsSubtitle">Based on the criteria from each scheme.</p>
+					<button id="checkButton" class="check-button" type="button" data-i18n="check">Check Eligibility</button>
+					<div class="messages-wrap">
+						<div id="messages" class="messages" tabindex="-1"></div>
+						<button id="scrollLatestBtn" class="scroll-latest-btn" type="button" aria-label="Scroll to latest message" title="Scroll to latest message"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg></button>
 					</div>
-					<div id="resultsLoader" class="results-loader" role="status" aria-live="polite">
-						<span class="spinner" aria-hidden="true"></span>
-						<span data-i18n="checking">Checking eligibility...</span>
-					</div>
-					<div id="resultsEmpty" class="results-empty" data-i18n="noResults">No schemes matched yet. Try adding more profile details.</div>
-					<div id="resultCards" class="result-grid"></div>
-				</div>
 
-				<div class="composer">
-					<div class="composer-input">
-						<button id="voiceButton" class="voice-button" type="button" aria-label="Speak to assistant" title="Speak to assistant">🎙️</button>
-						<input id="messageInput" type="text" placeholder="Type your message..." />
-						<span class="composer-hint" data-i18n="enter">Enter</span>
+					<div id="results" class="results">
+						<div class="results-header">
+							<h3 data-i18n="resultsTitle">Eligibility results</h3>
+							<p data-i18n="resultsSubtitle">Based on the criteria from each scheme.</p>
+						</div>
+						<div id="resultsLoader" class="results-loader" role="status" aria-live="polite">
+							<span class="spinner" aria-hidden="true"></span>
+							<span data-i18n="checking">Checking eligibility...</span>
+						</div>
+						<div id="resultsEmpty" class="results-empty" data-i18n="noResults">No schemes matched yet. Try adding more profile details.</div>
+						<div id="resultCards" class="result-grid"></div>
 					</div>
-					<button id="sendButton" class="send-button" type="button" data-i18n="send">Send</button>
-				</div>
-			</section>
 
-			<aside class="sidebar">
-				<div class="panel">
-					<div class="panel-head">
-						<h3 data-i18n="snapshot">Profile snapshot</h3>
-						<span class="pill" data-i18n="private">Private</span>
+					<div class="composer">
+						<div class="composer-input">
+							<button id="voiceButton" class="voice-button" type="button" aria-label="Speak to assistant" title="Speak to assistant">🎙️</button>
+							<input id="messageInput" type="text" placeholder="Type your message..." />
+							<span class="composer-hint" data-i18n="enter">Enter</span>
+						</div>
+						<button id="sendButton" class="send-button" type="button" data-i18n="send">Send</button>
 					</div>
-					<p class="panel-subtext" data-i18n="snapshotSubtitle">Your essentials at a glance.</p>
-					<div id="profileFields" class="profile-grid"></div>
-					<button id="snapshotProfileButton" class="snapshot-action" type="button"><span data-i18n="openProfile">Open profile</span> <span aria-hidden="true">→</span></button>
-				</div>
-			</aside>
-		</main>
+				</section>
+
+				<aside class="sidebar">
+					<div class="panel">
+						<div class="panel-head">
+							<h3 data-i18n="snapshot">Profile snapshot</h3>
+							<span class="pill" data-i18n="private">Private</span>
+						</div>
+						<p class="panel-subtext" data-i18n="snapshotSubtitle">Your essentials at a glance.</p>
+						<div id="profileFields" class="profile-grid"></div>
+						<button id="snapshotProfileButton" class="snapshot-action" type="button"><span data-i18n="openProfile">Open profile</span> <span aria-hidden="true">→</span></button>
+					</div>
+				</aside>
+			</main>
+		</div>
+
+		<!-- ═══ VIEW: SCHEMES DIRECTORY ═══ -->
+		<div id="viewDirectory" class="view-panel">
+			<div class="schemes-controls">
+				<input id="schemeSearch" class="schemes-search" type="text" placeholder="Search schemes by name, state, category, ministry..." aria-label="Search schemes" />
+				<select id="schemeSort" class="schemes-sort" aria-label="Sort schemes">
+					<option value="default">Default</option>
+					<option value="az">A → Z</option>
+					<option value="za">Z → A</option>
+				</select>
+			</div>
+			<div id="filterChips" class="filter-chips"></div>
+			<div id="schemesResultsInfo" class="schemes-results-info"></div>
+			<div id="schemeGrid" class="scheme-grid"></div>
+			<div id="schemesEmptyState" class="schemes-empty" style="display:none;">
+				<div class="schemes-empty-icon">🔍</div>
+				<h4>No schemes found</h4>
+				<p>Try a different search term, or clear the filters.</p>
+				<button class="schemes-empty-btn" type="button" onclick="clearSchemeSearch()">Clear search and filters</button>
+			</div>
+		</div>
+
+		<!-- ═══ VIEW: SAVED BOOKMARKS ═══ -->
+		<div id="viewSaved" class="view-panel">
+			<div id="savedSchemeGrid" class="scheme-grid"></div>
+			<div id="savedEmptyState" class="schemes-empty" style="display:none;">
+				<div class="schemes-empty-icon">⭐</div>
+				<h4>No saved schemes yet</h4>
+				<p>Schemes you bookmark in the directory will appear here.</p>
+				<button class="schemes-empty-btn" type="button" onclick="switchToView('directory')">Browse schemes</button>
+			</div>
+		</div>
 	</div>
+
 
 	<section id="profilePage" class="profile-page" aria-labelledby="profileTitle">
 		<div class="profile-page-header">
@@ -2073,6 +2681,10 @@
 			
 			// Replace double asterisks with bold tags
 			escaped = escaped.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+			// [label](https://...) -> safe external link (http/https only)
+			escaped = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)"]+)\)/g,
+				'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 			
 			// Split by newlines to build paragraphs and list items
 			const lines = escaped.split("\n");
@@ -2559,132 +3171,19 @@
 			}
 
 			eligibleList.forEach((entry, idx) => {
-				const card = document.createElement("div");
-				card.className = "result-card eligible";
+				const card = createSchemeCard(entry);
 				card.style.animationDelay = `${idx * 0.08}s`;
 
-				// ── Top color bar with title + badge ──
-				const topBar = document.createElement("div");
-				topBar.className = "card-top-bar";
-
-				const schemeName = document.createElement("span");
-				schemeName.className = "scheme-title";
-				schemeName.textContent = entry.scheme_name || "Scheme";
-
-				const eligBadge = document.createElement("span");
-				eligBadge.className = "eligible-badge";
-				eligBadge.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Eligible`;
-
-				topBar.append(schemeName, eligBadge);
-
-				// ── Card Body ──
-				const body = document.createElement("div");
-				body.className = "card-body";
-
-				// Action buttons row (bookmark + details)
-				const header = document.createElement("div");
-				header.className = "result-header";
-
-				const bookmarkButton = document.createElement("button");
-				bookmarkButton.type = "button";
-				bookmarkButton.className = "result-toggle bookmark-button";
-				const schemeId = String(entry.scheme_id || entry.scheme_name || "");
-				bookmarkButton.dataset.schemeId = schemeId;
-				bookmarkButton.textContent = bookmarkedSchemeIds.has(schemeId) ? (text.bookmarked || "Bookmarked") : (text.bookmark || "Bookmark");
-				bookmarkButton.addEventListener("click", async () => {
-					if (bookmarkedSchemeIds.has(schemeId)) {
-						await fetch(`${API_BASE}/bookmarks/${sessionId}/${encodeURIComponent(schemeId)}`, { method: "DELETE" });
-						bookmarkedSchemeIds.delete(schemeId);
-						bookmarkButton.textContent = text.bookmark || "Bookmark";
-						return;
-					}
-					const response = await fetch(`${API_BASE}/bookmarks/${sessionId}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ scheme_id: schemeId, scheme_name: entry.scheme_name || "Scheme", deadline: entry.deadline || null }) });
-					if (response.ok) {
-						bookmarkedSchemeIds.add(schemeId);
-						bookmarkButton.textContent = text.bookmarked || "Bookmarked";
-					}
-				});
-
-				const toggle = document.createElement("button");
-				toggle.type = "button";
-				toggle.className = "result-toggle";
-				toggle.textContent = text.details;
-
-				header.append(bookmarkButton, toggle);
-
 				// Eligibility reason
-				const summary = document.createElement("div");
-				summary.className = "result-summary";
-				summary.innerHTML = `<svg style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:6px;color:var(--success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>${entry.reason || text.noDetails}`;
-
-				// Description
-				const descriptionEl = document.createElement("div");
-				if (entry.description) {
-					descriptionEl.className = "result-description";
-					const descIcon = `<svg style="width:14px;height:14px;flex-shrink:0;margin-top:2px;color:var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>`;
-					descriptionEl.innerHTML = `<div style="display:flex;align-items:flex-start;gap:8px;">${descIcon}<span>${entry.description}</span></div>`;
+				const body = card.querySelector('.scheme-card-body');
+				if (body) {
+					const summary = document.createElement("div");
+					summary.className = "result-summary";
+					summary.style.marginBottom = "1rem";
+					summary.innerHTML = `<svg style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:6px;color:var(--success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg><strong>Eligible:</strong> ${entry.reason || text.noDetails}`;
+					body.insertBefore(summary, body.firstChild);
 				}
 
-				// Benefits
-				const benefitsEl = document.createElement("div");
-				if (entry.benefits) {
-					benefitsEl.className = "result-benefits";
-					const benefitsIcon = `<svg style="width:14px;height:14px;flex-shrink:0;margin-top:2px;color:var(--success);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>`;
-					benefitsEl.innerHTML = `<div style="display:flex;align-items:flex-start;gap:8px;">${benefitsIcon}<span><strong>Benefits:</strong> ${entry.benefits}</span></div>`;
-				}
-
-				// YouTube thumbnail preview
-				const ytThumbEl = document.createElement("div");
-				const ytThumb = getYoutubeThumbnail(entry.youtube_url);
-				if (ytThumb && entry.youtube_url) {
-					const link = document.createElement("a");
-					link.className = "card-yt-thumb";
-					link.href = entry.youtube_url;
-					link.target = "_blank";
-					link.rel = "noopener";
-					link.innerHTML = `<img src="${ytThumb}" alt="Video thumbnail" loading="lazy"><div class="card-yt-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>`;
-					ytThumbEl.appendChild(link);
-				}
-
-				// Links row
-				const linksRow = document.createElement("div");
-				linksRow.className = "card-links-row";
-				const linkParts = [];
-				if (entry.application_url) {
-					linkParts.push(`<a class="application-link" href="${entry.application_url}" target="_blank" rel="noopener">🔗 ${text.apply}</a>`);
-				}
-				if (entry.source_url && entry.source_url !== entry.application_url) {
-					linkParts.push(`<a class="application-link" href="${entry.source_url}" target="_blank" rel="noopener">📄 ${text.source}</a>`);
-				}
-				if (entry.youtube_url && !ytThumb) {
-					// Fallback text link if no thumbnail could be extracted
-					linkParts.push(`<a class="video-link" href="${entry.youtube_url}" target="_blank" rel="noopener">▶️ ${text.video}</a>`);
-				}
-				linksRow.innerHTML = linkParts.join("");
-
-				// Details drawer
-				const details = document.createElement("div");
-				details.className = "result-details";
-				details.innerHTML = `
-					<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-						<div>
-							<span style="display: block; font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 2px;">${text.status}</span>
-							<span style="font-weight: 700; font-size: 0.85rem; color: var(--success);">✅ Eligible</span>
-						</div>
-						<div>
-							<span style="display: block; font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 2px;">${text.schemeId}</span>
-							<span style="font-weight: 700; font-size: 0.85rem; color: var(--ink);">${entry.scheme_id || "N/A"}</span>
-						</div>
-					</div>
-				`;
-
-				toggle.addEventListener("click", () => {
-					const expanded = card.classList.toggle("expanded");
-					toggle.textContent = expanded ? text.hideDetails : text.details;
-				});
-
-				body.append(header, summary, descriptionEl, benefitsEl, ytThumbEl, linksRow, details);
-				card.append(topBar, body);
 				resultCards.appendChild(card);
 			});
 		}
@@ -2696,6 +3195,7 @@
 				const data = await response.json();
 				(data.bookmarks || []).forEach((bookmark) => bookmarkedSchemeIds.add(String(bookmark.scheme_id)));
 				checkUpcomingDeadlines(data.bookmarks || []);
+				updateBookmarkCounts();
 			} catch (error) {
 				console.error(error);
 			}
@@ -2738,6 +3238,7 @@
 			results.style.display = "none";
 			checkButton.style.display = "none";
 			bookmarkedSchemeIds.clear();
+			updateBookmarkCounts();
 			closeSecondaryPage();
 			renderProfile({});
 			addBubble((uiText[languageSelect.value] || uiText.en).greeting, "bot");
@@ -2749,19 +3250,38 @@
 			document.body.classList.add("profile-mode");
 			historyList.innerHTML = "";
 			try {
-				const response = await fetch(`${API_BASE}/chat-history/${sessionId}`);
+				const response = await fetch(`${API_BASE}/all-chat-history`);
 				const data = await response.json();
 				const text = uiText[languageSelect.value] || uiText.en;
-				if (!response.ok || !data.messages?.length) {
+				if (!response.ok || !data.sessions?.length) {
 					historyList.innerHTML = `<p class="profile-empty">${text.noHistory}</p>`;
 					return;
 				}
-				data.messages.forEach((message) => {
-					const item = document.createElement("article");
-					item.className = `history-message ${message.role === "user" ? "user" : "assistant"}`;
-					item.innerHTML = `<div class="history-message-meta"><span>${message.role === "user" ? text.user : text.assistantRole}</span></div><div class="history-message-content"></div>`;
-					item.querySelector(".history-message-content").textContent = message.content;
-					historyList.appendChild(item);
+				data.sessions.forEach((session, index) => {
+					const sessionEl = document.createElement("div");
+					sessionEl.className = "history-session-block";
+					sessionEl.style.marginBottom = "24px";
+					sessionEl.style.borderBottom = "1px solid var(--border)";
+					sessionEl.style.paddingBottom = "16px";
+					
+					const sessionDate = session.messages.length > 0 && session.messages[0].created_at ? new Date(session.messages[0].created_at).toLocaleString() : `Session ${session.session_id.substring(0, 4)}`;
+					const sessionHeader = document.createElement("h3");
+					sessionHeader.className = "history-session-title";
+					sessionHeader.textContent = session.session_id === sessionId ? `${text.savedConversations} (Current)` : `Conversation on ${sessionDate}`;
+					sessionHeader.style.marginBottom = "12px";
+					sessionHeader.style.fontSize = "1rem";
+					sessionHeader.style.color = "var(--text-muted)";
+					sessionEl.appendChild(sessionHeader);
+
+					session.messages.forEach((message) => {
+						const item = document.createElement("article");
+						item.className = `history-message ${message.role === "user" ? "user" : "assistant"}`;
+						item.innerHTML = `<div class="history-message-meta"><span>${message.role === "user" ? text.user : text.assistantRole}</span></div><div class="history-message-content"></div>`;
+						item.querySelector(".history-message-content").textContent = message.content;
+						sessionEl.appendChild(item);
+					});
+					
+					historyList.appendChild(sessionEl);
 				});
 			} catch (error) {
 				historyList.innerHTML = `<p class="profile-empty">${(uiText[languageSelect.value] || uiText.en).noHistory}</p>`;
@@ -2795,7 +3315,7 @@
 			});
 		}
 
-		sendButton.addEventListener("click", sendMessage);
+		sendButton.addEventListener("click", () => sendMessage());
 		messageInput.addEventListener("keypress", (event) => {
 			if (event.key === "Enter") {
 				sendMessage();
@@ -2827,7 +3347,458 @@
 		loadChatHistory();
 		refreshProfile();
 
+		// ═══════════════════════════════════════════════
+		// SCHEMES DIRECTORY MODULE
+		// ═══════════════════════════════════════════════
+
+		let allSchemes = [];
+		let activeFilter = 'all';
+
+		const FILTER_CATEGORIES = [
+			{ key: 'all', label: 'All' },
+			{ key: 'central', label: 'Central Schemes' },
+			{ key: 'state', label: 'State Schemes' },
+			{ key: 'Pension & Financial Aid', label: 'Pension & Financial Aid' },
+			{ key: 'Energy & Solar', label: 'Energy & Solar' },
+			{ key: 'Education & Youth', label: 'Education & Youth' },
+			{ key: 'Agriculture & Workers', label: 'Agriculture & Workers' },
+			{ key: 'saved', label: 'Saved Only' }
+		];
+
+		function updateBookmarkCounts() {
+			const savedCount = document.getElementById('savedTabCount');
+			const topbarCount = document.getElementById('topbarSchemeCount');
+			if (savedCount) savedCount.textContent = bookmarkedSchemeIds.size;
+			if (topbarCount) topbarCount.textContent = allSchemes.length;
+			const dirCount = document.getElementById('dirTabCount');
+			if (dirCount) dirCount.textContent = allSchemes.length;
+		}
+
+		function switchToView(viewName) {
+			document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+			document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+			const tab = document.querySelector(`.view-tab[data-view="${viewName}"]`);
+			document.querySelectorAll('.view-tab').forEach(t => t.removeAttribute('aria-current'));
+			if (tab) { tab.classList.add('active'); tab.setAttribute('aria-current', 'page'); tab.scrollIntoView({ block: 'nearest', inline: 'center' }); }
+			const panel = document.getElementById(
+				viewName === 'assistant' ? 'viewAssistant' :
+				viewName === 'directory' ? 'viewDirectory' :
+				'viewSaved'
+			);
+			if (panel) panel.classList.add('active');
+			if (viewName === 'directory') renderSchemeDirectory();
+			if (viewName === 'saved') renderSavedSchemes();
+		}
+		window.switchToView = switchToView;
+
+		// Tab click handlers
+		document.querySelectorAll('.view-tab').forEach(tab => {
+			tab.addEventListener('click', () => switchToView(tab.dataset.view));
+		});
+
+		// Topbar schemes shortcut
+		const topbarSchemesBtn = document.getElementById('topbarSchemesBtn');
+		if (topbarSchemesBtn) {
+			topbarSchemesBtn.addEventListener('click', () => {
+				closeSecondaryPage();
+				switchToView('directory');
+			});
+		}
+
+		// Build filter chips
+		function buildFilterChips() {
+			const container = document.getElementById('filterChips');
+			if (!container) return;
+			container.innerHTML = '';
+			FILTER_CATEGORIES.forEach(cat => {
+				const btn = document.createElement('button');
+				btn.type = 'button';
+				btn.className = 'filter-chip' + (cat.key === activeFilter ? ' active' : '');
+				btn.textContent = cat.label;
+				btn.setAttribute('aria-pressed', String(cat.key === activeFilter));
+				btn.addEventListener('click', () => {
+					activeFilter = cat.key;
+					buildFilterChips();
+					renderSchemeDirectory();
+				});
+				container.appendChild(btn);
+			});
+		}
+
+		function filterSchemes(schemes) {
+			let filtered = [...schemes];
+			// Category/jurisdiction filter
+			if (activeFilter === 'central') {
+				filtered = filtered.filter(s => (s.jurisdiction || '').toLowerCase() === 'central');
+			} else if (activeFilter === 'state') {
+				filtered = filtered.filter(s => (s.jurisdiction || '').toLowerCase() === 'state');
+			} else if (activeFilter === 'saved') {
+				filtered = filtered.filter(s => bookmarkedSchemeIds.has(String(s.id)));
+			} else if (activeFilter !== 'all') {
+				filtered = filtered.filter(s => (s.category || '') === activeFilter);
+			}
+			return filtered;
+		}
+
+		function searchSchemes(schemes, query) {
+			if (!query) return schemes;
+			const q = query.toLowerCase().trim();
+			if (!q) return schemes;
+			return schemes.filter(s => {
+				const fields = [
+					s.name, s.description, s.ministry, s.state,
+					s.jurisdiction, s.category, s.benefits
+				];
+				return fields.some(f => f && String(f).toLowerCase().includes(q));
+			});
+		}
+
+		function sortSchemes(schemes, sortKey) {
+			if (sortKey === 'az') {
+				return [...schemes].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+			}
+			if (sortKey === 'za') {
+				return [...schemes].sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+			}
+			return schemes;
+		}
+
+		function isValidUrl(url) {
+			if (!url || typeof url !== 'string') return false;
+			try { new URL(url); return true; } catch(e) { return false; }
+		}
+
+		function hasText(value) {
+			if (typeof value !== 'string') return false;
+			const v = value.trim().toLowerCase();
+			return v !== '' && !['n/a', 'na', 'none', 'null', '-', '—'].includes(v);
+		}
+
+		function createSchemeCard(scheme) {
+			const card = document.createElement('div');
+			card.className = 'scheme-card';
+			card.dataset.schemeId = scheme.id;
+
+			// Header: badges + bookmark on one row, title below
+			const header = document.createElement('div');
+			header.className = 'scheme-card-header';
+
+			const top = document.createElement('div');
+			top.className = 'scheme-card-top';
+
+			const badges = document.createElement('div');
+			badges.className = 'scheme-card-badges';
+			if (hasText(scheme.jurisdiction)) {
+				const jBadge = document.createElement('span');
+				jBadge.className = 'scheme-badge jurisdiction';
+				jBadge.textContent = scheme.jurisdiction === 'Central' ? 'Central Scheme' : (scheme.state || scheme.jurisdiction);
+				badges.appendChild(jBadge);
+			}
+			if (hasText(scheme.category)) {
+				const cBadge = document.createElement('span');
+				cBadge.className = 'scheme-badge category';
+				cBadge.textContent = scheme.category;
+				badges.appendChild(cBadge);
+			}
+			top.appendChild(badges);
+
+			const bookmarkBtn = document.createElement('button');
+			bookmarkBtn.type = 'button';
+			const paintBookmark = () => {
+				const saved = bookmarkedSchemeIds.has(String(scheme.id));
+				bookmarkBtn.className = 'scheme-action-btn bookmark-toggle' + (saved ? ' bookmarked' : '');
+				bookmarkBtn.textContent = saved ? '★ Bookmarked' : '☆ Bookmark';
+				bookmarkBtn.setAttribute('aria-pressed', String(saved));
+				bookmarkBtn.setAttribute('aria-label', (saved ? 'Remove bookmark: ' : 'Bookmark: ') + (scheme.name || 'scheme'));
+			};
+			paintBookmark();
+			bookmarkBtn.addEventListener('click', async () => {
+				const schemeId = String(scheme.id);
+				if (bookmarkedSchemeIds.has(schemeId)) {
+					await fetch(`${API_BASE}/bookmarks/${sessionId}/${encodeURIComponent(schemeId)}`, { method: "DELETE" });
+					bookmarkedSchemeIds.delete(schemeId);
+				} else {
+					const response = await fetch(`${API_BASE}/bookmarks/${sessionId}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ scheme_id: schemeId, scheme_name: scheme.name || "Scheme" }) });
+					if (response.ok) {
+						bookmarkedSchemeIds.add(schemeId);
+					}
+				}
+				updateBookmarkCounts();
+				paintBookmark();
+				
+				// Re-render if we are in the saved view
+				if (document.getElementById('viewSaved').classList.contains('active')) {
+					renderSavedSchemes();
+				}
+			});
+			top.appendChild(bookmarkBtn);
+			header.appendChild(top);
+
+			const title = document.createElement('h4');
+			title.className = 'scheme-card-title';
+			title.textContent = scheme.name || 'Untitled scheme';
+			header.appendChild(title);
+
+			// Body
+			const body = document.createElement('div');
+			body.className = 'scheme-card-body';
+
+			if (hasText(scheme.description)) {
+				const descContainer = document.createElement('div');
+				descContainer.className = 'scheme-desc-container';
+				
+				const desc = document.createElement('p');
+				desc.className = 'scheme-card-desc';
+				
+				const MAX_LENGTH = 150;
+				let isExpanded = false;
+				
+				if (scheme.description.length > MAX_LENGTH) {
+					const shortText = scheme.description.substring(0, MAX_LENGTH).trim() + '...';
+					desc.textContent = shortText;
+					
+					const toggleBtn = document.createElement('button');
+					toggleBtn.type = 'button';
+					toggleBtn.className = 'read-more-btn';
+					toggleBtn.textContent = 'Read More';
+					
+					toggleBtn.addEventListener('click', (e) => {
+						e.stopPropagation();
+						isExpanded = !isExpanded;
+						desc.textContent = isExpanded ? scheme.description : shortText;
+						toggleBtn.textContent = isExpanded ? 'Read Less' : 'Read More';
+					});
+					
+					descContainer.appendChild(desc);
+					descContainer.appendChild(toggleBtn);
+				} else {
+					desc.textContent = scheme.description;
+					descContainer.appendChild(desc);
+				}
+				body.appendChild(descContainer);
+			}
+
+			const metaRows = [];
+			if (hasText(scheme.ministry)) {
+				metaRows.push([scheme.jurisdiction === 'State' ? 'Authority' : 'Ministry', scheme.ministry, '']);
+			}
+			if (hasText(scheme.status)) {
+				metaRows.push(['Status', scheme.status, scheme.status.trim().toLowerCase() === 'active' ? 'is-active' : '']);
+			}
+			if (metaRows.length) {
+				const meta = document.createElement('dl');
+				meta.className = 'scheme-card-meta';
+				metaRows.forEach(([label, value, cls]) => {
+					const dt = document.createElement('dt');
+					dt.textContent = label;
+					const dd = document.createElement('dd');
+					dd.textContent = value;
+					if (cls) dd.className = cls;
+					meta.append(dt, dd);
+				});
+				body.appendChild(meta);
+			}
+
+			// Key benefit: only rendered when there is real content
+			if (hasText(scheme.benefits)) {
+				const benefit = document.createElement('div');
+				benefit.className = 'scheme-card-benefit';
+				const label = document.createElement('span');
+				label.className = 'benefit-label';
+				label.textContent = 'Key benefit';
+				const text = document.createElement('span');
+				text.textContent = scheme.benefits;
+				benefit.append(label, text);
+				body.appendChild(benefit);
+			}
+
+			card.appendChild(header);
+			card.appendChild(body);
+
+			// Actions: links only (bookmark lives in the header)
+			const makeLink = (cls, href, label) => {
+				const a = document.createElement('a');
+				a.className = 'scheme-action-btn ' + cls;
+				a.href = href;
+				a.target = '_blank';
+				a.rel = 'noopener noreferrer';
+				a.textContent = label;
+				return a;
+			};
+			const actions = document.createElement('div');
+			actions.className = 'scheme-card-actions';
+			if (isValidUrl(scheme.application_url)) {
+				actions.appendChild(makeLink('primary', scheme.application_url, 'Apply Online ↗'));
+			}
+			if (isValidUrl(scheme.source_url) && scheme.source_url !== scheme.application_url) {
+				actions.appendChild(makeLink('secondary', scheme.source_url, 'Official Portal 📄'));
+			}
+			if (isValidUrl(scheme.youtube_url)) {
+				actions.appendChild(makeLink('video-pill', scheme.youtube_url, '▶ Watch Video Explainer'));
+			}
+			if (actions.children.length) card.appendChild(actions);
+			return card;
+		}
+
+		function renderSchemeDirectory() {
+			const searchEl = document.getElementById('schemeSearch');
+			const sortEl = document.getElementById('schemeSort');
+			const gridEl = document.getElementById('schemeGrid');
+			const emptyEl = document.getElementById('schemesEmptyState');
+			const infoEl = document.getElementById('schemesResultsInfo');
+			if (!gridEl) return;
+
+			let filtered = filterSchemes(allSchemes);
+			filtered = searchSchemes(filtered, searchEl ? searchEl.value : '');
+			filtered = sortSchemes(filtered, sortEl ? sortEl.value : 'default');
+
+			gridEl.innerHTML = '';
+			if (filtered.length === 0) {
+				emptyEl.style.display = 'block';
+				infoEl.textContent = '';
+			} else {
+				emptyEl.style.display = 'none';
+				infoEl.textContent = `Showing ${filtered.length} of ${allSchemes.length} schemes`;
+				filtered.forEach(scheme => {
+					gridEl.appendChild(createSchemeCard(scheme));
+				});
+			}
+		}
+
+		function renderSavedSchemes() {
+			const gridEl = document.getElementById('savedSchemeGrid');
+			const emptyEl = document.getElementById('savedEmptyState');
+			if (!gridEl) return;
+			gridEl.innerHTML = '';
+			const saved = allSchemes.filter(s => bookmarkedSchemeIds.has(String(s.id)));
+			if (saved.length === 0) {
+				emptyEl.style.display = 'block';
+			} else {
+				emptyEl.style.display = 'none';
+				saved.forEach(scheme => {
+					gridEl.appendChild(createSchemeCard(scheme));
+				});
+			}
+		}
+
+		function clearSchemeSearch() {
+			const searchEl = document.getElementById('schemeSearch');
+			if (searchEl) searchEl.value = '';
+			const sortEl = document.getElementById('schemeSort');
+			if (sortEl) sortEl.value = 'default';
+			activeFilter = 'all';
+			buildFilterChips();
+			renderSchemeDirectory();
+		}
+		window.clearSchemeSearch = clearSchemeSearch;
+
+		// Load schemes from API or fallback JSON
+		async function loadSchemes() {
+			try {
+				const resp = await fetch(`${API_BASE}/schemes`);
+				if (!resp.ok) throw new Error('API request failed');
+				const data = await resp.json();
+				allSchemes = data.schemes || [];
+				allSchemes = allSchemes.filter(s => s && s.id && s.name);
+			} catch(e) {
+				console.warn('Could not load from API, falling back to schemes.json', e);
+				try {
+					const resp = await fetch('schemes.json');
+					if (!resp.ok) throw new Error('Failed to load local schemes.json');
+					allSchemes = await resp.json();
+					allSchemes = allSchemes.filter(s => s && s.id && s.name);
+				} catch (fallbackError) {
+					console.error('Error loading fallback schemes:', fallbackError);
+					allSchemes = [];
+				}
+			}
+			updateBookmarkCounts();
+			buildFilterChips();
+		}
+
+		// Search/sort event listeners
+		const schemeSearchEl = document.getElementById('schemeSearch');
+		const schemeSortEl = document.getElementById('schemeSort');
+		if (schemeSearchEl) {
+			schemeSearchEl.addEventListener('input', () => renderSchemeDirectory());
+		}
+		if (schemeSortEl) {
+			schemeSortEl.addEventListener('change', () => renderSchemeDirectory());
+		}
+
+		// "list the schemes" chat bypass detection
+		function isListSchemesRequest(text) {
+			if (!text) return false;
+			const normalized = text.toLowerCase().replace(/\s+/g, ' ').trim();
+			const patterns = [
+				/^list\s*(the\s*)?schemes?$/,
+				/^show\s*(me\s*)?(the\s*)?schemes?$/,
+				/^what\s+schemes?\s+(are\s+)?available$/,
+				/^display\s*(the\s*)?schemes?$/,
+				/^schemes?\s*list$/,
+				/^available\s+schemes?$/
+			];
+			return patterns.some(p => p.test(normalized));
+		}
+
+		// Override sendMessage to detect "list the schemes"
+		const _originalSendMessage = sendMessage;
+		sendMessage = async function() {
+			const text = messageInput.value.trim();
+			if (isListSchemesRequest(text)) {
+				addBubble(text, 'user');
+				messageInput.value = '';
+				// Build a clean scheme list response
+				if (allSchemes.length === 0) {
+					await loadSchemes();
+				}
+				let lines = [`**Here are all ${allSchemes.length} available government schemes:**\n`];
+				allSchemes.forEach((s, i) => {
+					let line = `${i + 1}. **${s.name}**`;
+					if (hasText(s.description)) {
+						const short = s.description.length > 100 ? s.description.substring(0, 100).trim() + '...' : s.description;
+						line += ` — ${short}`;
+					}
+					if (isValidUrl(s.application_url)) {
+						line += ` [Apply](${s.application_url})`;
+					}
+					lines.push(line);
+				});
+				lines.push('\nOpen the Schemes Directory for full details, official portals, and video explainers.');
+				addBubble(lines.join('\n'), 'bot');
+				if (messagesEl.lastElementChild) messagesEl.lastElementChild.classList.add('scheme-list');
+				// Switch to directory view
+				switchToView('directory');
+				return;
+			}
+			return _originalSendMessage.apply(this, arguments);
+		};
+
+		// Load schemes on startup
+		loadSchemes();
+
+
+		// ═══ Chat scroll-to-latest button ═══
+		(() => {
+			const list = document.getElementById('messages');
+			const btn = document.getElementById('scrollLatestBtn');
+			if (!list || !btn) return;
+			const update = () => {
+				const away = list.scrollHeight - list.scrollTop - list.clientHeight > 80;
+				btn.classList.toggle('visible', away);
+			};
+			list.addEventListener('scroll', update, { passive: true });
+			window.addEventListener('resize', update);
+			new MutationObserver(update).observe(list, { childList: true, subtree: true });
+			btn.addEventListener('click', () => {
+				list.scrollTo({ top: list.scrollHeight, behavior: 'smooth' });
+				list.focus({ preventScroll: true });
+			});
+			update();
+		})();
+
 		// Background Pixel Canvas Logic
+
 		(() => {
 			const canvas = document.getElementById("pixel-canvas");
 			if (!canvas) return;

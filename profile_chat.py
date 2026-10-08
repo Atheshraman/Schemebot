@@ -61,9 +61,9 @@ class ProfileChatbot:
         trigger_check = "TRIGGER_CHECK" in response_text
 
         self.history.append({"role": "user", "content": user_message})
-        self.history.append({"role": "assistant", "content": response_text})
+        self.history.append({"role": "assistant", "content": reply_text})
         save_chat_message(self.session_id, "user", user_message)
-        save_chat_message(self.session_id, "assistant", response_text)
+        save_chat_message(self.session_id, "assistant", reply_text)
         # Keep only the last MAX_HISTORY message pairs to reduce prompt size
         if len(self.history) > MAX_HISTORY * 2:
             self.history = self.history[-MAX_HISTORY * 2:]
